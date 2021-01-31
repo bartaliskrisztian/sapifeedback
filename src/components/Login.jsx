@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import GoogleLogin from 'react-google-login';
+import Logo from "../assets/images/logo.svg";
+import "../assets/css/Login.css";
 
 function Login(props) {
 
@@ -17,6 +19,11 @@ function Login(props) {
 
     return (
         <div className="login">
+            <img 
+                src={Logo} 
+                alt="logo" 
+                className="login-logo"
+            />
             <GoogleLogin 
                 clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
                 buttonText="Login with Google Account"
@@ -24,6 +31,7 @@ function Login(props) {
                 onFailure={responseGoogleFailure}
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
+                className="login-button"
             />
         </div>
     );
