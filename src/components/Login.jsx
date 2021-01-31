@@ -1,13 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
+import { useHistory } from "react-router-dom";
 import GoogleLogin from 'react-google-login';
 
 function Login(props) {
 
-    const [profileObj, setProfileObj] = useState({});
+    let history = useHistory();
 
     const responseGoogleSuccess = (response) => {
-        setProfileObj(response.profileObj);
-        props.history.push("/home");
+        props.setUser(response.profileObj);
+        history.push("/home");
     }
 
     const responseGoogleFailure = (response) => {
