@@ -1,0 +1,97 @@
+.home {
+  height: 100%;
+}
+
+.topics {
+  height: calc(100% - 50px);
+}
+
+.topic-element {
+  width: 200px;
+  height: 200px;
+  box-shadow: 2px 2px 7px #000;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.topic-element:hover {
+  cursor: pointer;
+  background: #f2f2f2;
+}
+
+.topic-add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.add-icon {
+  height: 40%;
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.create-topic__modal {
+  height: 50%;
+  width: 50%;
+  border-radius: 8px;
+  box-shadow: 2px 2px 7px #000;
+  border: none;
+  outline: none;
+  background: #f2f2f2;
+  margin: auto;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.modal__cancel-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.modal__cancel-icon:hover {
+  cursor: pointer;
+}
+
+.create-topic__title {
+  align-self: center;
+  font-size: 32px;
+  margin-top: 40px;
+}
+
+.create-topic__input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #6978ff;
+  background: #f2f2f2;
+  width: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  color: #6978ff;
+  margin-top: 40px;
+}
+
+.create-topic__button {
+  width: fit-content;
+  font-size: 24px;
+  padding: 5px 20px;
+  border-radius: 4px;
+  border: none;
+  background: #c4c0c0;
+  margin-top: 40px;
+}
+
+.create-topic__button:focus {
+  outline: none;
+}
+
+.create-topic__button:hover {
+  cursor: pointer;
+  background: #acaaaa;
+}
