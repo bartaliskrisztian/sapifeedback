@@ -7,7 +7,7 @@ function Navbar(props) {
 
     let history = useHistory();
     const [showProfileMenu, setShowProfileMenu] = useState(false);
-    //console.log(props.user);
+    console.log(props.user);
 
     const logout = () => {
         history.push("/");
