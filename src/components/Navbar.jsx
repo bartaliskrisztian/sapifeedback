@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { GoogleLogout } from 'react-google-login';
+import UserPlaceholder from "../assets/images/user.svg";
 import "../assets/css/Navbar.css";
 
 function Navbar(props) {
@@ -23,12 +24,14 @@ function Navbar(props) {
                         src={props.user.imageUrl} 
                         alt="Profile"
                         onClick={() => setShowProfileMenu(!showProfileMenu)} 
+                        onError={`this.src=${UserPlaceholder};`}
                     />
                     <div className={`profile-dropdown${showProfileMenu ? " open" : ""}`}>
                         <img 
                             className="profile-dropdown__image" 
                             src={props.user.imageUrl} 
                             alt="Profile"
+                            onError={`this.src=${UserPlaceholder};`}
                         />
                         <div className="profile-dropdown__name">{props.user.name}</div>
                         <div>{props.user.email}</div>

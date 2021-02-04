@@ -6,6 +6,11 @@
   height: calc(100% - 50px);
 }
 
+.topics-title {
+  font-size: 24px;
+  padding: 10px 0 10px 30px;
+}
+
 .topic-element {
   width: 200px;
   height: 200px;
@@ -68,13 +73,19 @@
 .create-topic__input {
   outline: none;
   border: none;
-  border-bottom: 1px solid #6978ff;
+  border-bottom: 1px solid #256e43;
   background: #f2f2f2;
   width: 50%;
   font-size: 24px;
   font-weight: bold;
-  color: #6978ff;
+  color: #256e43;
   margin-top: 40px;
+}
+
+.create-topic__error {
+  font-size: 20px;
+  color: red;
+  margin-top: 10px;
 }
 
 .create-topic__button {
