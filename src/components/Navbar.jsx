@@ -21,17 +21,15 @@ function Navbar(props) {
                 <div className="user-menu">
                     <img 
                         className="user-image" 
-                        src={props.user.imageUrl} 
+                        src={props.user.imageUrl === undefined ? UserPlaceholder : props.user.imageUrl} 
                         alt="Profile"
                         onClick={() => setShowProfileMenu(!showProfileMenu)} 
-                        onError={`this.src=${UserPlaceholder};`}
                     />
                     <div className={`profile-dropdown${showProfileMenu ? " open" : ""}`}>
                         <img 
                             className="profile-dropdown__image" 
-                            src={props.user.imageUrl} 
+                            src={props.user.imageUrl === undefined ? UserPlaceholder : props.user.imageUrl}
                             alt="Profile"
-                            onError={`this.src=${UserPlaceholder};`}
                         />
                         <div className="profile-dropdown__name">{props.user.name}</div>
                         <div>{props.user.email}</div>

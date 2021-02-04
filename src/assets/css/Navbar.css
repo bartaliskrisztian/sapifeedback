@@ -31,6 +31,7 @@
   align-items: center;
   justify-content: space-evenly;
   overflow: hidden;
+  background: #fff;
 
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;

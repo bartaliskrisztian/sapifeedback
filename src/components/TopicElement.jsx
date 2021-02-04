@@ -13,6 +13,9 @@ function TopicElement(props) {
                 />
                 <div>Create topic</div>
             </div>}
+            {props.type === "topic" &&
+                <div>{props.name}</div>
+            }
         </div>
     );
 }

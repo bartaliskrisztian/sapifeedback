@@ -18,6 +18,7 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  margin: 20px;
 }
 
 .topic-element:hover {
@@ -38,6 +39,11 @@
   height: 40%;
   width: 40%;
   margin-bottom: 10px;
+}
+
+.topic-list {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .create-topic__modal {
@@ -105,4 +111,24 @@
 .create-topic__button:hover {
   cursor: pointer;
   background: #acaaaa;
+}
+
+.topic-loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid#256e43;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  margin-top: 50px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
