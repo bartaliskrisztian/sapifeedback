@@ -3,6 +3,8 @@
   height: 40px;
   background: #256e43;
   padding: 5px 0;
+  position: fixed;
+  top: 0;
 }
 
 .user-menu {

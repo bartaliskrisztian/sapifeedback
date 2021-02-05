@@ -10,7 +10,7 @@ function Login(props) {
 
     const responseGoogleSuccess = (response) => {
         props.setUser(response.profileObj);
-        history.push("/home");
+        history.push("/");
     }
 
     const responseGoogleFailure = (response) => {

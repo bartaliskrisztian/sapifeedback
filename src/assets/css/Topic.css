@@ -1,0 +1,56 @@
+.topic-detail {
+  padding-top: 50px;
+}
+
+.topic-detail__title {
+  font-size: 24px;
+  padding: 10px 0 10px 40px;
+}
+
+.delete-topic__button {
+  border-radius: 4px;
+  border: none;
+  background: #f2f2f2;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.delete-topic__button:focus {
+  outline: none;
+}
+
+.delete-topic__button:hover {
+  cursor: pointer;
+  background: #acaaaa;
+}
+
+.trash-icon {
+  width: 20px;
+  height: 20px;
+  padding-right: 10px;
+}
+
+.delete-topic__modal {
+  height: fit-content;
+  width: fit-content;
+  border-radius: 8px;
+  box-shadow: 2px 2px 7px #000;
+  border: none;
+  outline: none;
+  background: #f2f2f2;
+  margin: auto;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.delete-topic__title {
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.delete-topic__button-holder {
+  padding: 20px;
+  width: max-content;
+  margin: auto;
+}

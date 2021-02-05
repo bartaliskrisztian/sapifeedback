@@ -8,13 +8,12 @@ function Navbar(props) {
 
     let history = useHistory();
     const [showProfileMenu, setShowProfileMenu] = useState(false);
-    console.log(props.user);
-
+    
     const logout = () => {
-        history.push("/");
+        history.push("/login");
         props.setUser(null);
     }
-
+    
     if(props.user) {
         return (
             <div className="navbar">
@@ -37,6 +36,7 @@ function Navbar(props) {
                             clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
                             buttonText="Logout"
                             onLogoutSuccess={logout}
+                            className="logout-button"
                         >
     
                         </GoogleLogout>
@@ -47,7 +47,7 @@ function Navbar(props) {
     }
     else {
         return (
-            <Redirect to="/" />
+            <Redirect to="/login" />
         );
     }
 }

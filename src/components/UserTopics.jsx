@@ -15,14 +15,18 @@ function UserTopics(props) {
 
     useEffect(() => {
         setIsLoading(true);
-        getUserTopics();
+        if(props.user != null) {
+            getUserTopics();
+        }
         setIsLoading(false);
         // eslint-disable-next-line
     }, []);
 
     const getUserTopics = () => {
         db.ref(`topics/${props.user.googleId}`).on("value", (snapshot) => {
-            setUserTopics(Object.entries(snapshot.val()));
+            if(snapshot.val()) {
+                setUserTopics(Object.entries(snapshot.val()));
+            }
         });
     }
 
@@ -41,21 +45,30 @@ function UserTopics(props) {
         }
     }
 
-    const createTopic = async () => {
+    const createTopic = () => {
         if(topicName === "") {
             setModalError("enter your topic name");
-            return;
+            return false;
         }
 
-        const dbRef = db.ref(`topics/${props.user.googleId}`);
+        let ok = true;
+        userTopics.forEach(topic => {
+            if(topic[1].topicName === topicName) {
+                setModalError("you already have a topic with this name");
+                ok = false;
+            }
+        });
 
-        const uid = dbRef.push().key;
-        const date = Date.now()
+        if(ok) {
+            const dbRef = db.ref(`topics/${props.user.googleId}`);
+            const uid = dbRef.push().key;
+            const date = Date.now()
 
-        await dbRef.child(uid).set({
-            date : date,
-            topicName: topicName
-        }).then(closeModal).catch((error) => setModalError(error));
+            dbRef.child(uid).set({
+                date : date,
+                topicName: topicName
+            }).then(closeModal).catch((error) => setModalError(error));
+        }
     }
 
     Modal.setAppElement("#root");
@@ -103,12 +116,14 @@ function UserTopics(props) {
                         onClose={closeModal}
                         />
                     </div>
-                    {userTopics.map((topic) => (
+                    {userTopics && userTopics.map((topic) => (
                     <TopicElement
                         key={topic[0]}
                         type="topic"
                         name={topic[1].topicName}
                         date={topic[1].date}
+                        topicid={topic[0]}
+                        userid={props.user.googleId}
                     />))}
                 </div>
             </div>

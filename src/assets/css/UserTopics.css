@@ -4,6 +4,7 @@
 
 .topics {
   height: calc(100% - 50px);
+  padding-top: 50px;
 }
 
 .topics-title {
@@ -18,6 +19,7 @@
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   margin: 20px;
 }
 
@@ -39,6 +41,12 @@
   height: 40%;
   width: 40%;
   margin-bottom: 10px;
+}
+
+.topic-element__name {
+  width: fit-content;
+  margin: auto;
+  font-size: 20px;
 }
 
 .topic-list {
