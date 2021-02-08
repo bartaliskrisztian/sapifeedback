@@ -8,6 +8,32 @@
   display: flex;
 }
 
+.navbar-menus {
+  padding: 10px;
+  display: flex;
+}
+
+.navbar-menus__element {
+  cursor: pointer;
+  align-self: center;
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.navbar-menus__element:after {
+  content: "";
+  display: block;
+  border-bottom: 3px solid #fff;
+  width: 0;
+  -webkit-transition: 300ms ease;
+  transition: 300ms ease;
+}
+
+.navbar-menus__element:hover:after {
+  width: 100%;
+}
+
 .user-menu {
   margin-left: auto;
   margin-right: 20px;

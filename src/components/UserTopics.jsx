@@ -13,6 +13,7 @@ function UserTopics(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [userTopics, setUserTopics] = useState(null);
 
+    // fetching the topics based on the user
     useEffect(() => {
         setIsLoading(true);
         if(props.user != null) {
@@ -30,6 +31,8 @@ function UserTopics(props) {
         });
     }
 
+    // functions for modal
+
     function openModal() {
         setIsOpen(true);
     }
@@ -37,6 +40,7 @@ function UserTopics(props) {
     function closeModal(){
         setIsOpen(false);
     }
+
 
     const onTopicNameChange = (e) => {
         setTopicName(e.target.value);
@@ -61,7 +65,7 @@ function UserTopics(props) {
 
         if(ok) {
             const dbRef = db.ref(`topics/${props.user.googleId}`);
-            const uid = dbRef.push().key;
+            const uid = dbRef.push().key; // getting a new id for the topic
             const date = Date.now()
 
             dbRef.child(uid).set({
@@ -117,6 +121,7 @@ function UserTopics(props) {
                         onClose={closeModal}
                         />
                     </div>
+                    {/* filtering the topics by the searchbar input */}
                     {userTopics && userTopics.filter((topic) => {
                       return props.searchText === "" ? true :
                       topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());

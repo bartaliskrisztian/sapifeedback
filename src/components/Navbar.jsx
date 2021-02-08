@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory, Redirect, Link } from "react-router-dom";
 import { GoogleLogout } from 'react-google-login';
 import UserPlaceholder from "../assets/images/user.svg";
 import SearchBar from "./SearchBar";
@@ -18,6 +18,9 @@ function Navbar(props) {
     if(props.user) {
         return (
             <div className="navbar">
+                <div className="navbar-menus">
+                    <Link className="navbar-menus__element" to="/">My topics</Link>
+                </div>
                 <SearchBar onSearch={props.onSearch} />
                 <div className="user-menu">
                     <img 
@@ -40,7 +43,6 @@ function Navbar(props) {
                             onLogoutSuccess={logout}
                             className="logout-button"
                         >
-    
                         </GoogleLogout>
                     </div>
                 </div>

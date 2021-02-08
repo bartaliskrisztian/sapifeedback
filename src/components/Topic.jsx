@@ -10,13 +10,19 @@ import "../assets/css/Topic.css";
 function Topic() {
 
     let history = useHistory();
-    const [topicName, setTopicName] = useState("");
-    const [topicDate, setTopicDate] = useState("");
-    const [modalIsOpen, setIsOpen] = useState(false);
+
+    // getting the url parameters
     const params = useParams();
     const userGoogleId = params.userid;
     const topicId = params.topicid;
 
+    // for displaying the modal
+    const [modalIsOpen, setIsOpen] = useState(false);
+
+    const [topicName, setTopicName] = useState("");
+    const [topicDate, setTopicDate] = useState("");
+
+    // fetching the details of a topic before rendering
     useEffect(() => {
         getTopicDetails();
         // eslint-disable-next-line
@@ -39,6 +45,7 @@ function Topic() {
         });
     }
 
+    // deleting one topic from db, then going back to homepage
     const deleteTopic = () => {
         db.ref(`topics/${userGoogleId}/${topicId}`).remove().then(() => history.push("/"));
     }

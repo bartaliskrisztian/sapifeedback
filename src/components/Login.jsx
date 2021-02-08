@@ -8,6 +8,7 @@ function Login(props) {
 
     let history = useHistory();
 
+    // if the login is successful, set the user and go to homepage
     const responseGoogleSuccess = (response) => {
         props.setUser(response.profileObj);
         history.push("/");
