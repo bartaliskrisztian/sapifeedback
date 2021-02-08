@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { useHistory, Redirect } from "react-router-dom";
 import { GoogleLogout } from 'react-google-login';
 import UserPlaceholder from "../assets/images/user.svg";
+import SearchBar from "./SearchBar";
 import "../assets/css/Navbar.css";
 
 function Navbar(props) {
@@ -17,6 +18,7 @@ function Navbar(props) {
     if(props.user) {
         return (
             <div className="navbar">
+                <SearchBar onSearch={props.onSearch} />
                 <div className="user-menu">
                     <img 
                         className="user-image" 

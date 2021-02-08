@@ -82,6 +82,7 @@ function UserTopics(props) {
         return (
             <div className="topics">
                 <Modal
+                    closeTimeoutMS={500}
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
                     className="create-topic__modal"
@@ -116,7 +117,10 @@ function UserTopics(props) {
                         onClose={closeModal}
                         />
                     </div>
-                    {userTopics && userTopics.map((topic) => (
+                    {userTopics && userTopics.filter((topic) => {
+                      return props.searchText === "" ? true :
+                      topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
+                    }).map((topic) => (
                     <TopicElement
                         key={topic[0]}
                         type="topic"

@@ -9,6 +9,11 @@ import Topic from "./components/Topic";
 function App() {
 
   const [user, setUser] = useState(null);
+  const [searchText, setSearchText] = useState("");
+
+  const onSearch = (e) => {
+    setSearchText(e.target.value);
+  }
 
   return (
     <div className="App">
@@ -17,8 +22,8 @@ function App() {
           <Route exact path="/" render={() => {
             return (
               <div>
-                <Navbar user={user} setUser={setUser} />
-                <Home user={user} setUser={setUser} />
+                <Navbar user={user} setUser={setUser} onSearch={onSearch} />
+                <Home user={user} setUser={setUser} searchText={searchText} />
               </div>
             );
           }} />

@@ -5,10 +5,11 @@
   padding: 5px 0;
   position: fixed;
   top: 0;
+  display: flex;
 }
 
 .user-menu {
-  float: right;
+  margin-left: auto;
   margin-right: 20px;
   height: 100%;
 }

@@ -4,7 +4,7 @@ import UserTopics from "./UserTopics";
 function Home(props) {
     return (
         <div className="home">
-            <UserTopics user={props.user} />
+            <UserTopics user={props.user} searchText={props.searchText} />
         </div>
     );
 }

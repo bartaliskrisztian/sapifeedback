@@ -1,0 +1,22 @@
+.searchbar {
+  width: 30%;
+  height: calc(100% - 10px);
+  margin: 0 auto 0 auto;
+  padding-left: 300px; /* the width of the profile menu dropdown */
+  align-self: center;
+}
+
+.searchbar-input {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+.searchbar-input:hover,
+.searchbar-input:focus {
+  background: #c4c0c0;
+}
