@@ -1,3 +1,5 @@
+@import url("../../resources/colors.css");
+
 .home {
   height: 100%;
 }
@@ -61,7 +63,7 @@
 }
 
 .topic__more-icon:hover {
-  box-shadow: 2px 2px 7px rgb(136, 131, 131);
+  box-shadow: 2px 2px 7px var(--hover_color);
 }
 
 .topic-element__dropdown {
@@ -84,7 +86,7 @@
 }
 
 .more-dropdown__element:hover {
-  background: #f2f2f2;
+  background: var(--hover_color);
 }
 
 .topic-element__name {
@@ -105,7 +107,7 @@
   box-shadow: 2px 2px 7px #000;
   border: none;
   outline: none;
-  background: #f2f2f2;
+  background: var(--modal_background);
   margin: auto;
   margin-top: 30px;
   display: flex;
@@ -131,12 +133,12 @@
 .create-topic__input {
   outline: none;
   border: none;
-  border-bottom: 1px solid #256e43;
-  background: #f2f2f2;
+  border-bottom: 1px solid var(--app_color);
+  background: var(--hover_color);
   width: 50%;
   font-size: 24px;
   font-weight: bold;
-  color: #256e43;
+  color: var(--app_color);
   margin-top: 40px;
 }
 
@@ -152,7 +154,7 @@
   padding: 5px 20px;
   border-radius: 4px;
   border: none;
-  background: #c4c0c0;
+  background: var(--button_grey);
   margin-top: 40px;
 }
 
@@ -162,12 +164,12 @@
 
 .create-topic__button:hover {
   cursor: pointer;
-  background: #acaaaa;
+  background: var(--hover_color_dark);
 }
 
 .topic-loader {
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid#256e43;
+  border: 8px solid var(--hover_color);
+  border-top: 8px solid var(--app_color);
   border-radius: 50%;
   width: 60px;
   height: 60px;

@@ -1,7 +1,9 @@
+@import url("../../resources/colors.css");
+
 .navbar {
   width: 100%;
   height: 40px;
-  background: #256e43;
+  background: var(--app_color);
   padding: 5px 0;
   position: fixed;
   top: 0;

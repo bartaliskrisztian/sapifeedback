@@ -1,3 +1,5 @@
+@import url("../../resources/colors.css");
+
 .searchbar {
   width: 30%;
   height: calc(100% - 10px);
@@ -18,5 +20,5 @@
 
 .searchbar-input:hover,
 .searchbar-input:focus {
-  background: #c4c0c0;
+  background: var(--hover_color);
 }
