@@ -27,7 +27,7 @@ function App() {
               </div>
             );
           }} />
-          <Route exact path="/topic/:userid/:topicid" render={()=> {
+          <Route exact path="/topic" render={()=> {
             return (
               <div>
                 <Navbar user={user} setUser={setUser} />

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
 import {db} from "../database/firebase";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import Modal from "react-modal";
 import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
@@ -9,22 +8,33 @@ import "../assets/css/Topic.css";
 
 function Topic() {
 
-    let history = useHistory();
-
-    // getting the url parameters
-    const params = useParams();
-    const userGoogleId = params.userid;
-    const topicId = params.topicid;
+    const history = useHistory();
 
     // for displaying the modal
     const [modalIsOpen, setIsOpen] = useState(false);
+
+    const [userGoogleId, setUserGoogleId] = useState(null);
+    const [topicId, setTopicId] = useState(null);
 
     const [topicName, setTopicName] = useState("");
     const [topicDate, setTopicDate] = useState("");
 
     // fetching the details of a topic before rendering
     useEffect(() => {
-        getTopicDetails();
+        // getting the url parameters
+        const params = new URLSearchParams(history.location.search);
+        const userid = params.get("user");
+        const topicid = params.get("topic");
+        
+        if(userid !== undefined && topicid !== undefined) {
+            setUserGoogleId(userid);
+            setTopicId(topicid);
+            getTopicDetails(userid, topicid);
+        }
+        else {
+            history.push("/");
+        }
+    
         // eslint-disable-next-line
     }, []);
 
@@ -36,7 +46,7 @@ function Topic() {
         setIsOpen(false);
     }
 
-    const getTopicDetails = () => {
+    const getTopicDetails = (userGoogleId, topicId) => {
         db.ref(`topics/${userGoogleId}/${topicId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
                 setTopicName(snapshot.val().topicName);
@@ -69,7 +79,7 @@ function Topic() {
                     <button  className="delete-topic__button" onClick={closeModal}>Cancel</button>
                 </div>
             </Modal>
-          
+            
             <div className="topic-detail__title">{topicName}</div >
             {/* <button 
                 type="submit" 

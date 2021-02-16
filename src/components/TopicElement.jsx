@@ -10,7 +10,7 @@ function TopicElement(props) {
     const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
 
     const onTopicClicked = () => {
-        history.push(`/topic/${props.userid}/${props.topicid}`);
+        history.push(`/topic?user=${props.userid}&topic=${props.topicid}`);
     }
 
     const archiveTopic= () => {
@@ -20,7 +20,6 @@ function TopicElement(props) {
     return (
         <div
             className="topic-element" 
-            
         >
             {props.type === "add" && 
             <div className="topic-add" onClick={props.onClick}>
