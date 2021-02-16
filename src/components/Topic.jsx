@@ -69,14 +69,15 @@ function Topic() {
                     <button  className="delete-topic__button" onClick={closeModal}>Cancel</button>
                 </div>
             </Modal>
+          
             <div className="topic-detail__title">{topicName}</div >
-            <button 
+            {/* <button 
                 type="submit" 
                 className="delete-topic__button"
                 onClick={openModal}
             >
             <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
-            Delete topic</button>
+            Delete topic</button> */}
         </div>
     );
 }

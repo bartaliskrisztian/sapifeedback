@@ -125,15 +125,20 @@ function UserTopics(props) {
                     {userTopics && userTopics.filter((topic) => {
                       return props.searchText === "" ? true :
                       topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
-                    }).map((topic) => (
-                    <TopicElement
-                        key={topic[0]}
-                        type="topic"
-                        name={topic[1].topicName}
-                        date={topic[1].date}
-                        topicid={topic[0]}
-                        userid={props.user.googleId}
-                    />))}
+                      // eslint-disable-next-line
+                    }).map((topic) => {
+                        if(!topic[1].isArchived) {
+                            return(
+                                <TopicElement
+                                    key={topic[0]}
+                                    type="topic"
+                                    name={topic[1].topicName}
+                                    date={topic[1].date}
+                                    topicid={topic[0]}
+                                    userid={props.user.googleId}
+                                />
+                            );
+                    }})}
                 </div>
             </div>
         );

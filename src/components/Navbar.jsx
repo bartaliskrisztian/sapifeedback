@@ -15,6 +15,7 @@ function Navbar(props) {
         props.setUser(null);
     }
     
+
     if(props.user) {
         return (
             <div className="navbar">
