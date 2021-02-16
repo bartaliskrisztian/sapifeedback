@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {db} from "../database/firebase";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Modal from "react-modal";
 import CancelIcon from "../assets/images/cancel.svg";
-import DeleteIcon from "../assets/images/trash.svg";
+//import DeleteIcon from "../assets/images/trash.svg";
 import "../assets/css/Topic.css";
 
 function Topic() {

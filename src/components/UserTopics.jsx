@@ -3,10 +3,12 @@ import TopicElement from "./TopicElement";
 import Modal from "react-modal";
 import CancelIcon from "../assets/images/cancel.svg";
 import {db} from "../database/firebase";
+import strings_EN from "../resources/strings_EN";
 import "../assets/css/UserTopics.css";
 
 function UserTopics(props) {
 
+    let strings = strings_EN;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalError, setModalError] = useState("");
     const [topicName, setTopicName] = useState("");
@@ -51,14 +53,14 @@ function UserTopics(props) {
 
     const createTopic = () => {
         if(topicName === "") {
-            setModalError("enter your topic name");
+            setModalError(strings.userTopics.modal.errorText.emptyTopicName);
             return false;
         }
 
         let ok = true;
         userTopics.forEach(topic => {
             if(topic[1].topicName === topicName) {
-                setModalError("you already have a topic with this name");
+                setModalError(strings.userTopics.modal.errorText.usedTopicName);
                 ok = false;
             }
         });
@@ -97,7 +99,7 @@ function UserTopics(props) {
                         className="modal__cancel-icon"
                         onClick={closeModal}
                     />
-                    <div className="create-topic__title">Create a topic</div>
+                    <div className="create-topic__title">{strings.userTopics.modal.title}</div>
                     <input 
                         className="create-topic__input" 
                         type="text" 
@@ -109,10 +111,10 @@ function UserTopics(props) {
                         className="create-topic__button" 
                         type="submit"
                         onClick={createTopic}
-                    >Create
+                    >{strings.userTopics.modal.createButtonText}
                     </button>
                 </Modal>
-                <div className="topics-title">Your topics</div>
+                <div className="topics-title">{strings.userTopics.title}</div>
                 <div className="topic-list">
                     <div>
                         <TopicElement 

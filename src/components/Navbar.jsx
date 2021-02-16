@@ -3,11 +3,13 @@ import { useHistory, Redirect, Link } from "react-router-dom";
 import { GoogleLogout } from 'react-google-login';
 import UserPlaceholder from "../assets/images/user.svg";
 import SearchBar from "./SearchBar";
+import strings_EN from "../resources/strings_EN";
 import "../assets/css/Navbar.css";
 
 function Navbar(props) {
 
     let history = useHistory();
+    let strings = strings_EN;
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     
     const logout = () => {
@@ -20,7 +22,7 @@ function Navbar(props) {
         return (
             <div className="navbar">
                 <div className="navbar-menus">
-                    <Link className="navbar-menus__element" to="/">My topics</Link>
+                    <Link className="navbar-menus__element" to="/">{strings.navbar.myTopicsMenu}</Link>
                 </div>
                 <SearchBar onSearch={props.onSearch} />
                 <div className="user-menu">
@@ -40,7 +42,7 @@ function Navbar(props) {
                         <div>{props.user.email}</div>
                         <GoogleLogout
                             clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-                            buttonText="Logout"
+                            buttonText={strings.navbar.logoutButtonText}
                             onLogoutSuccess={logout}
                             className="logout-button"
                         >

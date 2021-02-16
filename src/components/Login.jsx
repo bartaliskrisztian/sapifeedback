@@ -2,12 +2,14 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import GoogleLogin from 'react-google-login';
 import Logo from "../assets/images/logo.svg";
+import strings_EN from "../resources/strings_EN";
 import "../assets/css/Login.css";
 
 function Login(props) {
 
     let history = useHistory();
-
+    let strings = strings_EN;
+    
     // if the login is successful, set the user and go to homepage
     const responseGoogleSuccess = (response) => {
         props.setUser(response.profileObj);
@@ -27,7 +29,7 @@ function Login(props) {
             />
             <GoogleLogin 
                 clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-                buttonText="Login with Google Account"
+                buttonText={strings.login.loginButtonText}
                 onSuccess={responseGoogleSuccess}
                 onFailure={responseGoogleFailure}
                 cookiePolicy={'single_host_origin'}

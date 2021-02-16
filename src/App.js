@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Topic from "./components/Topic";
+import Report from "./components/Report";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
               </div>
             );
           }} />
+          <Route exact path="/report" component={Report}/>
       </Layout>
     </div>
   );
