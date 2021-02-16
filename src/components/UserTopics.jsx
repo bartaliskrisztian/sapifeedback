@@ -69,10 +69,12 @@ function UserTopics(props) {
             const dbRef = db.ref(`topics/${props.user.googleId}`);
             const uid = dbRef.push().key; // getting a new id for the topic
             const date = Date.now()
+            const reportUrl = `${window.location.origin}/report?uid=${props.user.googleId}&topic=${uid}`;
 
             dbRef.child(uid).set({
                 date : date,
-                topicName: topicName
+                topicName: topicName,
+                reportUrl: reportUrl
             }).then(closeModal).catch((error) => setModalError(error));
         }
     }

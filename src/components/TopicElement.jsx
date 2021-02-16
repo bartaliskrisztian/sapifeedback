@@ -3,10 +3,12 @@ import {useHistory} from "react-router-dom";
 import {db} from "../database/firebase";
 import AddIcon from "../assets/images/plus.svg";
 import MoreIcon from "../assets/images/more.svg";
+import strings_EN from "../resources/strings_EN";
 
 function TopicElement(props) {
 
     let history = useHistory();
+    let strings = strings_EN;
     const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
 
     const onTopicClicked = () => {
@@ -42,7 +44,10 @@ function TopicElement(props) {
                         <div 
                             className="more-dropdown__element"
                             onClick={archiveTopic}
-                        >Archive</div>
+                        >{strings.userTopics.menu.archive}</div>
+                        <div className="more-dropdown__element">
+                            {strings.userTopics.menu.copyLink}
+                        </div>
                     </div>
                     <div className="topic-element__content-elements" onClick={onTopicClicked}>
                         <div className="topic-element__name">{props.name}</div>

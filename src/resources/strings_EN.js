@@ -18,6 +18,10 @@ const strings = {
                 usedTopicName: 'you already have a topic with this name',
                 emptyTopicName: 'enter your topic name'
             }
+        },
+        menu: {
+            archive: 'Archive',
+            copyLink: 'Copy link'
         }
     }
 };

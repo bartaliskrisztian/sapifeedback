@@ -77,7 +77,7 @@
 }
 
 .topic-element__dropdown.open {
-  height: fit-content;
+  height: inherit;
   width: fit-content;
 }
 
