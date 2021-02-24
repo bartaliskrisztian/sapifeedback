@@ -1,6 +1,6 @@
 const strings = {
     login: {
-        loginButtonText: 'Login with Google Account'
+        loginButtonText: 'Sign up or log in with Google Account'
     },
     navbar: {
         myTopicsMenu: 'My topics',

@@ -47,6 +47,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .topic-element__content-elements {
@@ -74,10 +75,13 @@
   align-self: flex-end;
   margin: 5px 10px 0 0;
   overflow: hidden;
+  position: absolute;
+  background: #fff;
+  right: 20px;
 }
 
 .topic-element__dropdown.open {
-  height: inherit;
+  height: fit-content;
   width: fit-content;
 }
 

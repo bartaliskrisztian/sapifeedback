@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import ImageDropzone from "./ImageDropzone";
-import {db} from "../database/firebase";
+import {db, storage} from "../database/firebase";
 import firebase from "firebase/app";
+import { useHistory } from "react-router-dom";
 import "../assets/css/Report.css";
 
 function Report() {
 
+    const history = useHistory();
     const recaptchaRef = React.useRef();
 
     const [files, setFiles] = useState([]); // for storing image(s) uploaded by user
@@ -14,6 +16,24 @@ function Report() {
     const [error, setError] = useState("");
     const [isUploading, setIsUploading] = useState(false);
     const sourceCode = 'https://github.com/bartaliskrisztian/problema-sapi';
+    const [userId, setUserId] = useState(null);
+    const [topicId, setTopicId] = useState(null);
+
+    useEffect(() => {
+        
+        const params = new URLSearchParams(history.location.search);
+        const userid = params.get("u");
+        const topicid = params.get("t");
+        
+        if(userid !== null && topicid !== null) {
+           setUserId(userid);
+           setTopicId(topicid);
+        }
+        else {
+            history.push("/");
+        }
+        // eslint-disable-next-line
+    }, []);
 
     const handleTextChange = (e) => {
         setReportText(e.target.value);
@@ -39,7 +59,7 @@ function Report() {
         if (!blobUrl || !name) return null;
         try {
             const blob = await fetch(blobUrl).then((r) => r.blob());
-            const snapshot = await firebase.storage().ref("report_images").child(name).put(blob);
+            const snapshot = await storage.ref("report_images").child(name).put(blob);
             return await snapshot.ref.getDownloadURL();
         } catch (error) {
             throw error;
@@ -49,15 +69,17 @@ function Report() {
     // uploads the reported text to firestore
     // if it's provided, uploads the given image's download URL, otherwise null
     const uploadReport = async (url) => {
-        const id = `${Date.now()}`;
-        db.collection("reports").doc(`${id}`).get().then((docRef) => {
-            if(docRef.data() === undefined) {
-                db.collection("reports").doc(`${id}`).set({
-                    text: reportText,
-                    imageDownloadURL: url
-                });
-            }
-        });
+        const dbRef = db.ref(`reports/${topicId}`);
+        const uid = dbRef.push().key; // getting a new id for the topic
+        const date = `${Date.now()}`;
+
+        dbRef.child(uid).set({
+            date : date,
+            text: reportText,
+            imageUrl: url,
+            topicOwnerId: userId
+        }).catch((error) => setError(error));
+
     }
 
     // if the user provided an image, upload it to firebase storage, then upload the report
@@ -79,7 +101,7 @@ function Report() {
                 return
             }
         }
-        uploadReport(null);
+        //uploadReport(null);
     }
 
 

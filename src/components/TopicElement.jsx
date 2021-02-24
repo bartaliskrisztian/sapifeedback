@@ -19,6 +19,27 @@ function TopicElement(props) {
         db.ref(`topics/${props.userid}/${props.topicid}`).update({isArchived: 'true'});
     }
 
+    const copyUrlToClipboard = () => {
+        let topicUrl = getTopicUrl();
+        var textarea = document.createElement("textarea");
+        document.body.appendChild(textarea);
+        textarea.value = topicUrl;
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        setShowMoreDropwdown(false);
+    }
+
+    const getTopicUrl = () => {
+        let url = null;
+        db.ref(`topics/${props.userid}/${props.topicid}/reportUrl`).on("value", (snapshot) => {
+            if(snapshot.val()) {
+                url = snapshot.val();
+            }
+        });
+        return url;
+    }
+
     return (
         <div
             className="topic-element" 
@@ -45,7 +66,7 @@ function TopicElement(props) {
                             className="more-dropdown__element"
                             onClick={archiveTopic}
                         >{strings.userTopics.menu.archive}</div>
-                        <div className="more-dropdown__element">
+                        <div className="more-dropdown__element" onClick={copyUrlToClipboard}>
                             {strings.userTopics.menu.copyLink}
                         </div>
                     </div>
