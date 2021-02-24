@@ -3,12 +3,13 @@ import {useHistory} from "react-router-dom";
 import {db} from "../database/firebase";
 import AddIcon from "../assets/images/plus.svg";
 import MoreIcon from "../assets/images/more.svg";
-import strings_EN from "../resources/strings_EN";
+import stringRes from "../resources/strings";
 
 function TopicElement(props) {
 
     let history = useHistory();
-    let strings = strings_EN;
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
     const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
 
     const onTopicClicked = () => {
@@ -51,7 +52,7 @@ function TopicElement(props) {
                 alt="add topic"
                 className="add-icon"
                 />
-                <div>Create topic</div>
+                <div>{strings.userTopics.createTopicText}</div>
             </div>}
             {props.type === "topic" &&
                 <div className="topic-element__content">

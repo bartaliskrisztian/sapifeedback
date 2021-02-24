@@ -2,8 +2,12 @@ import React, {useMemo, useEffect, useState} from 'react';
 import { useDropzone } from "react-dropzone";
 import Compress from "client-compress";
 import "../assets/css/ImageDropzone.css";
+import stringRes from "../resources/strings";
 
 function ImageDropzone(prop) {
+
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
 
     // options for reducing file size
     const compress = new Compress(
@@ -87,15 +91,15 @@ function ImageDropzone(prop) {
                 file.errors.forEach((err) => {
                     // when the file is too large
                     if (err.code === "file-too-large") {
-                        setErrors(`${file.file.name} túl nagy méretű`);
+                        setErrors(strings.report.errorText.tooLargeFile);
                     }
                     // when the file's type is not acccepted
                     if (err.code === "file-invalid-type") {
-                        setErrors(`${file.file.name} érvénytelen fájlformátum`);
+                        setErrors(strings.report.errorText.wrongFileFormat);
                     }
                     // when he user drops chooses more than one image
                     if(err.code === "too-many-files") {
-                        setErrors("Csak egy képet csatolhat.")
+                        setErrors(strings.report.errorText.tooManyFiles)
                     }
                 });
             });
@@ -124,7 +128,6 @@ function ImageDropzone(prop) {
     const thumbs = prop.files.map((file, i) => (
         <div className="thumb-image__holder" key={i}>
             <img className="thumb-image" src={file.preview} alt={file.name} />
-            {/* <div>{file.path} - {file.size} bytes</div> */}
         </div>
     ));
 
@@ -144,7 +147,7 @@ function ImageDropzone(prop) {
                 <input {...getInputProps() } />
                 {!prop.files.length ?
                 (<div className="drop-title">
-                    Húzza ide az állományt
+                    {strings.report.imageDropText}
                     <div className="drop-arrow">
                         <span></span>
                         <span></span>
@@ -157,10 +160,10 @@ function ImageDropzone(prop) {
                 <div className="upload-buttons">
                     <div className="image-errors">{errors}</div>
                     <button className="upload-image__button" type="button" onClick={open}>
-                        Kép kiválasztása
+                        {strings.report.imageSelectButtonText}
                     </button>
                     <button className="clear-images__button" type="button" onClick={removeImages}>
-                        Kép eltávolítása
+                        {strings.report.imageRemoveButtonText}
                     </button>
                 </div>
             </div>

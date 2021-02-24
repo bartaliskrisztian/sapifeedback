@@ -2,13 +2,14 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import GoogleLogin from 'react-google-login';
 import Logo from "../assets/images/logo.svg";
-import strings_EN from "../resources/strings_EN";
+import stringRes from "../resources/strings";
 import "../assets/css/Login.css";
 
 function Login(props) {
 
     let history = useHistory();
-    let strings = strings_EN;
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
     
     // if the login is successful, set the user and go to homepage
     const responseGoogleSuccess = (response) => {

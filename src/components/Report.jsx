@@ -4,18 +4,22 @@ import ImageDropzone from "./ImageDropzone";
 import {db, storage} from "../database/firebase";
 import firebase from "firebase/app";
 import { useHistory } from "react-router-dom";
+import stringRes from "../resources/strings";
 import "../assets/css/Report.css";
 
 function Report() {
 
     const history = useHistory();
     const recaptchaRef = React.useRef();
+    
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
 
     const [files, setFiles] = useState([]); // for storing image(s) uploaded by user
     const [reportText, setReportText] = useState(""); // text reported by user
     const [error, setError] = useState("");
     const [isUploading, setIsUploading] = useState(false);
-    const sourceCode = 'https://github.com/bartaliskrisztian/problema-sapi';
+    const sourceCode = strings.report.sourceCode;
     const [userId, setUserId] = useState(null);
     const [topicId, setTopicId] = useState(null);
 
@@ -101,7 +105,6 @@ function Report() {
                 return
             }
         }
-        //uploadReport(null);
     }
 
 
@@ -112,13 +115,13 @@ function Report() {
         // if the reCaptcha's token is empty string or null, means that the user did not solve the captcha
         
         if(token === "" || token === null) {
-            setError("Igazolja, hogy Ön nem robot.")
+            setError(strings.report.errorText.notRobot)
             return;
         }
 
         // if the given text for report is too short
         if(reportText.length < 20) {
-            setError("Túl rövid a megfogalmazott szöveg (min. 20 karakter).")
+            setError(strings.report.errorText.shortReport)
             return;
         }
         setIsUploading(true); // setting up loader
@@ -126,7 +129,7 @@ function Report() {
         setIsUploading(false);
 
         // providing success message for 2 secs
-        setError("Sikeres feltöltés");
+        setError(strings.report.errorText.successfulReport);
         
         resetPage();
     }
@@ -137,31 +140,31 @@ function Report() {
                 <div className="report-text">
                     <div className="info">
                         <div className="info-text">
-                            NÉVTELENÜL BEJELENTHETI BÁRMILYEN PROBLÉMÁJÁT A SAPIENTIA EGYETEMMEL KAPCSOLATOSAN.
+                            {strings.report.title}
                         </div>
                        
                     </div>
                     <textarea 
                         className="text-input" 
                         value = {reportText}
-                        placeholder="Írja le problémáját, észrevételét" 
+                        placeholder={strings.report.inputPlaceHolder} 
                         onChange={handleTextChange}
                     />
                      <div className="source-code">
-                            {`FORRÁSKÓD: `}
+                            {`${strings.report.sourceCodeText}: `}
                             <a 
                                 target="blank" 
                                 href={`${sourceCode}`} 
                                 className="source-code__link"
                             >
-                                github.com/bartalis.krisztian/problema-sapi
+                                {strings.report.sourceCodeShort}
                             </a>
                     </div>
                 </div>
                 <div className="report-image">
                     <div className="info">
                         <div className="info-text">
-                            OPCIONÁLISAN A BEJELENTÉSHEZ EGY KÉPET IS CSATOLHAT.
+                            {strings.report.attachImageText}
                         </div>
                     </div>
                     <ImageDropzone setUploadedImages={setFiles} files={files} />
@@ -176,7 +179,7 @@ function Report() {
                         sitekey = {process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                         onChange = {onCaptchaChange}
                     />
-                    <button className="submit-button" type="submit" onClick={onSubmitWithReCAPTCHA}>Küldés</button>
+                    <button className="submit-button" type="submit" onClick={onSubmitWithReCAPTCHA}>{strings.report.submitButtonText}</button>
                     {isUploading && (<div className="loader"></div>)}
                 </div>
             </div>

@@ -1,10 +1,11 @@
 import React from "react";
-import strings_EN from "../resources/strings_EN";
+import stringRes from "../resources/strings";
 import "../assets/css/SearchBar.css";
 
 function SearchBar(props) {
 
-    let strings = strings_EN;
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
 
     return (
         <div className="searchbar">

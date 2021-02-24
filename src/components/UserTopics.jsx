@@ -3,12 +3,14 @@ import TopicElement from "./TopicElement";
 import Modal from "react-modal";
 import CancelIcon from "../assets/images/cancel.svg";
 import {db} from "../database/firebase";
-import strings_EN from "../resources/strings_EN";
+import stringRes from "../resources/strings";
 import "../assets/css/UserTopics.css";
 
 function UserTopics(props) {
 
-    let strings = strings_EN;
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
+    
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalError, setModalError] = useState("");
     const [topicName, setTopicName] = useState("");

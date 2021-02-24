@@ -3,13 +3,14 @@ import { useHistory, Redirect, Link } from "react-router-dom";
 import { GoogleLogout } from 'react-google-login';
 import UserPlaceholder from "../assets/images/user.svg";
 import SearchBar from "./SearchBar";
-import strings_EN from "../resources/strings_EN";
+import stringRes from "../resources/strings";
 import "../assets/css/Navbar.css";
 
 function Navbar(props) {
 
     let history = useHistory();
-    let strings = strings_EN;
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     
     const logout = () => {
