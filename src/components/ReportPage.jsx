@@ -3,13 +3,14 @@ import ReCAPTCHA from "react-google-recaptcha";
 import ImageDropzone from "./ImageDropzone";
 import {db, storage} from "../database/firebase";
 import firebase from "firebase/app";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import stringRes from "../resources/strings";
 import "../assets/css/Report.css";
 
-function Report() {
+function ReportPage() {
 
     const history = useHistory();
+    const params = useParams();
     const recaptchaRef = React.useRef();
     
     let language = process.env.REACT_APP_LANGUAGE;
@@ -25,10 +26,9 @@ function Report() {
 
     useEffect(() => {
         
-        const params = new URLSearchParams(history.location.search);
-        const userid = params.get("u");
-        const topicid = params.get("t");
-        
+        const userid = params.userId;
+        const topicid = params.topicId;
+       
         if(userid !== null && topicid !== null) {
            setUserId(userid);
            setTopicId(topicid);
@@ -187,4 +187,4 @@ function Report() {
     );
 }
 
-export default Report;
+export default ReportPage;

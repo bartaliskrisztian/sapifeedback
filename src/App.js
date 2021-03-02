@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Topic from "./components/Topic";
-import Report from "./components/Report";
+import ReportPage from "./components/ReportPage";
 
 function App() {
 
@@ -28,7 +28,7 @@ function App() {
               </div>
             );
           }} />
-          <Route exact path="/topic" render={()=> {
+          <Route path="/topic/:userId/:topicId" render={()=> {
             return (
               <div>
                 <Navbar user={user} setUser={setUser} />
@@ -36,7 +36,7 @@ function App() {
               </div>
             );
           }} />
-          <Route exact path="/report" component={Report}/>
+          <Route exact path="/report/:userId/:topicId" component={ReportPage}/>
       </Layout>
     </div>
   );

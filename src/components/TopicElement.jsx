@@ -13,7 +13,8 @@ function TopicElement(props) {
     const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
 
     const onTopicClicked = () => {
-        history.push(`/topic?user=${props.userid}&topic=${props.topicid}`);
+        //history.push(`/topic?user=${props.userid}&topic=${props.topicid}`);
+        history.push(`/topic/${props.userid}/${props.topicid}`);
     }
 
     const archiveTopic= () => {

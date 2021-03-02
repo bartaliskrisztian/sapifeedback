@@ -71,7 +71,7 @@ function UserTopics(props) {
             const dbRef = db.ref(`topics/${props.user.googleId}`);
             const uid = dbRef.push().key; // getting a new id for the topic
             const date = Date.now()
-            const reportUrl = `${window.location.origin}/#/report?u=${props.user.googleId}&t=${uid}`;
+            const reportUrl = `${window.location.origin}/#/report/${props.user.googleId}/${uid}`;
 
             dbRef.child(uid).set({
                 date : date,

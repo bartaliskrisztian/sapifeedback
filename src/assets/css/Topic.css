@@ -9,6 +9,10 @@
   padding: 10px 0 10px 40px;
 }
 
+.topic-detail__notexists {
+  padding: 20px;
+}
+
 .delete-topic__button {
   border-radius: 4px;
   border: none;
