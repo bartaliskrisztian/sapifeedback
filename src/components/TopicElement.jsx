@@ -42,11 +42,8 @@ function TopicElement(props) {
         return url;
     }
 
-    return (
-        <div
-            className="topic-element" 
-        >
-            {props.type === "add" && 
+    const AddTopicCard = () => {
+        return(
             <div className="topic-add" onClick={props.onClick}>
                 <img 
                 src={AddIcon} 
@@ -54,29 +51,42 @@ function TopicElement(props) {
                 className="add-icon"
                 />
                 <div>{strings.userTopics.createTopicText}</div>
-            </div>}
-            {props.type === "topic" &&
-                <div className="topic-element__content">
-                    <img
-                        src={MoreIcon}
-                        alt="more" 
-                        className="topic__more-icon" 
-                        onClick={() => setShowMoreDropwdown(!showMoreDropdown)} 
-                    />
-                    <div className={`topic-element__dropdown${showMoreDropdown ? " open" : ""}`}>
-                        <div 
-                            className="more-dropdown__element"
-                            onClick={archiveTopic}
-                        >{strings.userTopics.menu.archive}</div>
-                        <div className="more-dropdown__element" onClick={copyUrlToClipboard}>
-                            {strings.userTopics.menu.copyLink}
-                        </div>
+            </div>
+        );
+    }
+
+    const TopicCard = () => {
+        return(
+            <div className="topic-element__content">
+                <img
+                    src={MoreIcon}
+                    alt="more" 
+                    className="topic__more-icon" 
+                    onClick={() => setShowMoreDropwdown(!showMoreDropdown)} 
+                />
+                <div className={`topic-element__dropdown${showMoreDropdown ? " open" : ""}`}>
+                    <div 
+                        className="more-dropdown__element"
+                        onClick={archiveTopic}
+                    >{strings.userTopics.menu.archive}
                     </div>
-                    <div className="topic-element__content-elements" onClick={onTopicClicked}>
-                        <div className="topic-element__name">{props.name}</div>
+                    <div className="more-dropdown__element" onClick={copyUrlToClipboard}>
+                        {strings.userTopics.menu.copyLink}
                     </div>
                 </div>
-            }
+                <div className="topic-element__content-elements" onClick={onTopicClicked}>
+                    <div className="topic-element__name">{props.name}</div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div
+            className="topic-element" 
+        >
+            {props.type === "add" && <AddTopicCard />}
+            {props.type === "topic" && <TopicCard />}
         </div>
     );
 }

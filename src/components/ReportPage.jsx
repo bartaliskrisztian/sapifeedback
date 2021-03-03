@@ -134,54 +134,70 @@ function ReportPage() {
         resetPage();
     }
 
+    const ReportText = () => {
+        return(
+            <div className="report-text">
+                <div className="info">
+                    <div className="info-text">
+                        {strings.report.title}
+                    </div>
+                
+                </div>
+                <textarea 
+                    className="text-input" 
+                    value = {reportText}
+                    placeholder={strings.report.inputPlaceHolder} 
+                    onChange={handleTextChange}
+                />
+                <div className="source-code">
+                        {`${strings.report.sourceCodeText}: `}
+                        <a 
+                            target="blank" 
+                            href={`${sourceCode}`} 
+                            className="source-code__link"
+                        >
+                            {strings.report.sourceCodeShort}
+                        </a>
+                </div>
+            </div>
+        );
+    }
+
+    const ReportImage = () => {
+        return(
+            <div className="report-image">
+                <div className="info">
+                    <div className="info-text">
+                        {strings.report.attachImageText}
+                    </div>
+                </div>
+                <ImageDropzone setUploadedImages={setFiles} files={files} />
+            </div>
+        );
+    }
+
+    const SubmitContainer = () => {
+        <div className="submit-container">
+            <ReCAPTCHA 
+                className="recaptcha"
+                ref = {recaptchaRef}
+                sitekey = {process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                onChange = {onCaptchaChange}
+            />
+            <button className="submit-button" type="submit" onClick={onSubmitWithReCAPTCHA}>{strings.report.submitButtonText}</button>
+            {isUploading && (<div className="loader"></div>)}
+        </div>
+    }
+
     return (
         <div className="report-container">
             <div className="report-container__content">
-                <div className="report-text">
-                    <div className="info">
-                        <div className="info-text">
-                            {strings.report.title}
-                        </div>
-                       
-                    </div>
-                    <textarea 
-                        className="text-input" 
-                        value = {reportText}
-                        placeholder={strings.report.inputPlaceHolder} 
-                        onChange={handleTextChange}
-                    />
-                     <div className="source-code">
-                            {`${strings.report.sourceCodeText}: `}
-                            <a 
-                                target="blank" 
-                                href={`${sourceCode}`} 
-                                className="source-code__link"
-                            >
-                                {strings.report.sourceCodeShort}
-                            </a>
-                    </div>
-                </div>
-                <div className="report-image">
-                    <div className="info">
-                        <div className="info-text">
-                            {strings.report.attachImageText}
-                        </div>
-                    </div>
-                    <ImageDropzone setUploadedImages={setFiles} files={files} />
-                </div>
+                <ReportText />
+                <ReportImage />
             </div>
             <div className="bottom-submit__container">
                 {error && <div className="error-message">{error}</div>}
-                <div className="submit-container">
-                    <ReCAPTCHA 
-                        className="recaptcha"
-                        ref = {recaptchaRef}
-                        sitekey = {process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-                        onChange = {onCaptchaChange}
-                    />
-                    <button className="submit-button" type="submit" onClick={onSubmitWithReCAPTCHA}>{strings.report.submitButtonText}</button>
-                    {isUploading && (<div className="loader"></div>)}
-                </div>
+                <SubmitContainer />
             </div>
         </div>
     );

@@ -3,12 +3,15 @@ import {db} from "../database/firebase";
 import { useHistory, useParams } from "react-router-dom";
 import Modal from "react-modal";
 import Reports from "./Reports";
-
 import CancelIcon from "../assets/images/cancel.svg";
-//import DeleteIcon from "../assets/images/trash.svg";
+import DeleteIcon from "../assets/images/trash.svg";
 import "../assets/css/Topic.css";
+import stringRes from "../resources/strings";
 
 function Topic() {
+
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
 
     const history = useHistory();
     const params = useParams();
@@ -81,42 +84,52 @@ function Topic() {
         db.ref(`topics/${userGoogleId}/${topicId}`).remove().then(() => history.push("/"));
     }
 
+    const DeleteTopicModal = () => {
+        return(
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                className="delete-topic__modal"
+            >
+                <img 
+                    src={CancelIcon} 
+                    alt="cancel"
+                    className="modal__cancel-icon"
+                    onClick={closeModal}
+                />
+                <div className="delete-topic__title">{strings.topic.deleteModal.title}</div>
+                <div className="delete-topic__button-holder">
+                    <button className="delete-topic__button" onClick={deleteTopic}>{strings.topic.deleteModal.deleteButtonText}</button>
+                    <button  className="delete-topic__button" onClick={closeModal}>{strings.topic.deleteModal.cancelButtonText}</button>
+                </div>
+            </Modal>
+        );
+    }
+
+    const DeleteTopicButton = () => {
+        <button 
+            type="submit" 
+            className="delete-topic__button"
+            onClick={openModal}
+        >
+        <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
+            {strings.topic.deleteButtonText}
+        </button>
+    }
+
     if(topicExists) {
         return (
             <div className="topic-detail">
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    className="delete-topic__modal"
-                >
-                    <img 
-                        src={CancelIcon} 
-                        alt="cancel"
-                        className="modal__cancel-icon"
-                        onClick={closeModal}
-                    />
-                    <div className="delete-topic__title">Are you sure you want to delete this topic?</div>
-                    <div className="delete-topic__button-holder">
-                        <button className="delete-topic__button" onClick={deleteTopic}>Delete</button>
-                        <button  className="delete-topic__button" onClick={closeModal}>Cancel</button>
-                    </div>
-                </Modal>
+                <DeleteTopicModal />
                 <div className="topic-detail__title">{topicName}</div >
                 <Reports reports={topicReports} />
-                {/* <button 
-                    type="submit" 
-                    className="delete-topic__button"
-                    onClick={openModal}
-                >
-                <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
-                Delete topic</button> */}
             </div>
         );
     }
     else {
         return(
             <div className="topic-detail">
-                <h1 className="topic-detail__notexists">Nem létezik ez a téma.</h1>
+                <h1 className="topic-detail__notexists">{strings.topic.notExistsText}</h1>
             </div>
         );
     }

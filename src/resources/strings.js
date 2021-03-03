@@ -13,7 +13,7 @@ const strings = {
             createTopicText: 'Create topic',
             modal: {
                 title: 'Create topic',
-                inputPlaceHolder: 'Enter your topic name',
+                inputPlaceholder: 'Enter your topic name',
                 createButtonText: 'Create',
                 errorText: {
                     usedTopicName: 'you already have a topic with this name',
@@ -24,6 +24,15 @@ const strings = {
                 archive: 'Archive',
                 copyLink: 'Copy link'
             }
+        },
+        topic: {
+            deleteModal: {
+                title: 'Are you sure you want to delete this topic?',
+                deleteButtonText: 'Delete',
+                cancelButtonText: 'Cancel'
+            },
+            deleteButtonText: 'Delete topic',
+            notExistsText: 'This topic does not exists.'
         },
         report: {
             title: 'YOU CAN REPORT ANONYMOUSLY YOUR PROBLEM/COMMENT ABOUT THE TOPIC:',
@@ -60,7 +69,7 @@ const strings = {
             createTopicText: 'Téma létrehozása',
             modal: {
                 title: 'Téma létrehozása',
-                inputPlaceHolder: 'Írd be a téma nevét',
+                inputPlaceholder: 'Írd be a téma nevét',
                 createButtonText: 'Létrehoz',
                 errorText: {
                     usedTopicName: 'már van ilyen nevű témád',
@@ -71,6 +80,15 @@ const strings = {
                 archive: 'Archiválás',
                 copyLink: 'Bejelentő link másolása'
             }
+        },
+        topic: {
+            deleteModal: {
+                title: 'Biztosan szeretné törölni ezt a témát?',
+                deleteButtonText: 'Törlés',
+                cancelButtonText: 'Mégsem'
+            },
+            deleteButtonText: 'Téma törlése',
+            notExistsText: 'Nem létezik ez a téma.'
         },
         report: {
             title: 'NÉVTELENÜL BEJELENTHETI BÁRMILYEN PROBLÉMÁJÁT A TÉMÁVAL KAPCSOLATOSAN:',

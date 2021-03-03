@@ -19,37 +19,49 @@ function Navbar(props) {
     }
     
 
+    const Menus = () => {
+        return(
+            <div className="navbar-menus">
+                <Link className="navbar-menus__element" to="/">{strings.navbar.myTopicsMenu}</Link>
+            </div>
+        );
+    }
+
+    const ProfileMenu = () => {
+        return(
+            <div className="user-menu">
+                <img 
+                    className="user-image" 
+                    src={props.user.imageUrl === undefined ? UserPlaceholder : props.user.imageUrl} 
+                    alt="Profile"
+                    onClick={() => setShowProfileMenu(!showProfileMenu)} 
+                />
+                <div className={`profile-dropdown${showProfileMenu ? " open" : ""}`}>
+                    <img 
+                        className="profile-dropdown__image" 
+                        src={props.user.imageUrl === undefined ? UserPlaceholder : props.user.imageUrl}
+                        alt="Profile"
+                    />
+                    <div className="profile-dropdown__name">{props.user.name}</div>
+                    <div>{props.user.email}</div>
+                    <GoogleLogout
+                        clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+                        buttonText={strings.navbar.logoutButtonText}
+                        onLogoutSuccess={logout}
+                        className="logout-button"
+                    >
+                    </GoogleLogout>
+                </div>
+            </div>
+        );
+    }
+
     if(props.user) {
         return (
             <div className="navbar">
-                <div className="navbar-menus">
-                    <Link className="navbar-menus__element" to="/">{strings.navbar.myTopicsMenu}</Link>
-                </div>
+                <Menus />
                 <SearchBar onSearch={props.onSearch} />
-                <div className="user-menu">
-                    <img 
-                        className="user-image" 
-                        src={props.user.imageUrl === undefined ? UserPlaceholder : props.user.imageUrl} 
-                        alt="Profile"
-                        onClick={() => setShowProfileMenu(!showProfileMenu)} 
-                    />
-                    <div className={`profile-dropdown${showProfileMenu ? " open" : ""}`}>
-                        <img 
-                            className="profile-dropdown__image" 
-                            src={props.user.imageUrl === undefined ? UserPlaceholder : props.user.imageUrl}
-                            alt="Profile"
-                        />
-                        <div className="profile-dropdown__name">{props.user.name}</div>
-                        <div>{props.user.email}</div>
-                        <GoogleLogout
-                            clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-                            buttonText={strings.navbar.logoutButtonText}
-                            onLogoutSuccess={logout}
-                            className="logout-button"
-                        >
-                        </GoogleLogout>
-                    </div>
-                </div>
+                <ProfileMenu />
             </div>
         );
     }

@@ -81,17 +81,9 @@ function UserTopics(props) {
         }
     }
 
-    Modal.setAppElement("#root");
-
-    if(isLoading) {
-        return (
-            <div className="topic-loader"></div>
-        );
-    }
-    else {
-        return (
-            <div className="topics">
-                <Modal
+    const CreateTopicModal = () => {
+        return(
+            <Modal
                     closeTimeoutMS={500}
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
@@ -107,7 +99,7 @@ function UserTopics(props) {
                     <input 
                         className="create-topic__input" 
                         type="text" 
-                        placeholder="Enter your topic name"
+                        placeholder={strings.userTopics.modal.inputPlaceholder}
                         onChange={onTopicNameChange}
                     />
                     <div className="create-topic__error">{modalError}</div>
@@ -118,6 +110,42 @@ function UserTopics(props) {
                     >{strings.userTopics.modal.createButtonText}
                     </button>
                 </Modal>
+        );
+    }
+
+    const FilteredTopicElements = () => {
+        return(
+            userTopics && userTopics.filter((topic) => {
+                return props.searchText === "" ? true :
+                topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
+                // eslint-disable-next-line
+              }).map((topic) => {
+                  if(!topic[1].isArchived) {
+                      return(
+                          <TopicElement
+                              key={topic[0]}
+                              type="topic"
+                              name={topic[1].topicName}
+                              date={topic[1].date}
+                              topicid={topic[0]}
+                              userid={props.user.googleId}
+                          />
+                      );
+              }})
+        );
+    }
+
+    Modal.setAppElement("#root");
+
+    if(isLoading) {
+        return (
+            <div className="topic-loader"></div>
+        );
+    }
+    else {
+        return (
+            <div className="topics">
+                <CreateTopicModal />
                 <div className="topics-title">{strings.userTopics.title}</div>
                 <div className="topic-list">
                     <div>
@@ -128,23 +156,7 @@ function UserTopics(props) {
                         />
                     </div>
                     {/* filtering the topics by the searchbar input */}
-                    {userTopics && userTopics.filter((topic) => {
-                      return props.searchText === "" ? true :
-                      topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
-                      // eslint-disable-next-line
-                    }).map((topic) => {
-                        if(!topic[1].isArchived) {
-                            return(
-                                <TopicElement
-                                    key={topic[0]}
-                                    type="topic"
-                                    name={topic[1].topicName}
-                                    date={topic[1].date}
-                                    topicid={topic[0]}
-                                    userid={props.user.googleId}
-                                />
-                            );
-                    }})}
+                    <FilteredTopicElements />
                 </div>
             </div>
         );

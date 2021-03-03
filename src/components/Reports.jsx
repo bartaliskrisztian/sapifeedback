@@ -8,19 +8,25 @@ function Reports(props) {
         return (
             <table className="topic-reports">
                 <tbody>
+                    <tr>
+                        <th>Text</th>
+                        <th>Image</th>
+                    </tr>
               {props.reports && props.reports.map((report) => (
                 <tr key={report.date} className="topic-reports__row">
-                    <td className="topic-reports__cell">
+                    <td className="topic-reports__cell-text">
                         <div className="topic-reports__text" >
                             {report.text}
                         </div>
                     </td>
-                    <td className="topic-reports__cell">
-                        <img 
-                            alt="report" 
-                            src={report.imageUrl}
-                            className="topic-reports__image"
-                        /> 
+                    <td className="topic-reports__cell-image">
+                        <a href={report.imageUrl} target="blank">
+                            <img 
+                                alt="report" 
+                                src={report.imageUrl}
+                                className="topic-reports__image"
+                            /> 
+                        </a>
                     </td>
                 </tr>
               ))}
