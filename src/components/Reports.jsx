@@ -8,9 +8,9 @@ function Reports(props) {
         return (
             <table className="topic-reports">
                 <tbody>
-                    <tr>
-                        <th>Text</th>
-                        <th>Image</th>
+                    <tr className='topic-reports__row-header'>
+                        <th className='topic-reports__header text'>Text</th>
+                        <th className='topic-reports__header image'>Image</th>
                     </tr>
               {props.reports && props.reports.map((report) => (
                 <tr key={report.date} className="topic-reports__row">

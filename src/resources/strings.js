@@ -98,6 +98,8 @@ const strings = {
             imageSelectButtonText: 'Kép kiválasztása',
             imageRemoveButtonText: 'Kép eltávolítása',
             sourceCodeText: 'FORRÁSKÓD',
+            sourceCode: 'https://github.com/bartaliskrisztian/report-feedback',
+            sourceCodeShort: 'github.com/bartaliskrisztian/report-feedback',
             submitButtonText: 'KÜLDÉS',
             errorText: {
                 notRobot: 'Igazolja, hogy Ön nem robot.',
