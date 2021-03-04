@@ -81,38 +81,6 @@ function UserTopics(props) {
         }
     }
 
-    const CreateTopicModal = () => {
-        return(
-            <Modal
-                    closeTimeoutMS={500}
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    className="create-topic__modal"
-                >
-                    <img 
-                        src={CancelIcon} 
-                        alt="cancel"
-                        className="modal__cancel-icon"
-                        onClick={closeModal}
-                    />
-                    <div className="create-topic__title">{strings.userTopics.modal.title}</div>
-                    <input 
-                        className="create-topic__input" 
-                        type="text" 
-                        placeholder={strings.userTopics.modal.inputPlaceholder}
-                        onChange={onTopicNameChange}
-                    />
-                    <div className="create-topic__error">{modalError}</div>
-                    <button 
-                        className="create-topic__button" 
-                        type="submit"
-                        onClick={createTopic}
-                    >{strings.userTopics.modal.createButtonText}
-                    </button>
-                </Modal>
-        );
-    }
-
     const FilteredTopicElements = () => {
         return(
             userTopics && userTopics.filter((topic) => {
@@ -145,8 +113,33 @@ function UserTopics(props) {
     else {
         return (
             <div className="topics">
-                <CreateTopicModal />
-                <div className="topics-title">{strings.userTopics.title}</div>
+                <Modal
+                    closeTimeoutMS={500}
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    className="create-topic__modal"
+                >
+                    <img 
+                        src={CancelIcon} 
+                        alt="cancel"
+                        className="modal__cancel-icon"
+                        onClick={closeModal}
+                    />
+                    <div className="create-topic__title">{strings.userTopics.modal.title}</div>
+                    <input 
+                        className="create-topic__input" 
+                        type="text" 
+                        placeholder={strings.userTopics.modal.inputPlaceholder}
+                        onChange={onTopicNameChange}
+                    />
+                    <div className="create-topic__error">{modalError}</div>
+                    <button 
+                        className="create-topic__button" 
+                        type="submit"
+                        onClick={createTopic}
+                    >{strings.userTopics.modal.createButtonText}
+                    </button>
+                </Modal>
                 <div className="topic-list">
                     <div>
                         <TopicElement 

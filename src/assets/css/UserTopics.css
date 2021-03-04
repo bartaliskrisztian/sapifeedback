@@ -20,11 +20,12 @@
   box-shadow: 2px 2px 7px #000;
   border-radius: 8px;
   margin: 20px;
+  background: var(--navbar_color);
 }
 
 .topic-element:hover {
   cursor: pointer;
-  box-shadow: 2px 2px 10px #000;
+  box-shadow: 2px 2px 10px var(--app_color_light_hover);
 }
 
 .topic-add {
@@ -64,7 +65,7 @@
 }
 
 .topic__more-icon:hover {
-  box-shadow: 2px 2px 7px var(--hover_color);
+  box-shadow: 2px 2px 7px var(--app_color_light_hover);
 }
 
 .topic-element__dropdown {
@@ -76,7 +77,7 @@
   margin: 5px 10px 0 0;
   overflow: hidden;
   position: absolute;
-  background: #fff;
+  background: var(--app_color);
   right: 20px;
 }
 
@@ -90,7 +91,7 @@
 }
 
 .more-dropdown__element:hover {
-  background: var(--hover_color);
+  background: var(--app_color_light);
 }
 
 .topic-element__name {
@@ -105,18 +106,19 @@
 }
 
 .create-topic__modal {
-  height: 50%;
+  height: 40%;
   width: 50%;
   border-radius: 8px;
   box-shadow: 2px 2px 7px #000;
   border: none;
   outline: none;
-  background: var(--modal_background);
+  background: var(--app_color);
   margin: auto;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
   padding: 20px;
+  color: var(--font-color);
 }
 
 .modal__cancel-icon {
@@ -137,13 +139,18 @@
 .create-topic__input {
   outline: none;
   border: none;
-  border-bottom: 1px solid var(--app_color);
-  background: var(--hover_color);
+  background: var(--app_color_light);
   width: 50%;
   font-size: 24px;
   font-weight: bold;
   color: var(--app_color);
   margin-top: 40px;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.create-topic__input:hover {
+  background: var(--app_color_light_hover);
 }
 
 .create-topic__error {
@@ -158,8 +165,9 @@
   padding: 5px 20px;
   border-radius: 4px;
   border: none;
-  background: var(--button_grey);
+  background: var(--app_color_light);
   margin-top: 40px;
+  color: var(--font-color);
 }
 
 .create-topic__button:focus {
@@ -168,7 +176,7 @@
 
 .create-topic__button:hover {
   cursor: pointer;
-  background: var(--hover_color_dark);
+  background: var(--app_color_light_hover);
 }
 
 .topic-loader {

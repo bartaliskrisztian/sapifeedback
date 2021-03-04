@@ -3,7 +3,7 @@
 .navbar {
   width: 100%;
   height: 40px;
-  background: var(--app_color);
+  background: var(--navbar_color);
   padding: 5px 0;
   position: fixed;
   top: 0;
@@ -11,8 +11,9 @@
 }
 
 .navbar-menus {
-  padding: 10px;
+  padding: 10px 20px 10px 10px;
   display: flex;
+  margin-left: auto;
 }
 
 .navbar-menus__element {
@@ -21,23 +22,16 @@
   color: #fff;
   font-size: 20px;
   text-decoration: none;
+  background: var(--app_color_light);
+  padding: 5px;
+  border-radius: 8px;
 }
 
-.navbar-menus__element:after {
-  content: "";
-  display: block;
-  border-bottom: 3px solid #fff;
-  width: 0;
-  -webkit-transition: 300ms ease;
-  transition: 300ms ease;
-}
-
-.navbar-menus__element:hover:after {
-  width: 100%;
+.navbar-menus__element:hover {
+  background: var(--app_color_light_hover);
 }
 
 .user-menu {
-  margin-left: auto;
   margin-right: 20px;
   height: 100%;
 }
@@ -62,7 +56,7 @@
   align-items: center;
   justify-content: space-evenly;
   overflow: hidden;
-  background: #fff;
+  background: var(--app_color_light);
 
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -86,4 +80,11 @@
 
 .profile-dropdown__name {
   font-weight: 900;
+}
+
+.topic-name {
+  align-self: center;
+  color: var(--button_grey);
+  font-size: 30px;
+  padding-left: 20px;
 }

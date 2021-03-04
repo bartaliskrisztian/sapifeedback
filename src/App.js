@@ -11,6 +11,7 @@ function App() {
 
   const [user, setUser] = useState(null);
   const [searchText, setSearchText] = useState("");
+  const [currentTopicName, setCurrentTopicName] = useState("");
 
   const onSearch = (e) => {
     setSearchText(e.target.value);
@@ -23,7 +24,7 @@ function App() {
           <Route exact path="/" render={() => {
             return (
               <div>
-                <Navbar user={user} setUser={setUser} onSearch={onSearch} />
+                <Navbar user={user} setUser={setUser} onSearch={onSearch} page="home"/>
                 <Home user={user} setUser={setUser} searchText={searchText} />
               </div>
             );
@@ -31,8 +32,13 @@ function App() {
           <Route path="/topic/:userId/:topicId" render={()=> {
             return (
               <div>
-                <Navbar user={user} setUser={setUser} />
-                <Topic />
+                <Navbar 
+                  user={user} 
+                  setUser={setUser} 
+                  page="topic" 
+                  topicName={currentTopicName}
+                />
+                <Topic setTopicName={setCurrentTopicName}/>
               </div>
             );
           }} />

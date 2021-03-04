@@ -34,7 +34,7 @@ function Login(props) {
                 onSuccess={responseGoogleSuccess}
                 onFailure={responseGoogleFailure}
                 cookiePolicy={'single_host_origin'}
-                isSignedIn={false}
+                isSignedIn={true}
                 className="login-button"
             />
         </div>

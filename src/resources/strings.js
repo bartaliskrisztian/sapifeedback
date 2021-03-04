@@ -57,10 +57,10 @@ const strings = {
     },
     HU: {
         login: {
-            loginButtonText: 'Regisztráljon vagy jelentkezen be Google Account segítségével'
+            loginButtonText: 'Regisztráljon vagy jelentkezzen be Google Account segítségével'
         },
         navbar: {
-            myTopicsMenu: 'Témák',
+            myTopicsMenu: 'Témáid',
             searchBarText: 'Keress a témáid között',
             logoutButtonText: 'Kijelentkezés'
         },

@@ -1,3 +1,5 @@
+@import url("../../resources/colors.css");
+
 html,
 body,
 #root,
@@ -7,4 +9,6 @@ body,
   margin: 0;
   height: 100%;
   font-family: sans-serif;
+  background: var(--app_color);
+  color: var(--font-color);
 }

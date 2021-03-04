@@ -59,8 +59,9 @@ function Navbar(props) {
     if(props.user) {
         return (
             <div className="navbar">
+                {props.page === "home" && <SearchBar onSearch={props.onSearch} />}
+                {props.page === "topic" && <div className="topic-name">{props.topicName}:</div>}
                 <Menus />
-                <SearchBar onSearch={props.onSearch} />
                 <ProfileMenu />
             </div>
         );

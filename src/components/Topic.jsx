@@ -8,7 +8,7 @@ import DeleteIcon from "../assets/images/trash.svg";
 import "../assets/css/Topic.css";
 import stringRes from "../resources/strings";
 
-function Topic() {
+function Topic(props) {
 
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
@@ -58,6 +58,7 @@ function Topic() {
         db.ref(`topics/${userGoogleId}/${topicId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
                 setTopicName(snapshot.val().topicName);
+                props.setTopicName(snapshot.val().topicName);
                 setTopicDate(snapshot.val().topicDate);
                 getTopicReports(topicId);
             }
@@ -121,7 +122,6 @@ function Topic() {
         return (
             <div className="topic-detail">
                 <DeleteTopicModal />
-                <div className="topic-detail__title">{topicName}</div >
                 <Reports reports={topicReports} />
             </div>
         );
