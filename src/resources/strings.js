@@ -88,7 +88,8 @@ const strings = {
                 cancelButtonText: 'Mégsem'
             },
             deleteButtonText: 'Téma törlése',
-            notExistsText: 'Nem létezik ez a téma.'
+            notExistsText: 'Nem létezik ez a téma.',
+            menus: ["Bejelentések","Statisztikák"]
         },
         report: {
             title: 'NÉVTELENÜL BEJELENTHETI BÁRMILYEN PROBLÉMÁJÁT A TÉMÁVAL KAPCSOLATOSAN:',

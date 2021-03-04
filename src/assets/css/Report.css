@@ -2,7 +2,6 @@
   height: 100%;
   width: 100%;
   flex-direction: column;
-  background: #256e43;
 }
 
 .report-container__content {
@@ -13,7 +12,6 @@
 }
 
 .info {
-  color: #fff;
   font-size: large;
   font-family: Arial, Helvetica, sans-serif;
   padding: 20px;
@@ -29,7 +27,6 @@
 }
 
 .source-code {
-  color: #fff;
   font-size: large;
   font-family: Arial, Helvetica, sans-serif;
   padding: 10px;
@@ -62,9 +59,9 @@
   border: none;
   font-size: large;
   text-align: start;
-  background: #f5ecec;
-  color: rgb(94, 90, 90);
-  box-shadow: 2px 2px 7px #dbdbdb;
+  background: var(--app_color_light);
+  color: var(--font-color);
+  box-shadow: 2px 2px 7px #000;
   align-self: center;
   padding: 10px;
 }
@@ -84,7 +81,7 @@
   padding: 15px 40px;
   font-weight: 500;
   font-size: 20px;
-  background: #c0bebe;
+  background: var(--app_color_light_hover);
   transition: background 300ms ease;
   margin: 10px;
 }
@@ -102,7 +99,7 @@
   color: red;
   font-size: large;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #fff;
+  background-color: var(--app_color_light_hover);
   border-radius: 10px;
   padding: 10px;
   margin: 5px;

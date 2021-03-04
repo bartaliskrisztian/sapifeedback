@@ -56,12 +56,21 @@ function Navbar(props) {
         );
     }
 
+    const topicOptions = strings.topic.menus;
+
     if(props.user) {
         return (
             <div className="navbar">
                 {props.page === "home" && <SearchBar onSearch={props.onSearch} />}
                 {props.page === "topic" && <div className="topic-name">{props.topicName}:</div>}
-                <Menus />
+                {props.page === "topic" &&
+                <div className="topic-menu__container">
+                    {topicOptions.map((menu, index) => 
+                        console.log(window.location)
+                    )}
+                </div>
+                }
+                <Menus />  
                 <ProfileMenu />
             </div>
         );

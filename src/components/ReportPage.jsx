@@ -41,6 +41,9 @@ function ReportPage() {
 
     const handleTextChange = (e) => {
         setReportText(e.target.value);
+        if(error) {
+            setError("");
+        }
     }
 
     const onCaptchaChange = (token) => {

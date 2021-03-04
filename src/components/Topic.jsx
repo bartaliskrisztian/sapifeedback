@@ -75,7 +75,7 @@ function Topic(props) {
             }
             else
             {
-                console.log("rip");
+                setTopicReports([]);
             }
         });
     }
@@ -122,7 +122,8 @@ function Topic(props) {
         return (
             <div className="topic-detail">
                 <DeleteTopicModal />
-                <Reports reports={topicReports} />
+                {topicReports.length > 0 && <Reports reports={topicReports} />}
+                
             </div>
         );
     }

@@ -25,10 +25,10 @@ function ImageDropzone(prop) {
         border: 1,
         borderRadius: 10,
         borderColor: "#eeeeee",
-        borderStyle: "dashed",
-        boxShadow: '2px 2px 7px #dbdbdb',
-        backgroundColor: "#f5ecec",
-        color: 'rgb(94, 90, 90)',
+        // borderStyle: "dashed",
+        boxShadow: '2px 2px 7px #000',
+        backgroundColor: "#3a3b3c",
+        color: '#cfd1d5',
         fontSize: 'large',
         outline: "none",
         transition: "border .24s ease-in-out",
@@ -105,7 +105,6 @@ function ImageDropzone(prop) {
             });
         }
     });
-
 
     // removes all images from the dropzone and from the state
     const removeImages = () => {
