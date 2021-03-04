@@ -1,16 +1,20 @@
 import React from "react";
 import "../assets/css/Reports.css";
+import stringRes from "../resources/strings";
 
 
 function Reports(props) {
   
+    let language = process.env.REACT_APP_LANGUAGE;
+    let strings = stringRes[language];
+    
     const ReportTableRow = () => {
         return (
             <table className="topic-reports">
                 <tbody>
                     <tr className='topic-reports__row-header'>
-                        <th className='topic-reports__header text'>Text</th>
-                        <th className='topic-reports__header image'>Image</th>
+                        <th className='topic-reports__header text'>{strings.topic.reports.reportText}</th>
+                        <th className='topic-reports__header image'>{strings.topic.reports.reportImage}</th>
                     </tr>
               {props.reports && props.reports.map((report) => (
                 <tr key={report.date} className="topic-reports__row">
@@ -27,6 +31,7 @@ function Reports(props) {
                                 className="topic-reports__image"
                             /> 
                         </a>
+                        {/* <div>{new Date(report.date*1000).toString()}</div> */}
                     </td>
                 </tr>
               ))}

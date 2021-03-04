@@ -2,18 +2,19 @@
 
 .topic-reports__container {
   width: max-content;
-  margin: 20px;
+  margin: 20px auto;
 }
 
 .topic-reports {
   border-radius: 8px;
   box-shadow: 2px 2px 4px #000;
-  background: var(--modal_background);
+  background: var(--app_color_light_hover);
 }
 
 .topic-reports__row-header {
-  box-shadow: 0 2px #000;
+  box-shadow: 0 2px var(--font-color);
   height: 50px;
+  background: var(--app_color_light);
 }
 
 .topic-reports__header {
@@ -22,18 +23,18 @@
 }
 
 .topic-reports__header.text {
-  box-shadow: 2px 0 #000;
+  box-shadow: 2px 0 var(--font-color);
 }
 
 .topic-reports__row {
-  box-shadow: 0 1px var(--button_grey);
+  box-shadow: 0 1px var(--font-color);
 }
 
 .topic-reports__cell-text {
   width: 500px;
   height: 250px;
   padding: 20px;
-  box-shadow: 1px 0 var(--button_grey);
+  box-shadow: 1px 0 var(--font-color);
 }
 
 .topic-reports__cell-image {

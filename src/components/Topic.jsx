@@ -20,6 +20,7 @@ function Topic(props) {
     const [modalIsOpen, setIsOpen] = useState(false);
 
     const [topicExists, setTopicExists] = useState(true);
+    const [topicPage, setTopicPage] = useState(0);
 
     const [userGoogleId, setUserGoogleId] = useState(null);
     const [topicId, setTopicId] = useState(null);
@@ -45,6 +46,13 @@ function Topic(props) {
         }
         // eslint-disable-next-line
     }, [params]);
+
+
+    useEffect(() => {
+        const page = new URLSearchParams(history.location.search).get("page");
+        setTopicPage(page);        
+        // eslint-disable-next-line
+    }, [history.location.search]);
 
     function openModal() {
         setIsOpen(true);
@@ -122,7 +130,7 @@ function Topic(props) {
         return (
             <div className="topic-detail">
                 <DeleteTopicModal />
-                {topicReports.length > 0 && <Reports reports={topicReports} />}
+                {topicPage == 0 && topicReports.length > 0 && <Reports reports={topicReports} />}
                 
             </div>
         );

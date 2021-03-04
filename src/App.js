@@ -38,7 +38,9 @@ function App() {
                   page="topic" 
                   topicName={currentTopicName}
                 />
-                <Topic setTopicName={setCurrentTopicName}/>
+                <Topic 
+                  setTopicName={setCurrentTopicName}
+                />
               </div>
             );
           }} />

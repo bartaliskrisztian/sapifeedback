@@ -100,4 +100,5 @@
   align-self: center;
   color: var(--font-color);
   padding: 5px;
+  border-radius: 8px;
 }

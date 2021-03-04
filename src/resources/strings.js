@@ -89,7 +89,11 @@ const strings = {
             },
             deleteButtonText: 'Téma törlése',
             notExistsText: 'Nem létezik ez a téma.',
-            menus: ["Bejelentések","Statisztikák"]
+            menus: ["Bejelentések","Statisztikák"],
+            reports: {
+                reportText: "Szöveg",
+                reportImage: "Csatolt kép"
+            }
         },
         report: {
             title: 'NÉVTELENÜL BEJELENTHETI BÁRMILYEN PROBLÉMÁJÁT A TÉMÁVAL KAPCSOLATOSAN:',
