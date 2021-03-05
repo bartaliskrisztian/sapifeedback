@@ -18,6 +18,7 @@ function Topic(props) {
 
     // for displaying the modal
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [topicExists, setTopicExists] = useState(true);
     const [topicPage, setTopicPage] = useState(0);
@@ -25,8 +26,7 @@ function Topic(props) {
     const [userGoogleId, setUserGoogleId] = useState(null);
     const [topicId, setTopicId] = useState(null);
 
-    const [topicName, setTopicName] = useState("");
-    const [topicDate, setTopicDate] = useState("");
+    const [topic, setTopic] = useState({});
     const [topicReports, setTopicReports] = useState([]);
 
     // fetching the details of a topic before rendering
@@ -65,13 +65,14 @@ function Topic(props) {
     const getTopicDetails = (userGoogleId, topicId) => {
         db.ref(`topics/${userGoogleId}/${topicId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
-                setTopicName(snapshot.val().topicName);
                 props.setTopicName(snapshot.val().topicName);
-                setTopicDate(snapshot.val().topicDate);
+                setTopic(snapshot.val());
                 getTopicReports(topicId);
+                setIsLoading(false);    
             }
             else {
                 setTopicExists(false);
+                setIsLoading(false);
             }
         });
     }
@@ -115,6 +116,19 @@ function Topic(props) {
         );
     }
 
+    const ReportsTable = () => {
+        if(topicPage == 0 && topicReports.length > 0) {
+            return(
+                <Reports reports={topicReports} />
+            );
+        }
+        if(topicPage == 0 && topicReports.length == 0) {
+            return(
+                <h1 className="topic__no-reports">{strings.topic.noReports}</h1>
+            );
+        }
+    }
+
     const DeleteTopicButton = () => {
         <button 
             type="submit" 
@@ -130,8 +144,23 @@ function Topic(props) {
         return (
             <div className="topic-detail">
                 <DeleteTopicModal />
-                {topicPage == 0 && topicReports.length > 0 && <Reports reports={topicReports} />}
-                
+                {topicPage == 0 && (
+                    <div>
+                        <ul>
+                            <li>
+                                {strings.topic.reports.reportUrl}: 
+                                <a 
+                                    href={topic.reportUrl} 
+                                    target="blank"
+                                    className="topic-detail__reportUrl"
+                                >
+                                    {topic.reportUrl}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>)}
+                {!isLoading && <ReportsTable />}
+                {isLoading && <div className="topic-loader"></div>}
             </div>
         );
     }

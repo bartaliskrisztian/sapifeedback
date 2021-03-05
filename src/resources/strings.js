@@ -60,8 +60,8 @@ const strings = {
             loginButtonText: 'Regisztráljon vagy jelentkezzen be Google Account segítségével'
         },
         navbar: {
-            myTopicsMenu: 'Témáid',
-            searchBarText: 'Keress a témáid között',
+            myTopicsMenu: 'Témái',
+            searchBarText: 'Keressen a témái között',
             logoutButtonText: 'Kijelentkezés'
         },
         userTopics: {
@@ -69,11 +69,11 @@ const strings = {
             createTopicText: 'Téma létrehozása',
             modal: {
                 title: 'Téma létrehozása',
-                inputPlaceholder: 'Írd be a téma nevét',
+                inputPlaceholder: 'Írja be a téma nevét',
                 createButtonText: 'Létrehoz',
                 errorText: {
                     usedTopicName: 'már van ilyen nevű témád',
-                    emptyTopicName: 'írd be a téma nevét'
+                    emptyTopicName: 'írja be a téma nevét'
                 }
             },
             menu: {
@@ -90,9 +90,11 @@ const strings = {
             deleteButtonText: 'Téma törlése',
             notExistsText: 'Nem létezik ez a téma.',
             menus: ["Bejelentések","Statisztikák"],
+            noReports: "Még nincsenek bejelentések.",
             reports: {
                 reportText: "Szöveg",
-                reportImage: "Csatolt kép"
+                reportImage: "Csatolt kép",
+                reportUrl: "Link a bejelentéshez"
             }
         },
         report: {

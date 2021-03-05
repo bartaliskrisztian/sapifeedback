@@ -26,6 +26,10 @@
   padding: 10px;
 }
 
+.info-text__topic-name {
+  color: red;
+}
+
 .source-code {
   font-size: large;
   font-family: Arial, Helvetica, sans-serif;
@@ -33,7 +37,7 @@
 }
 
 .source-code__link {
-  color: #c0bebe;
+  color: var(--link-color);
 }
 
 .report-text,

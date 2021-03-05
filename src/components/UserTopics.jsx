@@ -14,16 +14,14 @@ function UserTopics(props) {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalError, setModalError] = useState("");
     const [topicName, setTopicName] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [userTopics, setUserTopics] = useState(null);
 
     // fetching the topics based on the user
     useEffect(() => {
-        setIsLoading(true);
         if(props.user != null) {
             getUserTopics();
         }
-        setIsLoading(false);
         // eslint-disable-next-line
     }, []);
 
@@ -32,6 +30,7 @@ function UserTopics(props) {
             if(snapshot.val()) {
                 setUserTopics(Object.entries(snapshot.val()));
             }
+            setIsLoading(false);
         });
     }
 
@@ -105,55 +104,49 @@ function UserTopics(props) {
 
     Modal.setAppElement("#root");
 
-    if(isLoading) {
-        return (
-            <div className="topic-loader"></div>
-        );
-    }
-    else {
-        return (
-            <div className="topics">
-                <Modal
-                    closeTimeoutMS={500}
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    className="create-topic__modal"
-                >
-                    <img 
-                        src={CancelIcon} 
-                        alt="cancel"
-                        className="modal__cancel-icon"
-                        onClick={closeModal}
+    return (
+        <div className="topics">
+            <Modal
+                closeTimeoutMS={500}
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                className="create-topic__modal"
+            >
+                <img 
+                    src={CancelIcon} 
+                    alt="cancel"
+                    className="modal__cancel-icon"
+                    onClick={closeModal}
+                />
+                <div className="create-topic__title">{strings.userTopics.modal.title}</div>
+                <input 
+                    className="create-topic__input" 
+                    type="text" 
+                    placeholder={strings.userTopics.modal.inputPlaceholder}
+                    onChange={onTopicNameChange}
+                />
+                <div className="create-topic__error">{modalError}</div>
+                <button 
+                    className="create-topic__button" 
+                    type="submit"
+                    onClick={createTopic}
+                >{strings.userTopics.modal.createButtonText}
+                </button>
+            </Modal>
+            <div className="topic-list">
+                <div>
+                    <TopicElement 
+                    type="add" 
+                    onClick={openModal} 
+                    onClose={closeModal}
                     />
-                    <div className="create-topic__title">{strings.userTopics.modal.title}</div>
-                    <input 
-                        className="create-topic__input" 
-                        type="text" 
-                        placeholder={strings.userTopics.modal.inputPlaceholder}
-                        onChange={onTopicNameChange}
-                    />
-                    <div className="create-topic__error">{modalError}</div>
-                    <button 
-                        className="create-topic__button" 
-                        type="submit"
-                        onClick={createTopic}
-                    >{strings.userTopics.modal.createButtonText}
-                    </button>
-                </Modal>
-                <div className="topic-list">
-                    <div>
-                        <TopicElement 
-                        type="add" 
-                        onClick={openModal} 
-                        onClose={closeModal}
-                        />
-                    </div>
-                    {/* filtering the topics by the searchbar input */}
-                    <FilteredTopicElements />
                 </div>
+                {/* filtering the topics by the searchbar input */}
+                {isLoading && <div className="user-topics__loader"></div>}
+                {!isLoading && <FilteredTopicElements />}
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default UserTopics;

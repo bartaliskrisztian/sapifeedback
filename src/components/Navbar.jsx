@@ -34,8 +34,11 @@ function Navbar(props) {
     }
     
     const changeMenuColor = (topicPage) => {
-        let temp = document.getElementById("topic-menu__container").children;
-        let elements = Array.from(temp);
+        let temp = document.getElementById("topic-menu__container");
+        if(!temp) {
+            return;
+        }
+        let elements = Array.from(temp.children);
         elements.forEach(element => {
             if(element.id === topicPage) {
                 element.style.background = "#3a3b3c";

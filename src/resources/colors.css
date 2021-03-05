@@ -1,12 +1,8 @@
 :root {
-  /* --app_color: #256e43; */
   --app_color: #18191a;
   --app_color_light: #3a3b3c;
   --app_color_light_hover: #4e4f50;
   --navbar_color: #242526;
-  --modal_background: #f2f2f2;
-  --hover_color: #f2f2f2;
-  --hover_color_dark: #acaaaa;
-  --button_grey: #c4c0c0;
   --font-color: #cfd1d5;
+  --link-color: #444d7c;
 }

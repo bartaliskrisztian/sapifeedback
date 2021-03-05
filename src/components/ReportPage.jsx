@@ -5,7 +5,7 @@ import {db, storage} from "../database/firebase";
 import firebase from "firebase/app";
 import { useHistory, useParams } from "react-router-dom";
 import stringRes from "../resources/strings";
-import "../assets/css/Report.css";
+import "../assets/css/ReportPage.css";
 
 function ReportPage() {
 
@@ -17,12 +17,16 @@ function ReportPage() {
     let strings = stringRes[language];
 
     const [files, setFiles] = useState([]); // for storing image(s) uploaded by user
+
     const [reportText, setReportText] = useState(""); // text reported by user
     const [error, setError] = useState("");
+
     const [isUploading, setIsUploading] = useState(false);
     const sourceCode = strings.report.sourceCode;
+
     const [userId, setUserId] = useState(null);
     const [topicId, setTopicId] = useState(null);
+    const [topic, setTopic] = useState({});
 
     useEffect(() => {
         
@@ -32,12 +36,22 @@ function ReportPage() {
         if(userid !== null && topicid !== null) {
            setUserId(userid);
            setTopicId(topicid);
+           getTopicDetails(userid, topicid);
         }
         else {
             history.push("/");
         }
         // eslint-disable-next-line
     }, []);
+
+
+    const getTopicDetails = (userGoogleId, topicId) => {
+        db.ref(`topics/${userGoogleId}/${topicId}`).on("value", (snapshot) => {
+            if(snapshot.val()) {
+                setTopic(snapshot.val());
+            }
+        });
+    }
 
     const handleTextChange = (e) => {
         setReportText(e.target.value);
@@ -144,6 +158,7 @@ function ReportPage() {
                     <div className="info">
                         <div className="info-text">
                             {strings.report.title}
+                            <span className="info-text__topic-name">  {topic.topicName}</span>
                         </div>
                     
                     </div>

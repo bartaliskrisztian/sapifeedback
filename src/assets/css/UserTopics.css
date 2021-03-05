@@ -1,4 +1,5 @@
 @import url("../../resources/colors.css");
+@import url("./index.css");
 
 .home {
   height: 100%;
@@ -143,7 +144,7 @@
   width: 50%;
   font-size: 24px;
   font-weight: bold;
-  color: var(--app_color);
+  color: var(--font-color);
   margin-top: 40px;
   padding: 10px;
   border-radius: 20px;
@@ -179,38 +180,12 @@
   background: var(--app_color_light_hover);
 }
 
-.topic-loader {
-  border: 8px solid var(--hover_color);
-  border-top: 8px solid var(--app_color);
+.user-topics__loader {
+  border: 4px solid var(--font-color);
+  border-top: 4px solid var(--app_color);
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   animation: spin 1s linear infinite;
-  margin: auto;
-  margin-top: 50px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.ReactModal__Overlay {
-  opacity: 0;
-  transform: translateX(-100px);
-  transition: all 500ms ease-in-out;
-}
-
-.ReactModal__Overlay--after-open {
-  opacity: 1;
-  transform: translateX(0px);
-}
-
-.ReactModal__Overlay--before-close {
-  opacity: 0;
-  transform: translateX(-100px);
+  margin: 100px 0 0 50px;
 }

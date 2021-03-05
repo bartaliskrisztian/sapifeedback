@@ -42,7 +42,7 @@ function Reports(props) {
 
     return (
         <div className="topic-reports__container">
-          <ReportTableRow />
+            <ReportTableRow />
         </div>
     );
 }
