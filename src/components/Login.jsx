@@ -14,6 +14,7 @@ function Login(props) {
     // if the login is successful, set the user and go to homepage
     const responseGoogleSuccess = (response) => {
         props.setUser(response.profileObj);
+        window.store.dispatch({type: "UPDATE_USER", payload: response.profileObj});
         history.push("/");
     }
 

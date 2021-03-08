@@ -18,6 +18,7 @@ function TopicElement(props) {
 
     const archiveTopic= () => {
         db.ref(`topics/${props.userid}/${props.topicid}`).update({isArchived: 'true'});
+        props.onArchive("Sikeresen archiválta a témát.");
     }
 
     const copyUrlToClipboard = () => {

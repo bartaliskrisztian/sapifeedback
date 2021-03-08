@@ -98,6 +98,7 @@ function UserTopics(props) {
                               date={topic[1].date}
                               topicid={topic[0]}
                               userid={props.user.googleId}
+                              onArchive={notifySuccess}
                           />
                       );
               }})

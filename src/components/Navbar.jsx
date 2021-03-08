@@ -52,7 +52,8 @@ function Navbar(props) {
     const Menus = () => {
         return(
             <div className="navbar-menus">
-                <Link className="navbar-menus__element" to="/">{strings.navbar.myTopicsMenu}</Link>
+                {window.location.hash !== "#/" && <Link className="navbar-menus__element" to="/">{strings.navbar.myTopicsMenu}</Link>}
+                
             </div>
         );
     }
