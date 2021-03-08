@@ -154,12 +154,6 @@
   background: var(--app_color_light_hover);
 }
 
-.create-topic__error {
-  font-size: 20px;
-  color: red;
-  margin-top: 10px;
-}
-
 .create-topic__button {
   width: fit-content;
   font-size: 24px;

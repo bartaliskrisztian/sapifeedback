@@ -1,6 +1,7 @@
 import React from "react";
 import "../assets/css/Reports.css";
 import stringRes from "../resources/strings";
+import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 
 
 function Reports(props) {
@@ -24,10 +25,14 @@ function Reports(props) {
                         </div>
                     </td>
                     <td className="topic-reports__cell-image">
-                        <a href={report.imageUrl} target="blank">
+                        <a 
+                            href={report.imageUrl ? report.imageUrl : ImagePlaceholder} 
+                            target="blank"
+                            className="topic-reports__image-holder"
+                        >
                             <img 
                                 alt="report" 
-                                src={report.imageUrl}
+                                src={report.imageUrl ? report.imageUrl : ImagePlaceholder}
                                 className="topic-reports__image"
                             /> 
                         </a>

@@ -4,8 +4,10 @@ import ImageDropzone from "./ImageDropzone";
 import {db, storage} from "../database/firebase";
 import firebase from "firebase/app";
 import { useHistory, useParams } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
 import stringRes from "../resources/strings";
 import "../assets/css/ReportPage.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 function ReportPage() {
 
@@ -19,7 +21,6 @@ function ReportPage() {
     const [files, setFiles] = useState([]); // for storing image(s) uploaded by user
 
     const [reportText, setReportText] = useState(""); // text reported by user
-    const [error, setError] = useState("");
 
     const [isUploading, setIsUploading] = useState(false);
     const sourceCode = strings.report.sourceCode;
@@ -53,17 +54,15 @@ function ReportPage() {
         });
     }
 
+    const notifySuccess = (message) => toast.success(message);
+    const notifyError = (message) => toast.error(message);
+
     const handleTextChange = (e) => {
         setReportText(e.target.value);
-        if(error) {
-            setError("");
-        }
     }
 
     const onCaptchaChange = (token) => {
-        if(token !== "" && token !== null) {
-            setError("");
-        }
+      
     }
 
     // resets state values and reCaptcha
@@ -83,7 +82,7 @@ function ReportPage() {
             const snapshot = await storage.ref("report_images").child(name).put(blob);
             return await snapshot.ref.getDownloadURL();
         } catch (error) {
-            throw error;
+            notifyError(error);
         }
     }
 
@@ -99,7 +98,7 @@ function ReportPage() {
             text: reportText,
             imageUrl: url,
             topicOwnerId: userId
-        }).catch((error) => setError(error));
+        }).catch((error) => notifyError(error));
 
     }
 
@@ -109,7 +108,7 @@ function ReportPage() {
             try {
                 const url = uploadFromBlobAsync({
                     blobUrl: URL.createObjectURL(files[0]),
-                    name: `${files[0].name}_${Date.now()}`
+                    name: files[0].name
                 })
                 url.then((downloadURL) => {
                     uploadReport(downloadURL);
@@ -118,27 +117,29 @@ function ReportPage() {
             }
             catch (e) {
                 setIsUploading(false)
-                setError(e.message)
+                notifyError(e.message)
                 return
             }
+        }
+        else {
+            uploadReport(null);
         }
     }
 
 
     // when the user presses the submit button
     const onSubmitWithReCAPTCHA = async () => {
-        setError("");
         const token = await recaptchaRef.current.props.grecaptcha.getResponse();
         // if the reCaptcha's token is empty string or null, means that the user did not solve the captcha
         
         if(token === "" || token === null) {
-            setError(strings.report.errorText.notRobot)
+            notifyError(strings.report.errorText.notRobot);
             return;
         }
 
         // if the given text for report is too short
         if(reportText.length < 20) {
-            setError(strings.report.errorText.shortReport)
+            notifyError(strings.report.errorText.shortReport);
             return;
         }
         setIsUploading(true); // setting up loader
@@ -146,7 +147,7 @@ function ReportPage() {
         setIsUploading(false);
 
         // providing success message for 2 secs
-        setError(strings.report.errorText.successfulReport);
+        notifySuccess(strings.report.errorText.successfulReport);
         
         resetPage();
     }
@@ -189,7 +190,6 @@ function ReportPage() {
                 </div>
             </div>
             <div className="bottom-submit__container">
-                {error && <div className="error-message">{error}</div>}
                 <div className="submit-container">
                     <ReCAPTCHA 
                         className="recaptcha"
@@ -197,10 +197,18 @@ function ReportPage() {
                         sitekey = {process.env.REACT_APP_RECAPTCHA_SITE_KEY}
                         onChange = {onCaptchaChange}
                     />
-                    <button className="submit-button" type="submit" onClick={onSubmitWithReCAPTCHA}>{strings.report.submitButtonText}</button>
+                    <button className="submit-button" type="submit" onClick={onSubmitWithReCAPTCHA} >{strings.report.submitButtonText}</button>
+                    {/*  */}
                     {isUploading && (<div className="loader"></div>)}
                 </div>
             </div>
+            <ToastContainer 
+                position="bottom-right"
+                pauseOnHover={false}
+                hideProgressBar={true}
+                autoClose={3000}
+                closeOnClick={false}
+            />
         </div>
     );
 }

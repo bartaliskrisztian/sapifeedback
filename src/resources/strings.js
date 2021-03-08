@@ -72,8 +72,8 @@ const strings = {
                 inputPlaceholder: 'Írja be a téma nevét',
                 createButtonText: 'Létrehoz',
                 errorText: {
-                    usedTopicName: 'már van ilyen nevű témád',
-                    emptyTopicName: 'írja be a téma nevét'
+                    usedTopicName: 'Már van ilyen nevű témája.',
+                    emptyTopicName: 'Írja be a téma nevét.'
                 }
             },
             menu: {

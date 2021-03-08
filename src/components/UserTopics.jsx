@@ -4,7 +4,10 @@ import Modal from "react-modal";
 import CancelIcon from "../assets/images/cancel.svg";
 import {db} from "../database/firebase";
 import stringRes from "../resources/strings";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../assets/css/UserTopics.css";
+
 
 function UserTopics(props) {
 
@@ -12,7 +15,6 @@ function UserTopics(props) {
     let strings = stringRes[language];
     
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [modalError, setModalError] = useState("");
     const [topicName, setTopicName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [userTopics, setUserTopics] = useState(null);
@@ -25,6 +27,7 @@ function UserTopics(props) {
         // eslint-disable-next-line
     }, []);
 
+
     const getUserTopics = () => {
         db.ref(`topics/${props.user.googleId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
@@ -34,8 +37,10 @@ function UserTopics(props) {
         });
     }
 
-    // functions for modal
+    const notifySuccess = (message) => toast.success(message);
+    const notifyError = (message) => toast.error(message);
 
+    // functions for modal
     function openModal() {
         setIsOpen(true);
     }
@@ -47,21 +52,18 @@ function UserTopics(props) {
 
     const onTopicNameChange = (e) => {
         setTopicName(e.target.value);
-        if(modalError !== "") {
-            setModalError("");
-        }
     }
 
     const createTopic = () => {
         if(topicName === "") {
-            setModalError(strings.userTopics.modal.errorText.emptyTopicName);
+            notifyError(strings.userTopics.modal.errorText.emptyTopicName);
             return false;
         }
 
         let ok = true;
         userTopics.forEach(topic => {
             if(topic[1].topicName === topicName) {
-                setModalError(strings.userTopics.modal.errorText.usedTopicName);
+                notifyError(strings.userTopics.modal.errorText.usedTopicName);
                 ok = false;
             }
         });
@@ -76,13 +78,13 @@ function UserTopics(props) {
                 date : date,
                 topicName: topicName,
                 reportUrl: reportUrl
-            }).then(closeModal).catch((error) => setModalError(error));
+            }).then(closeModal).then(notifySuccess("Sikeresen létrehozta a témát")).catch((error) => notifyError(error));
         }
     }
 
     const FilteredTopicElements = () => {
         return(
-            userTopics && userTopics.filter((topic) => {
+            userTopics && [...userTopics].filter((topic) => {
                 return props.searchText === "" ? true :
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
@@ -125,7 +127,6 @@ function UserTopics(props) {
                     placeholder={strings.userTopics.modal.inputPlaceholder}
                     onChange={onTopicNameChange}
                 />
-                <div className="create-topic__error">{modalError}</div>
                 <button 
                     className="create-topic__button" 
                     type="submit"
@@ -144,6 +145,13 @@ function UserTopics(props) {
                 {/* filtering the topics by the searchbar input */}
                 {isLoading && <div className="user-topics__loader"></div>}
                 {!isLoading && <FilteredTopicElements />}
+                <ToastContainer 
+                    position="top-center"
+                    pauseOnHover={false}
+                    hideProgressBar={true}
+                    autoClose={3000}
+                    closeOnClick={false}
+                />
             </div>
         </div>
     );

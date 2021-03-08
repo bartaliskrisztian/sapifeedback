@@ -127,6 +127,11 @@ function Topic(props) {
                 <h1 className="topic__no-reports">{strings.topic.noReports}</h1>
             );
         }
+        if(topicPage == 1) {
+            return(
+                <div></div>
+            );
+        }
     }
 
     const DeleteTopicButton = () => {

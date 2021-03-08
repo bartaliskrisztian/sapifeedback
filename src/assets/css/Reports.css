@@ -55,6 +55,8 @@
 }
 
 .topic-reports__image {
+  object-fit: none;
+  object-position: center;
   height: 100%;
   width: 100%;
 }
