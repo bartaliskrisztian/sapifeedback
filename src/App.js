@@ -1,4 +1,3 @@
-import {useState} from "react";
 import { Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Login from "./components/Login";
@@ -9,38 +8,25 @@ import ReportPage from "./components/ReportPage";
 
 function App() {
 
-  const [user, setUser] = useState(null);
-  const [searchText, setSearchText] = useState("");
-  const [currentTopicName, setCurrentTopicName] = useState("");
-
-  const onSearch = (e) => {
-    setSearchText(e.target.value);
+  const HomePage = () => {
+    return(
+      <div>
+        <Navbar page="home"/>
+        <Home />
+      </div>
+    );
   }
 
   return (
     <div className="App">
       <Layout>
-          <Route exact path="/login" render={() => <Login setUser={setUser} />} />
-          <Route exact path="/" render={() => {
-            return (
-              <div>
-                <Navbar user={user} setUser={setUser} onSearch={onSearch} page="home"/>
-                <Home user={user} setUser={setUser} searchText={searchText} />
-              </div>
-            );
-          }} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={HomePage} />
           <Route path="/topic/:userId/:topicId" render={()=> {
             return (
               <div>
-                <Navbar 
-                  user={user} 
-                  setUser={setUser} 
-                  page="topic" 
-                  topicName={currentTopicName}
-                />
-                <Topic 
-                  setTopicName={setCurrentTopicName}
-                />
+                <Navbar page="topic" />
+                <Topic />
               </div>
             );
           }} />

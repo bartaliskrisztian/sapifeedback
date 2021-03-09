@@ -5,11 +5,13 @@ import CancelIcon from "../assets/images/cancel.svg";
 import {db} from "../database/firebase";
 import stringRes from "../resources/strings";
 import { ToastContainer, toast } from 'react-toastify';
+import { connect } from "react-redux";
 import 'react-toastify/dist/ReactToastify.css';
 import "../assets/css/UserTopics.css";
 
 
-function UserTopics(props) {
+
+function UserTopics({props, dispatch}) {
 
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
@@ -27,7 +29,6 @@ function UserTopics(props) {
         // eslint-disable-next-line
     }, []);
 
-
     const getUserTopics = () => {
         db.ref(`topics/${props.user.googleId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
@@ -39,6 +40,7 @@ function UserTopics(props) {
 
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
+    const notifyInfo = (message) => toast.info(message);
 
     // functions for modal
     function openModal() {
@@ -99,6 +101,7 @@ function UserTopics(props) {
                               topicid={topic[0]}
                               userid={props.user.googleId}
                               onArchive={notifySuccess}
+                              onCopyToClipboard={notifyInfo}
                           />
                       );
               }})
@@ -158,4 +161,18 @@ function UserTopics(props) {
     );
 }
 
-export default UserTopics;
+const mapStateToProps = (state) => {
+    const props = {
+        user: state.user,
+        searchText: state.searchText
+    }
+    return { props }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserTopics);

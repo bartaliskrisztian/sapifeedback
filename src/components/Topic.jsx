@@ -5,10 +5,11 @@ import Modal from "react-modal";
 import Reports from "./Reports";
 import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
+import { connect } from "react-redux";
 import "../assets/css/Topic.css";
 import stringRes from "../resources/strings";
 
-function Topic(props) {
+function Topic({dispatch}) {
 
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
@@ -65,9 +66,11 @@ function Topic(props) {
     const getTopicDetails = (userGoogleId, topicId) => {
         db.ref(`topics/${userGoogleId}/${topicId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
-                props.setTopicName(snapshot.val().topicName);
+                dispatch({type: "SET_CURRENT_TOPIC_NAME", payload: snapshot.val().topicName});
+
                 setTopic(snapshot.val());
                 getTopicReports(topicId);
+
                 setIsLoading(false);    
             }
             else {
@@ -179,4 +182,10 @@ function Topic(props) {
     
 }
 
-export default Topic;
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch
+    }
+}
+
+export default connect(mapDispatchToProps)(Topic);

@@ -4,8 +4,9 @@ import GoogleLogin from 'react-google-login';
 import Logo from "../assets/images/logo.svg";
 import stringRes from "../resources/strings";
 import "../assets/css/Login.css";
+import { connect } from "react-redux";
 
-function Login(props) {
+function Login({ dispatch }) {
 
     let history = useHistory();
     let language = process.env.REACT_APP_LANGUAGE;
@@ -13,11 +14,10 @@ function Login(props) {
     
     // if the login is successful, set the user and go to homepage
     const responseGoogleSuccess = (response) => {
-        props.setUser(response.profileObj);
-        window.store.dispatch({type: "UPDATE_USER", payload: response.profileObj});
-        history.push("/");
+        dispatch({type: "SET_USER", payload: response.profileObj});
+        history.push("/");  
     }
-
+    
     const responseGoogleFailure = (response) => {
         console.log(response);
     }
@@ -42,4 +42,10 @@ function Login(props) {
     );
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch
+    }
+}
+
+export default connect(mapDispatchToProps)(Login);

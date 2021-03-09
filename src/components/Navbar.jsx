@@ -3,10 +3,11 @@ import { useHistory, Redirect, Link} from "react-router-dom";
 import { GoogleLogout } from 'react-google-login';
 import UserPlaceholder from "../assets/images/user.svg";
 import SearchBar from "./SearchBar";
+import { connect } from "react-redux";
 import stringRes from "../resources/strings";
 import "../assets/css/Navbar.css";
 
-function Navbar(props) {
+function Navbar({props, dispatch}) {
 
     const history = useHistory();
 
@@ -15,7 +16,11 @@ function Navbar(props) {
 
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [url, setUrl] = useState(null);
-    
+
+    const onSearch = (e) => {
+        dispatch({type: "SET_SEARCHTEXT", payload: e.target.value});
+    }
+
     useEffect(() => {
         if(props.page === "topic") {
             let url = window.location.href;
@@ -29,8 +34,8 @@ function Navbar(props) {
     }, [window.location.href]);
 
     const logout = () => {
+        dispatch({type: "SET_USER", payload: null});
         history.push("/login");
-        props.setUser(null);
     }
     
     const changeMenuColor = (topicPage) => {
@@ -53,7 +58,6 @@ function Navbar(props) {
         return(
             <div className="navbar-menus">
                 {window.location.hash !== "#/" && <Link className="navbar-menus__element" to="/">{strings.navbar.myTopicsMenu}</Link>}
-                
             </div>
         );
     }
@@ -92,7 +96,7 @@ function Navbar(props) {
     if(props.user) {
         return (
             <div className="navbar">
-                {props.page === "home" && <SearchBar onSearch={props.onSearch} />}
+                {props.page === "home" && <SearchBar onSearch={onSearch} />}
                 {props.page === "topic" && <div className="topic-name">{props.topicName}:</div>}
                 {props.page === "topic" &&
                 <div className="topic-menu__container" id="topic-menu__container">
@@ -120,4 +124,20 @@ function Navbar(props) {
     }
 }
 
-export default Navbar;
+const mapStateToProps = (state, ownProps) => {
+    const props = {
+        user: state.user,
+        topicName: state.currentTopicName,
+        page: ownProps.page
+    }
+    return { props }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        dispatch
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

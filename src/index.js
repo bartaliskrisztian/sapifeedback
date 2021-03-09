@@ -4,13 +4,16 @@ import { HashRouter } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "./assets/css/index.css";
-import store from "./store/store";
 
+import { Provider } from 'react-redux'
+import store from "./store/store";
 window.store = store;
 
 ReactDOM.render(
   <HashRouter>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </HashRouter>,
   document.getElementById('root')
 );

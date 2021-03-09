@@ -24,12 +24,15 @@ function TopicElement(props) {
     const copyUrlToClipboard = () => {
         let topicUrl = getTopicUrl();
         var textarea = document.createElement("textarea");
+
         document.body.appendChild(textarea);
         textarea.value = topicUrl;
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
+
         setShowMoreDropwdown(false);
+        props.onCopyToClipboard("Bejelentő link kimásolva.");
     }
 
     const getTopicUrl = () => {

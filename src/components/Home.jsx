@@ -1,10 +1,10 @@
 import React from "react";
 import UserTopics from "./UserTopics";
 
-function Home(props) {
+function Home() {
     return (
         <div className="home">
-            <UserTopics user={props.user} searchText={props.searchText} />
+            <UserTopics />
         </div>
     );
 }
