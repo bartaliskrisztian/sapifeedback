@@ -22,9 +22,14 @@ function TopicElement(props) {
         history.push(`/topic/${props.userid}/${props.topicid}?page=0`);
     }
 
-    const archiveTopic= () => {
+    const archiveTopic = () => {
         db.ref(`topics/${props.userid}/${props.topicid}`).update({isArchived: 'true'});
         props.onArchive(strings.userTopics.notification.onArchive);
+    }
+
+    const activateTopic = () => {
+        db.ref(`topics/${props.userid}/${props.topicid}`).update({isArchived: null});
+        props.onArchive("Sikeresen aktiválta a témát.")
     }
 
     const copyUrlToClipboard = () => {
@@ -86,6 +91,7 @@ function TopicElement(props) {
                 {props.isArchived && <div className={`topic-element__dropdown${showMoreDropdown ? " open" : ""}`}>
                     <div 
                         className="more-dropdown__element"
+                        onClick={activateTopic}
                     >{strings.userTopics.menu.toActive}
                     </div>
                     

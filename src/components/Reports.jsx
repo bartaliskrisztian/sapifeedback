@@ -89,8 +89,10 @@ function Reports(props) {
             <ReportTableRow />
             <div className="topic-reports__pagination-container">
                 <div className="topic-reports__pagination-element" onClick={firstPage}>Első</div>
-                <div className="topic-reports__pagination-element" onClick={beforePage}>Előző</div>
-                <div className="topic-reports__pagination-element" onClick={nextPage}>Következő</div>
+                {currentPage > 0 &&  
+                    <div className="topic-reports__pagination-element" onClick={beforePage}>Előző</div>}
+                {currentPage < pages.length-1 && 
+                    <div className="topic-reports__pagination-element" onClick={nextPage}>Következő</div>}
                 <div className="topic-reports__pagination-element" onClick={lastPage}>Utolsó</div>
             </div>
         </div>

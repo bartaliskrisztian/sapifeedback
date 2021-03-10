@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 // importing database
 import {db, storage} from "../database/firebase";
-import firebase from "firebase/app";
+//import firebase from "firebase/app";
 
 // importing language resource file
 import stringRes from "../resources/strings";
@@ -139,6 +139,11 @@ function ReportPage() {
 
     // when the user presses the submit button
     const onSubmitWithReCAPTCHA = async () => {
+        if(topic.isArchived) {
+            notifyError("Ehhez a témához jelenleg nem lehet visszajelezni.");
+            return;
+        }
+
         const token = await recaptchaRef.current.props.grecaptcha.getResponse();
         // if the reCaptcha's token is empty string or null, means that the user did not solve the captcha
         
