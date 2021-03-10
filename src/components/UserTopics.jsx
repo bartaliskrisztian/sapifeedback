@@ -42,6 +42,10 @@ function UserTopics({props, dispatch}) {
     const notifyError = (message) => toast.error(message);
     const notifyInfo = (message) => toast.info(message);
 
+    const showArchivedTopics = () => {
+        dispatch({type: "SET_SHOW_ARCHIVED_TOPICS", payload: !props.showArchivedTopics});
+    }
+
     // functions for modal
     function openModal() {
         setIsOpen(true);
@@ -91,21 +95,44 @@ function UserTopics({props, dispatch}) {
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
               }).map((topic) => {
-                  if(!topic[1].isArchived) {
-                      return(
-                          <TopicElement
-                              key={topic[0]}
-                              type="topic"
-                              name={topic[1].topicName}
-                              date={topic[1].date}
-                              topicid={topic[0]}
-                              userid={props.user.googleId}
-                              onArchive={notifySuccess}
-                              onCopyToClipboard={notifyInfo}
-                          />
-                      );
-              }})
+                  if(props.showArchivedTopics) {
+                    return(
+                        <TopicElement
+                            key={topic[0]}
+                            type="topic"
+                            name={topic[1].topicName}
+                            date={topic[1].date}
+                            isArchived={topic[1].isArchived}
+                            topicid={topic[0]}
+                            userid={props.user.googleId}
+                            onArchive={notifySuccess}
+                            onCopyToClipboard={notifyInfo}
+                        />
+                    );
+                  }
+                  else {
+                    if(!topic[1].isArchived) {
+                        return(
+                            <TopicElement
+                                key={topic[0]}
+                                type="topic"
+                                name={topic[1].topicName}
+                                date={topic[1].date}
+                                topicid={topic[0]}
+                                userid={props.user.googleId}
+                                onArchive={notifySuccess}
+                                onCopyToClipboard={notifyInfo}
+                            />
+                        );
+                    }
+                }})
         );
+    }
+
+    const modalStyle = {
+        overlay: {
+            backgroundColor: "#3a3b3c",
+        }
     }
 
     Modal.setAppElement("#root");
@@ -117,6 +144,7 @@ function UserTopics({props, dispatch}) {
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 className="create-topic__modal"
+                style={modalStyle}
             >
                 <img 
                     src={CancelIcon} 
@@ -138,6 +166,10 @@ function UserTopics({props, dispatch}) {
                 >{strings.userTopics.modal.createButtonText}
                 </button>
             </Modal>
+            <div className="topic-checkbox__container">
+                <input type="checkbox" value="check" className="topic-checkbox" onClick={showArchivedTopics} />
+                <label>Archivált témák megjelenítése</label>
+            </div>
             <div className="topic-list">
                 <div>
                     <TopicElement 
@@ -164,7 +196,8 @@ function UserTopics({props, dispatch}) {
 const mapStateToProps = (state) => {
     const props = {
         user: state.user,
-        searchText: state.searchText
+        searchText: state.searchText,
+        showArchivedTopics: state.showArchivedTopics
     }
     return { props }
 }

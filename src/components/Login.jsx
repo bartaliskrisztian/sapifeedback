@@ -1,16 +1,29 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
 import GoogleLogin from 'react-google-login';
 import Logo from "../assets/images/logo.svg";
 import stringRes from "../resources/strings";
-import "../assets/css/Login.css";
 import { connect } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
+import "../assets/css/Login.css";
+import 'react-toastify/dist/ReactToastify.css';
 
-function Login({ dispatch }) {
+function Login({ isLoggedIn, dispatch }) {
 
     let history = useHistory();
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
+
+    useEffect(() => {
+        if(isLoggedIn) {
+            notifyLoggingOut();
+            dispatch({type: "SET_IS_LOGGED_IN", payload: false});
+        }
+        // eslint-disable-next-line
+    }, []);
+
+    const notifyLoggingOut = () => toast.info("Sikeres kijelentkezés.");
+
     
     // if the login is successful, set the user and go to homepage
     const responseGoogleSuccess = (response) => {
@@ -38,8 +51,20 @@ function Login({ dispatch }) {
                 isSignedIn={true}
                 className="login-button"
             />
+            <ToastContainer 
+                position="top-center"
+                pauseOnHover={false}
+                hideProgressBar={true}
+                autoClose={3000}
+                closeOnClick={false}
+            />
         </div>
     );
+}
+
+const mapStateToProps = (state) => {
+    const isLoggedIn = state.isLoggedIn;
+    return { isLoggedIn }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -48,4 +73,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

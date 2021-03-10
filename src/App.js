@@ -17,19 +17,21 @@ function App() {
     );
   }
 
+  const TopicDetailsPage = () => {
+    return (
+      <div>
+        <Navbar page="topic" />
+        <Topic />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <Layout>
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
-          <Route path="/topic/:userId/:topicId" render={()=> {
-            return (
-              <div>
-                <Navbar page="topic" />
-                <Topic />
-              </div>
-            );
-          }} />
+          <Route path="/topic/:userId/:topicId" component={TopicDetailsPage} />
           <Route exact path="/report/:userId/:topicId" component={ReportPage}/>
       </Layout>
     </div>

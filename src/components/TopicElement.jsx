@@ -68,17 +68,20 @@ function TopicElement(props) {
                     onClick={() => setShowMoreDropwdown(!showMoreDropdown)} 
                 />
                 <div className={`topic-element__dropdown${showMoreDropdown ? " open" : ""}`}>
-                    <div 
+                    {!props.isArchived && <div 
                         className="more-dropdown__element"
                         onClick={archiveTopic}
                     >{strings.userTopics.menu.archive}
-                    </div>
+                    </div>}
                     <div className="more-dropdown__element" onClick={copyUrlToClipboard}>
                         {strings.userTopics.menu.copyLink}
                     </div>
                 </div>
                 <div className="topic-element__content-elements" onClick={onTopicClicked}>
                     <div className="topic-element__name">{props.name}</div>
+                    {props.isArchived && 
+                        <div className="topic-element__archived">Archivált</div>
+                    }
                 </div>
             </div>
         );

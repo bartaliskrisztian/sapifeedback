@@ -34,8 +34,8 @@ function Navbar({props, dispatch}) {
     }, [window.location.href]);
 
     const logout = () => {
-        dispatch({type: "SET_USER", payload: null});
         history.push("/login");
+        dispatch({type: "SET_USER", payload: null});
     }
     
     const changeMenuColor = (topicPage) => {
