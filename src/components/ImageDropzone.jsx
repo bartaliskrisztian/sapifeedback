@@ -1,8 +1,15 @@
 import React, {useMemo, useEffect, useState} from 'react';
+
+// importing components
 import { useDropzone } from "react-dropzone";
 import Compress from "client-compress";
-import "../assets/css/ImageDropzone.css";
+
+
+// importing language resource file
 import stringRes from "../resources/strings";
+
+// importing styles
+import "../assets/css/ImageDropzone.css";
 
 function ImageDropzone(prop) {
 

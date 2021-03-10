@@ -1,11 +1,16 @@
 import React from "react";
-import "../assets/css/Reports.css";
+
+// importing language resource file
 import stringRes from "../resources/strings";
+
+// importing styles
+import "../assets/css/Reports.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 
 
 function Reports(props) {
   
+    // string resources
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
     

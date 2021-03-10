@@ -1,18 +1,25 @@
 import React, {useState, useEffect} from "react";
+
+// importing components
 import TopicElement from "./TopicElement";  
 import Modal from "react-modal";
-import CancelIcon from "../assets/images/cancel.svg";
-import {db} from "../database/firebase";
-import stringRes from "../resources/strings";
 import { ToastContainer, toast } from 'react-toastify';
 import { connect } from "react-redux";
+
+// importing database
+import {db} from "../database/firebase";
+
+// importing language resource file
+import stringRes from "../resources/strings";
+
+// importing styles
 import 'react-toastify/dist/ReactToastify.css';
 import "../assets/css/UserTopics.css";
-
-
+import CancelIcon from "../assets/images/cancel.svg";
 
 function UserTopics({props, dispatch}) {
 
+    // string resources
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
     
@@ -84,50 +91,59 @@ function UserTopics({props, dispatch}) {
                 date : date,
                 topicName: topicName,
                 reportUrl: reportUrl
-            }).then(closeModal).then(notifySuccess("Sikeresen létrehozta a témát")).catch((error) => notifyError(error));
+            }).then(closeModal).then(notifySuccess(strings.userTopics.modal.onSuccess)).catch((error) => notifyError(error));
         }
     }
 
-    const FilteredTopicElements = () => {
+    const FilteredAllTopicElements = () => {
         return(
             userTopics && [...userTopics].filter((topic) => {
                 return props.searchText === "" ? true :
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
               }).map((topic) => {
-                  if(props.showArchivedTopics) {
+                return(
+                    <TopicElement
+                        key={topic[0]}
+                        type="topic"
+                        name={topic[1].topicName}
+                        date={topic[1].date}
+                        topicid={topic[0]}
+                        userid={props.user.googleId}
+                        onArchive={notifySuccess}
+                        onCopyToClipboard={notifyInfo}
+                        isArchived={topic[1].isArchived}
+                    />
+                );})
+        );
+    }
+
+    const FilteredActiveTopicElements = () => {
+        return(
+            userTopics && [...userTopics].filter((topic) => {
+                return props.searchText === "" ? true :
+                topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
+                // eslint-disable-next-line
+              }).map((topic) => {
+                if(!topic[1].isArchived) {
                     return(
                         <TopicElement
                             key={topic[0]}
                             type="topic"
                             name={topic[1].topicName}
                             date={topic[1].date}
-                            isArchived={topic[1].isArchived}
                             topicid={topic[0]}
                             userid={props.user.googleId}
                             onArchive={notifySuccess}
                             onCopyToClipboard={notifyInfo}
+                            isArchived={topic[1].isArchived}
                         />
                     );
-                  }
-                  else {
-                    if(!topic[1].isArchived) {
-                        return(
-                            <TopicElement
-                                key={topic[0]}
-                                type="topic"
-                                name={topic[1].topicName}
-                                date={topic[1].date}
-                                topicid={topic[0]}
-                                userid={props.user.googleId}
-                                onArchive={notifySuccess}
-                                onCopyToClipboard={notifyInfo}
-                            />
-                        );
-                    }
-                }})
+                }
+            })
         );
     }
+    
 
     const modalStyle = {
         overlay: {
@@ -167,8 +183,8 @@ function UserTopics({props, dispatch}) {
                 </button>
             </Modal>
             <div className="topic-checkbox__container">
-                <input type="checkbox" value="check" className="topic-checkbox" onClick={showArchivedTopics} />
-                <label>Archivált témák megjelenítése</label>
+                <input type="checkbox" value="check" className="topic-checkbox"  onClick={showArchivedTopics} />
+                <label>{strings.userTopics.showArchivedTopics}</label>
             </div>
             <div className="topic-list">
                 <div>
@@ -180,7 +196,8 @@ function UserTopics({props, dispatch}) {
                 </div>
                 {/* filtering the topics by the searchbar input */}
                 {isLoading && <div className="user-topics__loader"></div>}
-                {!isLoading && <FilteredTopicElements />}
+                {!isLoading && props.showArchivedTopics && <FilteredAllTopicElements />}
+                {!isLoading && !props.showArchivedTopics && <FilteredActiveTopicElements />}
                 <ToastContainer 
                     position="top-center"
                     pauseOnHover={false}
@@ -193,6 +210,7 @@ function UserTopics({props, dispatch}) {
     );
 }
 
+// getting the global state variables with redux
 const mapStateToProps = (state) => {
     const props = {
         user: state.user,
@@ -202,6 +220,7 @@ const mapStateToProps = (state) => {
     return { props }
 }
 
+// getting redux dispatch function for changing global state variables
 const mapDispatchToProps = dispatch => {
     return {
         dispatch

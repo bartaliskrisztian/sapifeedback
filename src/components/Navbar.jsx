@@ -1,11 +1,17 @@
 import React, {useState, useEffect} from "react";
 import { useHistory, Redirect, Link} from "react-router-dom";
+
+// importing components
 import { GoogleLogout } from 'react-google-login';
-import UserPlaceholder from "../assets/images/user.svg";
 import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
+
+// importing language resource file
 import stringRes from "../resources/strings";
+
+// importing styles
 import "../assets/css/Navbar.css";
+import UserPlaceholder from "../assets/images/user.svg";
 
 function Navbar({props, dispatch}) {
 
@@ -14,7 +20,9 @@ function Navbar({props, dispatch}) {
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
 
+    // whether to show the profile menu or not
     const [showProfileMenu, setShowProfileMenu] = useState(false);
+    // the current url
     const [url, setUrl] = useState(null);
 
     const onSearch = (e) => {
@@ -22,6 +30,7 @@ function Navbar({props, dispatch}) {
     }
 
     useEffect(() => {
+        // if we are the topic details page, we get the current url without the last charater (page type)
         if(props.page === "topic") {
             let url = window.location.href;
             url = url.substring(0, url.length-1);
@@ -33,11 +42,13 @@ function Navbar({props, dispatch}) {
         // eslint-disable-next-line
     }, [window.location.href]);
 
+    // on logout we set the user to null and redirect the page
     const logout = () => {
         history.push("/login");
         dispatch({type: "SET_USER", payload: null});
     }
     
+    // based on the page type, we change the background of the option buttons
     const changeMenuColor = (topicPage) => {
         let temp = document.getElementById("topic-menu__container");
         if(!temp) {
@@ -57,6 +68,7 @@ function Navbar({props, dispatch}) {
     const Menus = () => {
         return(
             <div className="navbar-menus">
+                {/* if we are the user topics page, this button is unnecessary */}
                 {window.location.hash !== "#/" && <Link className="navbar-menus__element" to="/">{strings.navbar.myTopicsMenu}</Link>}
             </div>
         );
@@ -96,6 +108,7 @@ function Navbar({props, dispatch}) {
     if(props.user) {
         return (
             <div className="navbar">
+                {/* we only see the searchbar if we are at the homepage */}
                 {props.page === "home" && <SearchBar onSearch={onSearch} />}
                 {props.page === "topic" && <div className="topic-name">{props.topicName}:</div>}
                 {props.page === "topic" &&
@@ -118,12 +131,14 @@ function Navbar({props, dispatch}) {
         );
     }
     else {
+        // if the user is null, redirect to login page
         return (
             <Redirect to="/login" />
         );
     }
 }
 
+// getting the global state variables with redux
 const mapStateToProps = (state, ownProps) => {
     const props = {
         user: state.user,
@@ -133,6 +148,7 @@ const mapStateToProps = (state, ownProps) => {
     return { props }
 }
 
+// getting redux dispatch function for changing global state variables
 const mapDispatchToProps = dispatch => {
     return {
         dispatch

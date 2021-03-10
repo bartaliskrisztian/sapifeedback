@@ -1,7 +1,9 @@
 const strings = {
     EN: {
         login: {
-            loginButtonText: 'Sign up or log in with Google Account'
+            loginButtonText: 'Sign up or log in with Google Account',
+            logoutSuccess: 'Logged out successfully.',
+            loginSuccess: 'Logged in successfully.'
         },
         navbar: {
             myTopicsMenu: 'My topics',
@@ -16,14 +18,21 @@ const strings = {
                 inputPlaceholder: 'Enter your topic name',
                 createButtonText: 'Create',
                 errorText: {
-                    usedTopicName: 'you already have a topic with this name',
-                    emptyTopicName: 'enter your topic name'
-                }
+                    usedTopicName: 'You already have a topic with this name.',
+                    emptyTopicName: 'Enter your topic name.'
+                },
+                onSuccess: 'Topic created.'
             },
             menu: {
                 archive: 'Archive',
                 copyLink: 'Copy link'
-            }
+            },
+            archived: 'Archived',
+            notification: {
+                onArchive: 'Topic archived successfully',
+                onCopyToClipboard: 'Link copied.'
+            },
+            showArchivedTopics: 'Show archived topics'
         },
         topic: {
             deleteModal: {
@@ -32,7 +41,14 @@ const strings = {
                 cancelButtonText: 'Cancel'
             },
             deleteButtonText: 'Delete topic',
-            notExistsText: 'This topic does not exists.'
+            notExistsText: 'This topic does not exists.',
+            menus: ["Reports","Statistics"],
+            noReports: "There are no reports yet.",
+            reports: {
+                reportText: "Text",
+                reportImage: "Attached image",
+                reportUrl: "Link for reporting"
+            }
         },
         report: {
             title: 'YOU CAN REPORT ANONYMOUSLY YOUR PROBLEM/COMMENT ABOUT THE TOPIC:',
@@ -57,7 +73,9 @@ const strings = {
     },
     HU: {
         login: {
-            loginButtonText: 'Regisztráljon vagy jelentkezzen be Google Account segítségével'
+            loginButtonText: 'Regisztráljon vagy jelentkezzen be Google Account segítségével',
+            logoutSuccess: 'Sikeres kijelentkezés.',
+            loginSuccess: 'Sikeres bejelentkezés.'
         },
         navbar: {
             myTopicsMenu: 'Témái',
@@ -74,12 +92,20 @@ const strings = {
                 errorText: {
                     usedTopicName: 'Már van ilyen nevű témája.',
                     emptyTopicName: 'Írja be a téma nevét.'
-                }
+                },
+                onSuccess: 'Sikeresen létrehozta a témát.'
             },
             menu: {
                 archive: 'Archiválás',
-                copyLink: 'Bejelentő link másolása'
-            }
+                copyLink: 'Bejelentő link másolása',
+                toActive: 'Archiválás visszavonása'
+            },
+            archived: 'Archivált',
+            notification: {
+                onArchive: 'Sikeresen archiválta a témát.',
+                onCopyToClipboard: 'Bejelentő link kimásolva.'
+            },
+            showArchivedTopics: 'Archivált témák megjelenítése'
         },
         topic: {
             deleteModal: {

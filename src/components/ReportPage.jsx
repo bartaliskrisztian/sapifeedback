@@ -1,51 +1,60 @@
 import React, {useState, useEffect} from 'react';
+
+// importing components
 import ReCAPTCHA from "react-google-recaptcha";
 import ImageDropzone from "./ImageDropzone";
-import {db, storage} from "../database/firebase";
-import firebase from "firebase/app";
 import { useHistory, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+
+// importing database
+import {db, storage} from "../database/firebase";
+import firebase from "firebase/app";
+
+// importing language resource file
 import stringRes from "../resources/strings";
+
+// importing styles
 import "../assets/css/ReportPage.css";
 import 'react-toastify/dist/ReactToastify.css';
 
 function ReportPage() {
 
-    const history = useHistory();
-    const params = useParams();
-    const recaptchaRef = React.useRef();
+    const history = useHistory(); // hook for getting the url
+    const params = useParams(); // hook for getting the url's parameters
+    const recaptchaRef = React.useRef(); // reference of the recaptcha
     
+    // string resources
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
 
     const [files, setFiles] = useState([]); // for storing image(s) uploaded by user
-
     const [reportText, setReportText] = useState(""); // text reported by user
-
     const [isUploading, setIsUploading] = useState(false);
-    const sourceCode = strings.report.sourceCode;
 
     const [userId, setUserId] = useState(null);
     const [topicId, setTopicId] = useState(null);
     const [topic, setTopic] = useState({});
 
     useEffect(() => {
-        
+        // getting the url's parameters
         const userid = params.userId;
         const topicid = params.topicId;
        
+        // if there are parameters we set the state variables and get the topic's details
         if(userid !== null && topicid !== null) {
            setUserId(userid);
            setTopicId(topicid);
            getTopicDetails(userid, topicid);
         }
+        // if there are no parameters, means that the url is wrong, then redirect
         else {
             history.push("/");
         }
+
         // eslint-disable-next-line
     }, []);
 
-
+    // getting the topic's details from database
     const getTopicDetails = (userGoogleId, topicId) => {
         db.ref(`topics/${userGoogleId}/${topicId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
@@ -54,6 +63,7 @@ function ReportPage() {
         });
     }
 
+    // toast notify functions
     const notifySuccess = (message) => toast.success(message);
     const notifyError = (message) => toast.error(message);
 
@@ -173,7 +183,7 @@ function ReportPage() {
                             {`${strings.report.sourceCodeText}: `}
                             <a 
                                 target="blank" 
-                                href={`${sourceCode}`} 
+                                href={`${strings.report.sourceCode}`} 
                                 className="source-code__link"
                             >
                                 {strings.report.sourceCodeShort}

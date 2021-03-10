@@ -107,7 +107,7 @@
 
 .topic-element__dropdown.open {
   height: fit-content;
-  width: fit-content;
+  width: calc(100% - 35px);
 }
 
 .more-dropdown__element {

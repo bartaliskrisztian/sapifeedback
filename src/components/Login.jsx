@@ -1,12 +1,18 @@
 import React, {useEffect} from "react";
 import { useHistory } from "react-router-dom";
+
+// importing components
 import GoogleLogin from 'react-google-login';
-import Logo from "../assets/images/logo.svg";
-import stringRes from "../resources/strings";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
+
+// importing language resource file
+import stringRes from "../resources/strings";
+
+// importing styles
 import "../assets/css/Login.css";
 import 'react-toastify/dist/ReactToastify.css';
+import Logo from "../assets/images/logo.svg";
 
 function Login({ isLoggedIn, dispatch }) {
 
@@ -16,13 +22,14 @@ function Login({ isLoggedIn, dispatch }) {
 
     useEffect(() => {
         if(isLoggedIn) {
+            // notifying the user about logging out
             notifyLoggingOut();
             dispatch({type: "SET_IS_LOGGED_IN", payload: false});
         }
         // eslint-disable-next-line
     }, []);
 
-    const notifyLoggingOut = () => toast.info("Sikeres kijelentkezés.");
+    const notifyLoggingOut = () => toast.info(strings.logoutSuccess);
 
     
     // if the login is successful, set the user and go to homepage
@@ -55,18 +62,20 @@ function Login({ isLoggedIn, dispatch }) {
                 position="top-center"
                 pauseOnHover={false}
                 hideProgressBar={true}
-                autoClose={3000}
+                autoClose={1500}
                 closeOnClick={false}
             />
         </div>
     );
 }
 
+// getting the global state variables with redux
 const mapStateToProps = (state) => {
     const isLoggedIn = state.isLoggedIn;
     return { isLoggedIn }
 }
 
+// getting redux dispatch function for changing global state variables
 const mapDispatchToProps = dispatch => {
     return {
         dispatch

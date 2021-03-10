@@ -1,16 +1,25 @@
 import React, {useEffect, useState} from "react";
-import {db} from "../database/firebase";
 import { useHistory, useParams } from "react-router-dom";
+
+// importing components
 import Modal from "react-modal";
 import Reports from "./Reports";
+import { connect } from "react-redux";
+
+// importing database
+import {db} from "../database/firebase";
+
+// importing language resource file
+import stringRes from "../resources/strings";
+
+// importing styles
+import "../assets/css/Topic.css";
 import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
-import { connect } from "react-redux";
-import "../assets/css/Topic.css";
-import stringRes from "../resources/strings";
 
 function Topic({dispatch}) {
 
+    // string resources
     let language = process.env.REACT_APP_LANGUAGE;
     let strings = stringRes[language];
 
@@ -119,20 +128,34 @@ function Topic({dispatch}) {
         );
     }
 
+    const TopicLink = () => {
+        return(
+            <div>
+                <ul>
+                    <li>
+                        {strings.topic.reports.reportUrl}: 
+                        <a 
+                            href={topic.reportUrl} 
+                            target="blank"
+                            className="topic-detail__reportUrl"
+                        >
+                            {topic.reportUrl}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+
     const ReportsTable = () => {
-        if(topicPage == 0 && topicReports.length > 0) {
+        if(topicReports.length > 0) {
             return(
                 <Reports reports={topicReports} />
             );
         }
-        if(topicPage == 0 && topicReports.length == 0) {
+        else {
             return(
                 <h1 className="topic__no-reports">{strings.topic.noReports}</h1>
-            );
-        }
-        if(topicPage == 1) {
-            return(
-                <div></div>
             );
         }
     }
@@ -152,23 +175,10 @@ function Topic({dispatch}) {
         return (
             <div className="topic-detail">
                 <DeleteTopicModal />
-                {topicPage == 0 && (
-                    <div>
-                        <ul>
-                            <li>
-                                {strings.topic.reports.reportUrl}: 
-                                <a 
-                                    href={topic.reportUrl} 
-                                    target="blank"
-                                    className="topic-detail__reportUrl"
-                                >
-                                    {topic.reportUrl}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>)}
-                {!isLoading && <ReportsTable />}
+                {topicPage == 0 && <TopicLink />}
+                {!isLoading && topicPage == 0  && <ReportsTable />}
                 {isLoading && <div className="topic-loader"></div>}
+                {topicPage == 1  && <div></div>}
             </div>
         );
     }
@@ -182,6 +192,7 @@ function Topic({dispatch}) {
     
 }
 
+// getting redux dispatch function for changing global state variables
 const mapDispatchToProps = dispatch => {
     return {
         dispatch

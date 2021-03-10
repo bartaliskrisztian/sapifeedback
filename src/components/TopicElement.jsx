@@ -1,9 +1,15 @@
 import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
+
+// importing database
 import {db} from "../database/firebase";
+
+// importing language resource file
+import stringRes from "../resources/strings";
+
+// importing styles
 import AddIcon from "../assets/images/plus.svg";
 import MoreIcon from "../assets/images/more.svg";
-import stringRes from "../resources/strings";
 
 function TopicElement(props) {
 
@@ -18,7 +24,7 @@ function TopicElement(props) {
 
     const archiveTopic= () => {
         db.ref(`topics/${props.userid}/${props.topicid}`).update({isArchived: 'true'});
-        props.onArchive("Sikeresen archiválta a témát.");
+        props.onArchive(strings.userTopics.notification.onArchive);
     }
 
     const copyUrlToClipboard = () => {
@@ -32,7 +38,7 @@ function TopicElement(props) {
         document.body.removeChild(textarea);
 
         setShowMoreDropwdown(false);
-        props.onCopyToClipboard("Bejelentő link kimásolva.");
+        props.onCopyToClipboard(strings.userTopics.notification.onCopyToClipboard);
     }
 
     const getTopicUrl = () => {
@@ -67,20 +73,28 @@ function TopicElement(props) {
                     className="topic__more-icon" 
                     onClick={() => setShowMoreDropwdown(!showMoreDropdown)} 
                 />
-                <div className={`topic-element__dropdown${showMoreDropdown ? " open" : ""}`}>
-                    {!props.isArchived && <div 
+                {!props.isArchived && <div className={`topic-element__dropdown${showMoreDropdown ? " open" : ""}`}>
+                    <div 
                         className="more-dropdown__element"
                         onClick={archiveTopic}
                     >{strings.userTopics.menu.archive}
-                    </div>}
+                    </div>
                     <div className="more-dropdown__element" onClick={copyUrlToClipboard}>
                         {strings.userTopics.menu.copyLink}
                     </div>
-                </div>
+                </div>}
+                {props.isArchived && <div className={`topic-element__dropdown${showMoreDropdown ? " open" : ""}`}>
+                    <div 
+                        className="more-dropdown__element"
+                    >{strings.userTopics.menu.toActive}
+                    </div>
+                    
+                </div>}
+                
                 <div className="topic-element__content-elements" onClick={onTopicClicked}>
                     <div className="topic-element__name">{props.name}</div>
                     {props.isArchived && 
-                        <div className="topic-element__archived">Archivált</div>
+                        <div className="topic-element__archived">{strings.userTopics.archived}</div>
                     }
                 </div>
             </div>
