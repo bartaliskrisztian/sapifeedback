@@ -60,3 +60,19 @@
   height: 100%;
   width: 100%;
 }
+
+.topic-reports__pagination-container {
+  display: flex;
+  margin: auto;
+  width: fit-content;
+}
+
+.topic-reports__pagination-element {
+  cursor: pointer;
+  color: var(--font-color);
+  padding: 10px;
+}
+
+.topic-reports__pagination-element:hover {
+  color: var(--app_color_light_hover);
+}
