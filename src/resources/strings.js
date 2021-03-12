@@ -32,7 +32,15 @@ const strings = {
                 onArchive: 'Topic archived successfully',
                 onCopyToClipboard: 'Link copied.'
             },
-            showArchivedTopics: 'Show archived topics'
+            showArchivedTopics: 'Show archived topics',
+            sort:{
+                title: 'Sort by:',
+                unsorted: 'Unsorted',
+                byAbcAsc: 'A-Z',
+                byAbcDesc: 'Z-A',
+                byDateAsc: 'By date ascending',
+                byDateDesc: 'By date descending'
+            }
         },
         topic: {
             deleteModal: {
@@ -105,7 +113,15 @@ const strings = {
                 onArchive: 'Sikeresen archiválta a témát.',
                 onCopyToClipboard: 'Bejelentő link kimásolva.'
             },
-            showArchivedTopics: 'Archivált témák megjelenítése'
+            showArchivedTopics: 'Archivált témák megjelenítése',
+            sort:{
+                title: 'Rendezés:',
+                unsorted: 'Nincs rendezve',
+                byAbcAsc: 'A-Z',
+                byAbcDesc: 'Z-A',
+                byDateAsc: 'Dátum szerint növekvő',
+                byDateDesc: 'Dátum szerint csökkenő'
+            }
         },
         topic: {
             deleteModal: {

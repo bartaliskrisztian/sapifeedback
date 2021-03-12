@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 
 // importing components
 import TopicElement from "./TopicElement";  
+import TopicSort from "./TopicSort";
 import Modal from "react-modal";
 import { ToastContainer, toast } from 'react-toastify';
 import { connect } from "react-redux";
@@ -103,7 +104,7 @@ function UserTopics({props, dispatch}) {
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
               }).map((topic) => {
-                let date = new Date(topic[1].date).toDateString();
+                let date = new Date(topic[1].date).toLocaleDateString();
                 return(
                     <TopicElement
                         key={topic[0]}
@@ -185,9 +186,12 @@ function UserTopics({props, dispatch}) {
                 >{strings.userTopics.modal.createButtonText}
                 </button>
             </Modal>
-            <div className="topic-checkbox__container">
-                <input type="checkbox" value="check" className="topic-checkbox"  onClick={showArchivedTopics} />
-                <label>{strings.userTopics.showArchivedTopics}</label>
+            <div className="topic-filter__container">
+                <div className="topic-checkbox__container">
+                    <input type="checkbox" value="check" className="topic-checkbox"  onClick={showArchivedTopics} />
+                    <label>{strings.userTopics.showArchivedTopics}</label>
+                </div>
+                <TopicSort />
             </div>
             <div className="topic-list">
                 <div>

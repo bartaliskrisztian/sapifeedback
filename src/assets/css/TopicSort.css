@@ -1,0 +1,58 @@
+@import url("../../resources/colors.css");
+
+.topic-sort {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  justify-content: space-evenly;
+}
+
+.topic-sort .css-148o527-ItemComponent.react-dropdown-select-item-selected {
+  background: var(--app_color);
+}
+
+.topic-sort .react-dropdown-select {
+  background: var(--app_color_light);
+  border-radius: 8px;
+  border: 1px solid var(--app_color);
+  margin: 0 20px;
+  padding-left: 5px;
+}
+
+.topic-sort .react-dropdown-select:hover {
+  border: 1px solid var(--app_color);
+  background: var(--app_color_light_hover);
+}
+
+.topic-sort .react-dropdown-select:focus:hover {
+  box-shadow: none;
+  outline: none;
+  border: 1px solid var(--app_color);
+}
+
+.topic-sort .react-dropdown-select:focus-within {
+  box-shadow: none;
+  border: 1px solid var(--app_color);
+}
+
+.topic-sort .react-dropdown-select-dropdown {
+  border-radius: 8px;
+  background: var(--app_color_light);
+  color: var(--font_color);
+  font-style: normal;
+  font-weight: bold;
+  line-height: 150%;
+}
+
+.topic-sort .react-dropdown-select-item:hover {
+  background: var(--app_color_light_hover);
+}
+
+.react-dropdown-select-dropdown-handle {
+  transition: transform 300ms ease;
+}
+
+.react-dropdown-select-dropdown-handle .css-1aarvou-DropdownHandleComponent {
+  transform: rotate(180deg);
+}
