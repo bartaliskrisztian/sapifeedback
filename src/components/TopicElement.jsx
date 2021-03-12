@@ -102,6 +102,7 @@ function TopicElement(props) {
                     {props.isArchived && 
                         <div className="topic-element__archived">{strings.userTopics.archived}</div>
                     }
+                    <div className="topic-element__date">{props.date}</div>
                 </div>
             </div>
         );

@@ -81,6 +81,7 @@ function UserTopics({props, dispatch}) {
             }
         });
 
+       
         if(ok) {
             const dbRef = db.ref(`topics/${props.user.googleId}`);
             const uid = dbRef.push().key; // getting a new id for the topic
@@ -102,12 +103,13 @@ function UserTopics({props, dispatch}) {
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
               }).map((topic) => {
+                let date = new Date(topic[1].date).toDateString();
                 return(
                     <TopicElement
                         key={topic[0]}
                         type="topic"
                         name={topic[1].topicName}
-                        date={topic[1].date}
+                        date={date}
                         topicid={topic[0]}
                         userid={props.user.googleId}
                         onArchive={notifySuccess}
@@ -120,18 +122,19 @@ function UserTopics({props, dispatch}) {
 
     const FilteredActiveTopicElements = () => {
         return(
-            userTopics && [...userTopics].filter((topic) => {
+            userTopics && [...userTopics].reverse().filter((topic) => {
                 return props.searchText === "" ? true :
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
               }).map((topic) => {
                 if(!topic[1].isArchived) {
+                    let date = new Date(topic[1].date).toLocaleDateString();
                     return(
                         <TopicElement
                             key={topic[0]}
                             type="topic"
                             name={topic[1].topicName}
-                            date={topic[1].date}
+                            date={date}
                             topicid={topic[0]}
                             userid={props.user.googleId}
                             onArchive={notifySuccess}

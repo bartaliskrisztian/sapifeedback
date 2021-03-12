@@ -77,7 +77,12 @@
   color: red;
   width: fit-content;
   padding: 10px;
+}
+
+.topic-element__date {
   margin-top: auto;
+  padding: 5px;
+  color: var(--app_color_light_hover);
 }
 
 .topic__more-icon {
