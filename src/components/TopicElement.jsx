@@ -1,11 +1,7 @@
 import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
-
-// importing database
-import {db} from "../database/firebase";
-
-// importing language resource file
-import stringRes from "../resources/strings";
+import {db} from "../database/firebase"; // importing database
+import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import AddIcon from "../assets/images/plus.svg";

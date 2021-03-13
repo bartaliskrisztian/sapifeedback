@@ -1,15 +1,10 @@
 import React, {useEffect} from "react";
-
 // importing components
 import UserTopics from "./UserTopics";
 import { ToastContainer, toast } from 'react-toastify';
 import { connect } from "react-redux";
-
-// importing language resource file
-import stringRes from "../resources/strings";
-
-// importing styles
-import 'react-toastify/dist/ReactToastify.css';
+import stringRes from "../resources/strings"; // importing language resource file
+import 'react-toastify/dist/ReactToastify.css'; // importing styles
 
 function Home({isLoggedIn, dispatch}) {
 

@@ -10,6 +10,12 @@
 
 .topic-sort .css-148o527-ItemComponent.react-dropdown-select-item-selected {
   background: var(--app_color);
+  border-bottom: 1px solid #000;
+}
+
+.topic-sort .css-148o527-ItemComponent {
+  border: 1px solid #000;
+  color: var(--font_color);
 }
 
 .topic-sort .react-dropdown-select {
@@ -38,7 +44,9 @@
 
 .topic-sort .react-dropdown-select-dropdown {
   border-radius: 8px;
-  background: var(--app_color_light);
+  border: none;
+  box-shadow: 2px 2px 7px #000;
+  background: var(--navbar_color);
   color: var(--font_color);
   font-style: normal;
   font-weight: bold;

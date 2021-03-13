@@ -6,12 +6,8 @@ import ImageDropzone from "./ImageDropzone";
 import { useHistory, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
-// importing database
-import {db, storage} from "../database/firebase";
-//import firebase from "firebase/app";
-
-// importing language resource file
-import stringRes from "../resources/strings";
+import {db, storage} from "../database/firebase"; // importing database
+import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/ReportPage.css";

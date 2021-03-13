@@ -1,10 +1,6 @@
 import React from "react";
-
-// importing language resource file
-import stringRes from "../resources/strings";
-
-// importing styles
-import "../assets/css/SearchBar.css";
+import stringRes from "../resources/strings"; // importing language resource file
+import "../assets/css/SearchBar.css"; // importing styles
 
 function SearchBar(props) {
 

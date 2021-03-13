@@ -30,15 +30,22 @@ function Navbar({props, dispatch}) {
     }
 
     useEffect(() => {
+        let isCancelled = false;
         // if we are the topic details page, we get the current url without the last charater (page type)
         if(props.page === "topic") {
             let url = window.location.href;
             url = url.substring(0, url.length-1);
-            setUrl(url);
+
+            if(!isCancelled) {
+                setUrl(url);
+            }
 
             const topicPage = new URLSearchParams(history.location.search).get("page");
             changeMenuColor(topicPage)
         }
+        return () => {
+            isCancelled = true;
+          };
         // eslint-disable-next-line
     }, [window.location.href]);
 

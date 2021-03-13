@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 
-// importing language resource file
-import stringRes from "../resources/strings";
+import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/Reports.css";

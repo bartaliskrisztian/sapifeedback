@@ -6,8 +6,7 @@ import GoogleLogin from 'react-google-login';
 import { connect } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
 
-// importing language resource file
-import stringRes from "../resources/strings";
+import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/Login.css";

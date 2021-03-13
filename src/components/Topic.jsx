@@ -6,11 +6,8 @@ import Modal from "react-modal";
 import Reports from "./Reports";
 import { connect } from "react-redux";
 
-// importing database
-import {db} from "../database/firebase";
-
-// importing language resource file
-import stringRes from "../resources/strings";
+import {db} from "../database/firebase"; // importing database
+import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/Topic.css";

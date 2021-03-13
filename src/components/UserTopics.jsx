@@ -7,11 +7,8 @@ import Modal from "react-modal";
 import { ToastContainer, toast } from 'react-toastify';
 import { connect } from "react-redux";
 
-// importing database
-import {db} from "../database/firebase";
-
-// importing language resource file
-import stringRes from "../resources/strings";
+import {db} from "../database/firebase"; // importing database
+import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import 'react-toastify/dist/ReactToastify.css';
@@ -28,6 +25,9 @@ function UserTopics({props, dispatch}) {
     const [topicName, setTopicName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [userTopics, setUserTopics] = useState(null);
+    const [filteredUserTopics, setFilteredUserTopics] = useState([]);
+    const [topicSortOption, setTopicSortOption] = useState([{ label: strings.userTopics.sort.unsorted, 
+                                                             value: "unsorted" }]);
 
     // fetching the topics based on the user
     useEffect(() => {
@@ -37,10 +37,73 @@ function UserTopics({props, dispatch}) {
         // eslint-disable-next-line
     }, []);
 
+     useEffect(() => {
+        if(userTopics) {
+            switch(topicSortOption[0].value) {
+                case 'unsorted': 
+                    setFilteredUserTopics(userTopics);
+                    break;
+                case 'a-z': 
+                    sortByAbcAsc();
+                    break;
+                case 'z-a':
+                    sortByAbcDesc();
+                    break;
+                case 'date-asc':
+                    sortByDateAsc();
+                    break;
+                case 'date-desc':
+                    sortByDateDesc();
+                    break;
+                default:
+                    break;
+            }
+        }
+        // eslint-disable-next-line
+    }, [topicSortOption]);
+
+    const sortByAbcAsc = () => {
+        let sortedTopics = userTopics.sort((a,b) => {
+            let la = a[1].topicName.toLowerCase();
+            let lb = b[1].topicName.toLowerCase();
+            return la > lb ? -1 : lb > la ? 1 : 0;
+        })
+        setFilteredUserTopics(sortedTopics);
+    }
+
+    const sortByAbcDesc = () => {
+        let sortedTopics = userTopics.sort((a,b) => {
+            let la = a[1].topicName.toLowerCase();
+            let lb = b[1].topicName.toLowerCase();
+            return la < lb ? -1 : lb < la ? 1 : 0;
+        })
+        setFilteredUserTopics(sortedTopics);
+    }
+
+    const sortByDateAsc = () => {
+        let sortedTopics = userTopics.sort((a,b) => {
+            let la = a[1].date;
+            let lb = b[1].date;
+            return la > lb ? -1 : lb > la ? 1 : 0;
+        })
+        setFilteredUserTopics(sortedTopics);
+    }
+
+    const sortByDateDesc = () => {
+        let sortedTopics = userTopics.sort((a,b) => {
+            let la = a[1].date;
+            let lb = b[1].date;
+            return la < lb ? -1 : lb < la ? 1 : 0;
+        })
+        setFilteredUserTopics(sortedTopics);
+    }
+
+
     const getUserTopics = () => {
         db.ref(`topics/${props.user.googleId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
                 setUserTopics(Object.entries(snapshot.val()));
+                setFilteredUserTopics(Object.entries(snapshot.val()));
             }
             setIsLoading(false);
         });
@@ -62,7 +125,6 @@ function UserTopics({props, dispatch}) {
     function closeModal(){
         setIsOpen(false);
     }
-
 
     const onTopicNameChange = (e) => {
         setTopicName(e.target.value);
@@ -99,7 +161,7 @@ function UserTopics({props, dispatch}) {
 
     const FilteredAllTopicElements = () => {
         return(
-            userTopics && [...userTopics].filter((topic) => {
+            filteredUserTopics && [...filteredUserTopics].filter((topic) => {
                 return props.searchText === "" ? true :
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
@@ -123,7 +185,7 @@ function UserTopics({props, dispatch}) {
 
     const FilteredActiveTopicElements = () => {
         return(
-            userTopics && [...userTopics].reverse().filter((topic) => {
+            filteredUserTopics && [...filteredUserTopics].reverse().filter((topic) => {
                 return props.searchText === "" ? true :
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
@@ -188,10 +250,10 @@ function UserTopics({props, dispatch}) {
             </Modal>
             <div className="topic-filter__container">
                 <div className="topic-checkbox__container">
-                    <input type="checkbox" value="check" className="topic-checkbox"  onClick={showArchivedTopics} />
+                    <input type="checkbox" value="check" className="topic-checkbox" onClick={showArchivedTopics} />
                     <label>{strings.userTopics.showArchivedTopics}</label>
                 </div>
-                <TopicSort />
+                <TopicSort sortOption={topicSortOption} onSortOptionChange={setTopicSortOption} />
             </div>
             <div className="topic-list">
                 <div>
