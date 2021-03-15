@@ -143,7 +143,7 @@
   outline: none;
   background: var(--app_color);
   margin: auto;
-  margin-top: 30px;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   padding: 20px;

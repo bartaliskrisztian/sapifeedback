@@ -12,7 +12,9 @@ window.store = store;
 ReactDOM.render(
   <HashRouter>
     <Provider store={store}>
-      <App />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </Provider>
   </HashRouter>,
   document.getElementById('root')

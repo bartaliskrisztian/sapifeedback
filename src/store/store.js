@@ -1,8 +1,4 @@
 import { createStore } from 'redux';
-import stringRes from "../resources/strings";
-
-let language = process.env.REACT_APP_LANGUAGE;
-let strings = stringRes[language];
 
 const initialState = {
     user: null,
@@ -36,11 +32,6 @@ const reducer = (state = initialState, action) => {
     if(action.type === "SET_SHOW_ARCHIVED_TOPICS") {
         return Object.assign({}, state, {
             showArchivedTopics: action.payload
-        });
-    }
-    if(action.type === "SET_TOPIC_SORTING_OPTION") {
-        return Object.assign({}, state, {
-            topicSortingOption: action.payload
         });
     }
     return state

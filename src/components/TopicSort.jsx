@@ -13,7 +13,7 @@ function TopicSort(props) {
         { label: strings.userTopics.sort.byAbcAsc, value: "a-z" },
         { label: strings.userTopics.sort.byAbcDesc, value: "z-a" },
         { label: strings.userTopics.sort.byDateAsc, value: "date-asc" },
-        { label: strings.userTopics.sort.byDateDesc, value: "date_desc" },
+        { label: strings.userTopics.sort.byDateDesc, value: "date-desc" },
       ];
 
       const onSortOptionChange = (option) => {

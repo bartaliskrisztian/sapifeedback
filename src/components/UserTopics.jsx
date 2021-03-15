@@ -66,7 +66,7 @@ function UserTopics({props, dispatch}) {
         let sortedTopics = userTopics.sort((a,b) => {
             let la = a[1].topicName.toLowerCase();
             let lb = b[1].topicName.toLowerCase();
-            return la > lb ? -1 : lb > la ? 1 : 0;
+            return la < lb ? -1 : lb < la ? 1 : 0;
         })
         setFilteredUserTopics(sortedTopics);
     }
@@ -75,7 +75,7 @@ function UserTopics({props, dispatch}) {
         let sortedTopics = userTopics.sort((a,b) => {
             let la = a[1].topicName.toLowerCase();
             let lb = b[1].topicName.toLowerCase();
-            return la < lb ? -1 : lb < la ? 1 : 0;
+            return la > lb ? -1 : lb > la ? 1 : 0;
         })
         setFilteredUserTopics(sortedTopics);
     }
@@ -84,7 +84,7 @@ function UserTopics({props, dispatch}) {
         let sortedTopics = userTopics.sort((a,b) => {
             let la = a[1].date;
             let lb = b[1].date;
-            return la > lb ? -1 : lb > la ? 1 : 0;
+            return la < lb ? -1 : lb < la ? 1 : 0;
         })
         setFilteredUserTopics(sortedTopics);
     }
@@ -93,11 +93,15 @@ function UserTopics({props, dispatch}) {
         let sortedTopics = userTopics.sort((a,b) => {
             let la = a[1].date;
             let lb = b[1].date;
-            return la < lb ? -1 : lb < la ? 1 : 0;
+            return la > lb ? -1 : lb > la ? 1 : 0;
         })
         setFilteredUserTopics(sortedTopics);
     }
 
+    const printTopics = (topics) => {
+        topics.forEach((t) => console.log(t[1].topicName));
+        console.log("\n");
+    }
 
     const getUserTopics = () => {
         db.ref(`topics/${props.user.googleId}`).on("value", (snapshot) => {
@@ -185,7 +189,7 @@ function UserTopics({props, dispatch}) {
 
     const FilteredActiveTopicElements = () => {
         return(
-            filteredUserTopics && [...filteredUserTopics].reverse().filter((topic) => {
+            filteredUserTopics && [...filteredUserTopics].filter((topic) => {
                 return props.searchText === "" ? true :
                 topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
                 // eslint-disable-next-line
