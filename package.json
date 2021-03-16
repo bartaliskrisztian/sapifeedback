@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/bartaliskrisztian/report-feedback#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "python-shell": "^2.0.3"
   }
 }

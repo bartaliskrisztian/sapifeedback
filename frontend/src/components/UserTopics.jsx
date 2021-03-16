@@ -38,7 +38,7 @@ function UserTopics({props, dispatch}) {
     }, []);
 
      useEffect(() => {
-         callBackendAPI();
+        callBackendAPI();
         if(userTopics) {
             switch(topicSortOption[0].value) {
                 case 'unsorted': 
@@ -64,14 +64,9 @@ function UserTopics({props, dispatch}) {
     }, [topicSortOption]);
 
     const callBackendAPI = async () => {
-        const response = await fetch('/express_backend');
+        const response = await fetch('/');
         const body = await response.json();
-    
-        if (response.status !== 200) {
-          throw Error(body.message) 
-        }
-        console.log(body);
-      };
+    }
 
     const sortByAbcAsc = () => {
         let sortedTopics = userTopics.sort((a,b) => {
