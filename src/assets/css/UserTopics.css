@@ -20,8 +20,8 @@
 }
 
 .topics {
-  height: calc(100% - 50px);
-  padding-top: 50px;
+  height: calc(100% - 60px);
+  padding-top: 60px;
 }
 
 .topics-title {
@@ -30,8 +30,8 @@
 }
 
 .topic-element {
-  width: 200px;
-  height: 200px;
+  width: 230px;
+  height: 230px;
   box-shadow: 2px 2px 7px #000;
   border-radius: 8px;
   margin: 20px;

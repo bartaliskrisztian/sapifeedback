@@ -271,14 +271,15 @@ function UserTopics({props, dispatch}) {
                 {isLoading && <div className="user-topics__loader"></div>}
                 {!isLoading && props.showArchivedTopics && <FilteredAllTopicElements />}
                 {!isLoading && !props.showArchivedTopics && <FilteredActiveTopicElements />}
-                <ToastContainer 
-                    position="top-center"
-                    pauseOnHover={false}
-                    hideProgressBar={true}
-                    autoClose={3000}
-                    closeOnClick={false}
-                />
+                
             </div>
+            <ToastContainer 
+                position="top-center"
+                pauseOnHover={false}
+                hideProgressBar={true}
+                autoClose={3000}
+                closeOnClick={false}
+            />
         </div>
     );
 }
