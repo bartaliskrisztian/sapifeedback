@@ -25,11 +25,13 @@ const strings = {
             },
             menu: {
                 archive: 'Archive',
-                copyLink: 'Copy link'
+                copyLink: 'Copy link',
+                toActive: 'Cancel archiving'
             },
             archived: 'Archived',
             notification: {
-                onArchive: 'Topic archived successfully',
+                onArchive: 'Topic archived successfully.',
+                onActivate: 'Archiving cancelled.',
                 onCopyToClipboard: 'Link copied.'
             },
             showArchivedTopics: 'Show archived topics',
