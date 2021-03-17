@@ -55,7 +55,11 @@ const strings = {
             reports: {
                 reportText: "Text",
                 reportImage: "Attached image",
-                reportUrl: "Link for reporting"
+                reportUrl: "Link for reporting",
+                firstPageButton: 'First',
+                prevPageButton: 'Previous',
+                nextPageButton: 'Next',
+                lastPageButton: 'Last',
             }
         },
         report: {

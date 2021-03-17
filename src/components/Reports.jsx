@@ -88,7 +88,6 @@ function Reports(props) {
                                 className="topic-reports__image"
                             /> 
                         </a>
-                        {/* <div>{new Date(report.date*1000).toString()}</div> */}
                     </td>
                 </tr>
               ))}
@@ -100,10 +99,10 @@ function Reports(props) {
     const TablePagination = () => {
         return(
             <div className="topic-reports__pagination-container">
-                <div className="topic-reports__pagination-element" onClick={firstPage}>Első</div>
-                <div className="topic-reports__pagination-element" onClick={beforePage}>Előző</div>
-                <div className="topic-reports__pagination-element" onClick={nextPage}>Következő</div>
-                <div className="topic-reports__pagination-element" onClick={lastPage}>Utolsó</div>
+                <div className="topic-reports__pagination-element" onClick={firstPage}>{strings.topic.reports.firstPageButton}</div>
+                <div className="topic-reports__pagination-element" onClick={beforePage}>{strings.topic.reports.prevPageButton}</div>
+                <div className="topic-reports__pagination-element" onClick={nextPage}>{strings.topic.reports.nextPageButton}</div>
+                <div className="topic-reports__pagination-element" onClick={lastPage}>{strings.topic.reports.lastPageButton}</div>
                 {props.reports && pages.length > 0 && <div className="topic-reports__pagination-element counter">{showedReports}/{allReportsCount}</div> }
             </div>
         );
