@@ -16,12 +16,20 @@ function Reports(props) {
     const reportsToShow = 5;
     const [currentPage, setCurrentPage] = useState(0);
     const [pages, setPages] = useState([]);
+    const [showedReports, setShowedReports] = useState(0);
+    const [allReportsCount, setAllReportCount] = useState(0);
 
     useEffect(() => {
+        let reportsCopy = props.reports;
+
+        setAllReportCount(reportsCopy.length);
         let p = [];
-        while(props.reports.length > 0) {
-            let chunk = props.reports.splice(0, reportsToShow);
+        while(reportsCopy.length > 0) {
+            let chunk = reportsCopy.splice(0, reportsToShow);
             p.push(chunk);
+        }
+        if(p[0] !== undefined) {
+            setShowedReports(p[0].length)
         }
         setPages(p);
         // eslint-disable-next-line
@@ -29,24 +37,30 @@ function Reports(props) {
 
     const firstPage = () => {
         setCurrentPage(0);
+        setShowedReports(pages[0].length);
     }
 
     const lastPage = () => {
         setCurrentPage(pages.length - 1);
+        setShowedReports(allReportsCount);
     }
 
     const nextPage = () => {
         if(currentPage < pages.length-1) {
-            setCurrentPage(currentPage + 1);
+            let newIndex = currentPage + 1;
+            setCurrentPage(newIndex);
+            setShowedReports(showedReports + pages[newIndex].length);
         }
     }
 
     const beforePage = () => {
         if(currentPage > 0 ) {
-            setCurrentPage(currentPage - 1);
+            let newIndex = currentPage - 1;
+            setShowedReports(showedReports - pages[currentPage].length);
+            setCurrentPage(newIndex);
         }
     }
-    
+
     const ReportTableRow = () => {
         return (
             <table className="topic-reports">
@@ -83,17 +97,23 @@ function Reports(props) {
         );
     }
 
-    return (
-        <div className="topic-reports__container">
-            <ReportTableRow />
+    const TablePagination = () => {
+        return(
             <div className="topic-reports__pagination-container">
                 <div className="topic-reports__pagination-element" onClick={firstPage}>Első</div>
-                {currentPage > 0 &&  
-                    <div className="topic-reports__pagination-element" onClick={beforePage}>Előző</div>}
-                {currentPage < pages.length-1 && 
-                    <div className="topic-reports__pagination-element" onClick={nextPage}>Következő</div>}
+                <div className="topic-reports__pagination-element" onClick={beforePage}>Előző</div>
+                <div className="topic-reports__pagination-element" onClick={nextPage}>Következő</div>
                 <div className="topic-reports__pagination-element" onClick={lastPage}>Utolsó</div>
+                {props.reports && pages.length > 0 && <div className="topic-reports__pagination-element counter">{showedReports}/{allReportsCount}</div> }
             </div>
+        );
+    }
+
+    return (
+        <div className="topic-reports__container">
+            <TablePagination />
+            <ReportTableRow />
+            <TablePagination />
         </div>
     );
 }

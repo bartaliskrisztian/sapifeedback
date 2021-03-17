@@ -5,10 +5,11 @@
   height: 100%;
 }
 
-.topic-filter__container {
+.topic-sort__container {
   display: flex;
   height: 50px;
   align-items: center;
+  padding-top: 20px;
 }
 
 .topic-checkbox__container {

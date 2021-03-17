@@ -252,7 +252,7 @@ function UserTopics({props, dispatch}) {
                 >{strings.userTopics.modal.createButtonText}
                 </button>
             </Modal>
-            <div className="topic-filter__container">
+            <div className="topic-sort__container">
                 <div className="topic-checkbox__container">
                     <input type="checkbox" value="check" className="topic-checkbox" onClick={showArchivedTopics} />
                     <label>{strings.userTopics.showArchivedTopics}</label>
