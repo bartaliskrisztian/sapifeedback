@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 // importing components
-import TopicElement from "./TopicElement";  
+import SortedTopicElements from "./SortedTopicElements";
 import TopicSort from "./TopicSort";
 import Modal from "react-modal";
 import { ToastContainer, toast } from 'react-toastify';
@@ -24,8 +24,6 @@ function UserTopics({props, dispatch}) {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [topicName, setTopicName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [userTopics, setUserTopics] = useState(null);
-    const [filteredUserTopics, setFilteredUserTopics] = useState([]);
     const [topicSortOption, setTopicSortOption] = useState([{ label: strings.userTopics.sort.unsorted, 
                                                              value: "unsorted" }]);
 
@@ -37,85 +35,17 @@ function UserTopics({props, dispatch}) {
         // eslint-disable-next-line
     }, []);
 
-     useEffect(() => {
-        if(userTopics) {
-            switch(topicSortOption[0].value) {
-                case 'unsorted': 
-                    setFilteredUserTopics(userTopics);
-                    break;
-                case 'a-z': 
-                    sortByAbcAsc();
-                    break;
-                case 'z-a':
-                    sortByAbcDesc();
-                    break;
-                case 'date-asc':
-                    sortByDateAsc();
-                    break;
-                case 'date-desc':
-                    sortByDateDesc();
-                    break;
-                default:
-                    break;
-            }
-        }
-        // eslint-disable-next-line
-    }, [topicSortOption]);
-
-    const sortByAbcAsc = () => {
-        let sortedTopics = userTopics.sort((a,b) => {
-            let la = a[1].topicName.toLowerCase();
-            let lb = b[1].topicName.toLowerCase();
-            return la < lb ? -1 : lb < la ? 1 : 0;
-        })
-        setFilteredUserTopics(sortedTopics);
-    }
-
-    const sortByAbcDesc = () => {
-        let sortedTopics = userTopics.sort((a,b) => {
-            let la = a[1].topicName.toLowerCase();
-            let lb = b[1].topicName.toLowerCase();
-            return la > lb ? -1 : lb > la ? 1 : 0;
-        })
-        setFilteredUserTopics(sortedTopics);
-    }
-
-    const sortByDateAsc = () => {
-        let sortedTopics = userTopics.sort((a,b) => {
-            let la = a[1].date;
-            let lb = b[1].date;
-            return la < lb ? -1 : lb < la ? 1 : 0;
-        })
-        setFilteredUserTopics(sortedTopics);
-    }
-
-    const sortByDateDesc = () => {
-        let sortedTopics = userTopics.sort((a,b) => {
-            let la = a[1].date;
-            let lb = b[1].date;
-            return la > lb ? -1 : lb > la ? 1 : 0;
-        })
-        setFilteredUserTopics(sortedTopics);
-    }
-
-    const printTopics = (topics) => {
-        topics.forEach((t) => console.log(t[1].topicName));
-        console.log("\n");
-    }
-
+    const notifySuccess = (message) => toast.success(message);
+    const notifyError = (message) => toast.error(message);
+    
     const getUserTopics = () => {
         db.ref(`topics/${props.user.googleId}`).on("value", (snapshot) => {
             if(snapshot.val()) {
-                setUserTopics(Object.entries(snapshot.val()));
-                setFilteredUserTopics(Object.entries(snapshot.val()));
+                dispatch({type: "SET_USER_TOPICS", payload: Object.entries(snapshot.val())});
             }
             setIsLoading(false);
         });
     }
-
-    const notifySuccess = (message) => toast.success(message);
-    const notifyError = (message) => toast.error(message);
-    const notifyInfo = (message) => toast.info(message);
 
     const showArchivedTopics = () => {
         dispatch({type: "SET_SHOW_ARCHIVED_TOPICS", payload: !props.showArchivedTopics});
@@ -141,7 +71,7 @@ function UserTopics({props, dispatch}) {
         }
 
         let ok = true;
-        userTopics.forEach(topic => {
+        props.userTopics.forEach(topic => {
             if(topic[1].topicName === topicName) {
                 notifyError(strings.userTopics.modal.errorText.usedTopicName);
                 ok = false;
@@ -162,58 +92,6 @@ function UserTopics({props, dispatch}) {
             }).then(closeModal).then(notifySuccess(strings.userTopics.modal.onSuccess)).catch((error) => notifyError(error));
         }
     }
-
-    const FilteredAllTopicElements = () => {
-        return(
-            filteredUserTopics && [...filteredUserTopics].filter((topic) => {
-                return props.searchText === "" ? true :
-                topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
-                // eslint-disable-next-line
-              }).map((topic) => {
-                let date = new Date(topic[1].date).toLocaleDateString();
-                return(
-                    <TopicElement
-                        key={topic[0]}
-                        type="topic"
-                        name={topic[1].topicName}
-                        date={date}
-                        topicid={topic[0]}
-                        userid={props.user.googleId}
-                        onArchive={notifySuccess}
-                        onCopyToClipboard={notifyInfo}
-                        isArchived={topic[1].isArchived}
-                    />
-                );})
-        );
-    }
-
-    const FilteredActiveTopicElements = () => {
-        return(
-            filteredUserTopics && [...filteredUserTopics].filter((topic) => {
-                return props.searchText === "" ? true :
-                topic[1].topicName.toLowerCase().includes(props.searchText.toLowerCase());
-                // eslint-disable-next-line
-              }).map((topic) => {
-                if(!topic[1].isArchived) {
-                    let date = new Date(topic[1].date).toLocaleDateString();
-                    return(
-                        <TopicElement
-                            key={topic[0]}
-                            type="topic"
-                            name={topic[1].topicName}
-                            date={date}
-                            topicid={topic[0]}
-                            userid={props.user.googleId}
-                            onArchive={notifySuccess}
-                            onCopyToClipboard={notifyInfo}
-                            isArchived={topic[1].isArchived}
-                        />
-                    );
-                }
-            })
-        );
-    }
-    
 
     const modalStyle = {
         overlay: {
@@ -259,19 +137,14 @@ function UserTopics({props, dispatch}) {
                 </div>
                 <TopicSort sortOption={topicSortOption} onSortOptionChange={setTopicSortOption} />
             </div>
-            <div className="topic-list">
-                <div>
-                    <TopicElement 
-                    type="add" 
-                    onClick={openModal} 
-                    onClose={closeModal}
-                    />
-                </div>
+            <div>
                 {/* filtering the topics by the searchbar input */}
                 {isLoading && <div className="user-topics__loader"></div>}
-                {!isLoading && props.showArchivedTopics && <FilteredAllTopicElements />}
-                {!isLoading && !props.showArchivedTopics && <FilteredActiveTopicElements />}
-                
+                <SortedTopicElements 
+                    sortOption={topicSortOption[0].value} 
+                    openModal={openModal}
+                    closeModal={closeModal}
+                />
             </div>
             <ToastContainer 
                 position="top-center"
@@ -289,7 +162,8 @@ const mapStateToProps = (state) => {
     const props = {
         user: state.user,
         searchText: state.searchText,
-        showArchivedTopics: state.showArchivedTopics
+        showArchivedTopics: state.showArchivedTopics,
+        userTopics: state.userTopics
     }
     return { props }
 }

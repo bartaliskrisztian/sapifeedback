@@ -38,6 +38,7 @@ function Topic({dispatch}) {
 
     // fetching the details of a topic before rendering
     useEffect(() => {
+        const abortController = new AbortController();
 
         // getting the url parameters        
         const userid = params.userId;
@@ -50,6 +51,10 @@ function Topic({dispatch}) {
         }
         else {
             history.push("/");
+        }
+
+        return function cleanup() {
+            abortController.abort();
         }
         // eslint-disable-next-line
     }, [params]);
