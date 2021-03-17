@@ -25,11 +25,13 @@ const strings = {
             },
             menu: {
                 archive: 'Archive',
-                copyLink: 'Copy link'
+                copyLink: 'Copy link',
+                toActive: 'Cancel archiving'
             },
             archived: 'Archived',
             notification: {
-                onArchive: 'Topic archived successfully',
+                onArchive: 'Topic archived successfully.',
+                onActivate: 'Archiving cancelled.',
                 onCopyToClipboard: 'Link copied.'
             },
             showArchivedTopics: 'Show archived topics',
@@ -55,7 +57,11 @@ const strings = {
             reports: {
                 reportText: "Text",
                 reportImage: "Attached image",
-                reportUrl: "Link for reporting"
+                reportUrl: "Link for reporting",
+                firstPageButton: 'First',
+                prevPageButton: 'Previous',
+                nextPageButton: 'Next',
+                lastPageButton: 'Last',
             }
         },
         report: {
