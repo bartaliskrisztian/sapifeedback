@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 function Statistics() {
+  const params = useParams();
+
   // fetching the topics based on the user
   useEffect(() => {
     fetchData();
@@ -8,12 +11,13 @@ function Statistics() {
   }, []);
 
   const fetchData = () => {
-    fetch("/")
-      .then((res) => res.text())
+    fetch(
+      `http://localhost:3000/topic/${params.userId}/${params.topicId}/statistics`
+    )
+      .then((res) => res.json())
       .then((res) => {
-        let temp = document.createElement("div");
-        temp.innerHTML = res;
-        console.log(temp.innerHTML);
+        //console.log(res);
+        console.log(JSON.parse(res.result));
       });
   };
 
