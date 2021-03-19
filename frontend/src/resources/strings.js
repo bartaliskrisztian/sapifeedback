@@ -52,7 +52,7 @@ const strings = {
             },
             deleteButtonText: 'Delete topic',
             notExistsText: 'This topic does not exists.',
-            menus: ["Reports","Statistics"],
+            menus: [{name: "Reports", value: "reports" }, {name: "Statistics", value: "statistics"}],
             noReports: "There are no reports yet.",
             reports: {
                 reportText: "Text",
@@ -137,7 +137,7 @@ const strings = {
             },
             deleteButtonText: 'Téma törlése',
             notExistsText: 'Nem létezik ez a téma.',
-            menus: ["Bejelentések","Statisztikák"],
+            menus: [{name: "Bejelentések", value: "reports" }, {name: "Statisztikák", value: "statistics"}],
             noReports: "Még nincsenek bejelentések.",
             reports: {
                 reportText: "Szöveg",
