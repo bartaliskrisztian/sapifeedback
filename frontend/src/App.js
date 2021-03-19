@@ -1,11 +1,11 @@
-import { Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
-import Topic from "./components/Topic";
-import ReportPage from "./components/ReportPage";
-import Statistics from "./components/Statistics";
+import { Route } from "react-router-dom"
+import Layout from "./components/Layout"
+import Login from "./components/Login"
+import Home from "./components/Home"
+import Navbar from "./components/Navbar"
+import Topic from "./components/Topic"
+import ReportPage from "./components/ReportPage"
+import Statistics from "./components/Statistics"
 
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
         <Navbar page="home"/>
         <Home />
       </div>
-    );
+    )
   }
 
   const TopicDetailsPage = () => {
@@ -24,7 +24,7 @@ function App() {
         <Navbar page="topic" />
         <Topic />
       </div>
-    );
+    )
   }
 
   const StatisticsPage = () => {
@@ -33,7 +33,7 @@ function App() {
         <Navbar page="topic" />
         <Statistics />
       </div>
-    );
+    )
   }
 
   return (

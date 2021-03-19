@@ -35,16 +35,6 @@ function UserTopics({ props, dispatch }) {
     // eslint-disable-next-line
   }, []);
 
-  const fetchData = () => {
-    fetch("/")
-      .then((res) => res.text())
-      .then((res) => {
-        let temp = document.createElement("div");
-        temp.innerHTML = res;
-        console.log(temp.innerHTML);
-      });
-  };
-
   const notifySuccess = (message) => toast.success(message);
   const notifyError = (message) => toast.error(message);
 
@@ -177,8 +167,6 @@ function UserTopics({ props, dispatch }) {
           closeModal={closeModal}
         />
       </div>
-      <div id="results"></div>
-      <button onClick={fetchData}>click</button>
       <ToastContainer
         position="top-center"
         pauseOnHover={false}
