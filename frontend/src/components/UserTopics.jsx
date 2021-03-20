@@ -39,15 +39,19 @@ function UserTopics({ props, dispatch }) {
   const notifyError = (message) => toast.error(message);
 
   const getUserTopics = () => {
-    db.ref(`topics/${props.user.googleId}`).on("value", (snapshot) => {
-      if (snapshot.val()) {
+    fetch(`${window.location.origin}/getUserTopics/${props.user.googleId}`)
+      .then((res) => res.json())
+      .then((res) => {
         dispatch({
           type: "SET_USER_TOPICS",
-          payload: Object.entries(snapshot.val()),
+          payload: Object.entries(res.result),
         });
-      }
-      setIsLoading(false);
-    });
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        notifyError(err);
+      });
   };
 
   const showArchivedTopics = () => {
@@ -85,21 +89,32 @@ function UserTopics({ props, dispatch }) {
     });
 
     if (ok) {
-      const dbRef = db.ref(`topics/${props.user.googleId}`);
-      const uid = dbRef.push().key; // getting a new id for the topic
-      const date = Date.now();
-      const reportUrl = `${window.location.origin}/#/report/${props.user.googleId}/${uid}`;
-
-      dbRef
-        .child(uid)
-        .set({
-          date: date,
+      fetch(`${window.location.origin}/createTopic`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date: Date.now(),
           topicName: topicName,
-          reportUrl: reportUrl,
+          userId: props.user.googleId,
+          host: window.location.origin,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.error === "OK") {
+            closeModal();
+            notifySuccess(strings.userTopics.modal.onSuccess);
+          } else {
+            console.log(res.error);
+            notifyError(res.error);
+          }
         })
-        .then(closeModal)
-        .then(notifySuccess(strings.userTopics.modal.onSuccess))
-        .catch((error) => notifyError(error));
+        .catch((error) => {
+          console.log(error);
+          notifyError(error);
+        });
     }
   };
 

@@ -6,7 +6,6 @@ import Modal from "react-modal";
 import Reports from "./Reports";
 import { connect } from "react-redux";
 
-import { db } from "../database/firebase"; // importing database
 import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
@@ -65,39 +64,27 @@ function Topic({ dispatch }) {
   }
 
   const getTopicDetails = (userGoogleId, topicId) => {
-    db.ref(`topics/${userGoogleId}/${topicId}`).on("value", (snapshot) => {
-      if (snapshot.val()) {
-        dispatch({
-          type: "SET_CURRENT_TOPIC_NAME",
-          payload: snapshot.val().topicName,
-        });
-
-        setTopic(snapshot.val());
-        getTopicReports(topicId);
-
-        setIsLoading(false);
-      } else {
-        setTopicExists(false);
-        setIsLoading(false);
-      }
-    });
+    fetch(`${window.location.origin}/topic/${userGoogleId}/${topicId}/details`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.result) {
+          dispatch({
+            type: "SET_CURRENT_TOPIC_NAME",
+            payload: res.result.topicName,
+          });
+          setTopic(res.result);
+          getTopicReports(userGoogleId, topicId);
+        }
+      });
   };
 
-  const getTopicReports = (topicId) => {
-    db.ref(`reports/${topicId}`).on("value", (snapshot) => {
-      if (snapshot.val()) {
-        setTopicReports(Object.values(snapshot.val()));
-      } else {
-        setTopicReports([]);
-      }
-    });
-  };
-
-  // deleting one topic from db, then going back to homepage
-  const deleteTopic = () => {
-    db.ref(`topics/${userGoogleId}/${topicId}`)
-      .remove()
-      .then(() => history.push("/"));
+  const getTopicReports = (userGoogleId, topicId) => {
+    fetch(`${window.location.origin}/topic/${userGoogleId}/${topicId}/reports`)
+      .then((res) => res.json())
+      .then((res) => {
+        setTopicReports(Object.values(res.result));
+        setIsLoading(false);
+      });
   };
 
   const DeleteTopicModal = () => {
@@ -117,7 +104,7 @@ function Topic({ dispatch }) {
           {strings.topic.deleteModal.title}
         </div>
         <div className="delete-topic__button-holder">
-          <button className="delete-topic__button" onClick={deleteTopic}>
+          <button className="delete-topic__button">
             {strings.topic.deleteModal.deleteButtonText}
           </button>
           <button className="delete-topic__button" onClick={closeModal}>

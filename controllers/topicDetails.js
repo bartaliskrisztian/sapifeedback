@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+const db = require('../firebase_db');
 
 const {PythonShell} = require('python-shell')  // Import PythonShell module
 
@@ -23,6 +24,30 @@ const myFunction = (req, res) => {
     })
   }
 
-router.get("/:userId/:topicId/statistics", myFunction)
+const getTopicReports = (req, res) => {
+    const topicId = req.params.topicId;
+    const ref = db.ref(`reports/${topicId}`);
+    ref.on("value", (snapshot) => {
+        if (snapshot.val()) {
+            res.send({result: snapshot.val()})
+        }
+        else {
+            res.send({result: []})
+        }
+    });
+}
+
+const getTopicDetails = (req, res) => {
+    const userId = req.params.userId;
+    const topicId = req.params.topicId;
+    const ref = db.ref(`topics/${userId}/${topicId}`);
+    ref.on("value", (snapshot) => {
+        res.send({result: snapshot.val()})
+    });
+}
+
+router.get("/:userId/:topicId/reports", getTopicReports)
+router.get("/:userId/:topicId/details", getTopicDetails)
+//router.get("/:userId/:topicId/statistics", myFunction)
 
 module.exports = router
