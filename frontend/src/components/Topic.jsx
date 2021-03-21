@@ -27,9 +27,6 @@ function Topic({ dispatch }) {
 
   const [topicExists, setTopicExists] = useState(true);
 
-  const [userGoogleId, setUserGoogleId] = useState(null);
-  const [topicId, setTopicId] = useState(null);
-
   const [topic, setTopic] = useState({});
   const [topicReports, setTopicReports] = useState([]);
 
@@ -42,8 +39,6 @@ function Topic({ dispatch }) {
     const topicid = params.topicId;
 
     if (userid !== undefined && topicid !== undefined) {
-      setUserGoogleId(userid);
-      setTopicId(topicid);
       getTopicDetails(userid, topicid);
     } else {
       history.push("/");
@@ -74,6 +69,8 @@ function Topic({ dispatch }) {
           });
           setTopic(res.result);
           getTopicReports(userGoogleId, topicId);
+        } else {
+          setTopicExists(false);
         }
       });
   };

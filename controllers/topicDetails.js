@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-const db = require('../firebase_db');
+const admin = require('../firebase_db');
 
 const {PythonShell} = require('python-shell')  // Import PythonShell module
 
@@ -26,7 +26,7 @@ const myFunction = (req, res) => {
 
 const getTopicReports = (req, res) => {
     const topicId = req.params.topicId;
-    const ref = db.ref(`reports/${topicId}`);
+    const ref = admin.db.ref(`reports/${topicId}`);
     ref.on("value", (snapshot) => {
         if (snapshot.val()) {
             res.send({result: snapshot.val()})
@@ -40,7 +40,7 @@ const getTopicReports = (req, res) => {
 const getTopicDetails = (req, res) => {
     const userId = req.params.userId;
     const topicId = req.params.topicId;
-    const ref = db.ref(`topics/${userId}/${topicId}`);
+    const ref = admin.db.ref(`topics/${userId}/${topicId}`);
     ref.on("value", (snapshot) => {
         res.send({result: snapshot.val()})
     });

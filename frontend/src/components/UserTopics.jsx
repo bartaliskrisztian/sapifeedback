@@ -7,7 +7,6 @@ import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 
-import { db } from "../database/firebase"; // importing database
 import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
@@ -39,7 +38,8 @@ function UserTopics({ props, dispatch }) {
   const notifyError = (message) => toast.error(message);
 
   const getUserTopics = () => {
-    fetch(`${window.location.origin}/getUserTopics/${props.user.googleId}`)
+    console.log(window.location.origin);
+    fetch(`${window.location.origin}/userTopics/${props.user.googleId}`)
       .then((res) => res.json())
       .then((res) => {
         dispatch({
@@ -112,7 +112,6 @@ function UserTopics({ props, dispatch }) {
           }
         })
         .catch((error) => {
-          console.log(error);
           notifyError(error);
         });
     }

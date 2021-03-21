@@ -117,6 +117,7 @@ const strings = {
             archived: 'Archivált',
             notification: {
                 onArchive: 'Sikeresen archiválta a témát.',
+                onActivate: 'Sikeresen visszavonta az archiválást.',
                 onCopyToClipboard: 'Bejelentő link kimásolva.'
             },
             showArchivedTopics: 'Archivált témák megjelenítése',

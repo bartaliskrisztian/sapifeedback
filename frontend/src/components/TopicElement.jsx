@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { db } from "../database/firebase"; // importing database
 import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
@@ -18,17 +17,37 @@ function TopicElement(props) {
   };
 
   const archiveTopic = () => {
-    db.ref(`topics/${props.userid}/${props.topicid}`).update({
-      isArchived: "true",
-    });
-    props.onArchive(strings.userTopics.notification.onArchive);
+    fetch(
+      `${window.location.origin}/userTopics/archiveTopic/${props.userid}/${props.topicid}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error === "OK") {
+          props.onArchive(strings.userTopics.notification.onArchive);
+          setShowMoreDropwdown(false);
+        } else {
+          props.onError(res.error);
+          setShowMoreDropwdown(false);
+        }
+      })
+      .catch((e) => props.onError(e));
   };
 
   const activateTopic = () => {
-    db.ref(`topics/${props.userid}/${props.topicid}`).update({
-      isArchived: null,
-    });
-    props.onArchive("Sikeresen aktiválta a témát.");
+    fetch(
+      `${window.location.origin}/userTopics/activateTopic/${props.userid}/${props.topicid}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error === "OK") {
+          props.onArchive(strings.userTopics.notification.onActivate);
+          setShowMoreDropwdown(false);
+        } else {
+          props.onError(res.error);
+          setShowMoreDropwdown(false);
+        }
+      })
+      .catch((e) => props.notifyError(e));
   };
 
   const copyUrlToClipboard = () => {
@@ -46,16 +65,14 @@ function TopicElement(props) {
   };
 
   const getTopicUrl = () => {
-    let url = null;
-    db.ref(`topics/${props.userid}/${props.topicid}/reportUrl`).on(
-      "value",
-      (snapshot) => {
-        if (snapshot.val()) {
-          url = snapshot.val();
-        }
-      }
-    );
-    return url;
+    fetch(
+      `${window.location.origin}/userTopics/getTopicUrl/${props.userid}/${props.topicid}`
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        return res.result;
+      })
+      .catch((e) => props.notifyError(e));
   };
 
   const AddTopicCard = () => {

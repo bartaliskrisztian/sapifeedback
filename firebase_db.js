@@ -20,5 +20,10 @@ admin.initializeApp({
 });
 
 const db = admin.database();
+const storage = admin.storage();
 
-module.exports = db;
+
+module.exports = {
+  db,
+  storage
+};
