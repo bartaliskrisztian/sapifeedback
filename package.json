@@ -25,7 +25,8 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",
     "http-proxy-middleware": "^1.0.6",
-    "python-shell": "^2.0.3"
+    "python-shell": "^2.0.3",
+    "socket.io": "^4.0.0"
   },
   "devDependencies": {
     "concurrently": "^6.0.0"

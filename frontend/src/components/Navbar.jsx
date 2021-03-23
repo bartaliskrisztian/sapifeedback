@@ -71,18 +71,19 @@ function Navbar({ props, dispatch }) {
     );
   };
 
+  const onImageError = (image) => {
+    image.target.src = UserPlaceholder;
+  };
+
   const ProfileMenu = () => {
     return (
       <div className="user-menu">
         <img
           className="user-image"
-          src={
-            props.user.imageUrl === undefined
-              ? UserPlaceholder
-              : props.user.imageUrl
-          }
+          src={props.user.imageUrl}
           alt="Profile"
           onClick={() => setShowProfileMenu(!showProfileMenu)}
+          onError={onImageError}
         />
         <div className={`profile-dropdown${showProfileMenu ? " open" : ""}`}>
           <img

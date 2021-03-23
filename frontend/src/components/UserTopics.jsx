@@ -7,6 +7,8 @@ import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 
+import socketIOClient from "socket.io-client";
+
 import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
@@ -18,6 +20,12 @@ function UserTopics({ props, dispatch }) {
   // string resources
   let language = process.env.REACT_APP_LANGUAGE;
   let strings = stringRes[language];
+
+  const socket = socketIOClient(
+    "http://localhost:5000/",
+    { transports: ["websocket"], upgrade: false },
+    { "force new connection": true }
+  );
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [topicName, setTopicName] = useState("");
@@ -31,6 +39,7 @@ function UserTopics({ props, dispatch }) {
     if (props.user != null) {
       getUserTopics();
     }
+
     // eslint-disable-next-line
   }, []);
 
@@ -38,20 +47,20 @@ function UserTopics({ props, dispatch }) {
   const notifyError = (message) => toast.error(message);
 
   const getUserTopics = () => {
-    console.log(window.location.origin);
-    fetch(`${window.location.origin}/userTopics/${props.user.googleId}`)
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch({
-          type: "SET_USER_TOPICS",
-          payload: Object.entries(res.result),
-        });
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        notifyError(err);
+    fetch(
+      `${window.location.origin}/api/userTopics/${props.user.googleId}`
+    ).catch((err) => {
+      setIsLoading(false);
+      notifyError(err);
+    });
+
+    socket.on("asd", (data) => {
+      dispatch({
+        type: "SET_USER_TOPICS",
+        payload: Object.entries(data.result),
       });
+      setIsLoading(false);
+    });
   };
 
   const showArchivedTopics = () => {
@@ -89,7 +98,7 @@ function UserTopics({ props, dispatch }) {
     });
 
     if (ok) {
-      fetch(`${window.location.origin}/createTopic`, {
+      fetch(`${window.location.origin}/api/createTopic`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

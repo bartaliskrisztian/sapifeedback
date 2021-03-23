@@ -28,7 +28,11 @@ const activateTopic = (req, res) => {
 
   ref.update({
     isArchived: null,
-  }).then(res.send({error: "OK"})).catch(e => res.send({error: e}));
+  }).catch(e => {
+    res.send({error: e});
+    return;
+  });
+  res.send({error: "OK"});
 };
 
 const archiveTopic = (req, res) => {
@@ -39,22 +43,26 @@ const archiveTopic = (req, res) => {
 
   ref.update({
     isArchived: "true",
-  }).then(res.send({error: "OK"})).catch(e => res.send({error: e}));
+  }).catch(e => {
+    res.send({error: e});
+    return;
+  });
+
+  res.send({error: "OK"});
 };
 
 const getUserTopics = (req, res) => {
    const userId = req.params.userId;
    const ref = admin.db.ref(`topics/${userId}`);
-   console.log("asd");
 
    ref.on("value", (snapshot) => {
-     res.send({result: snapshot.val()});
+     res.io.emit("asd", {result: snapshot.val()});
     });
 }
 
-router.get("/userTopics/:userId", getUserTopics);
-router.get("/userTopics/getTopicUrl/:userId/:topicId", getTopicUrl);
-router.get("/userTopics/archiveTopic/:userId/:topicId", archiveTopic);
-router.get("/userTopics/activateTopic/:userId/:topicId", activateTopic);
+router.get("/:userId", getUserTopics);
+router.get("/getTopicUrl/:userId/:topicId", getTopicUrl);
+router.get("/archiveTopic/:userId/:topicId", archiveTopic);
+router.get("/activateTopic/:userId/:topicId", activateTopic);
 
 module.exports = router

@@ -18,7 +18,7 @@ function TopicElement(props) {
 
   const archiveTopic = () => {
     fetch(
-      `${window.location.origin}/userTopics/archiveTopic/${props.userid}/${props.topicid}`
+      `${window.location.origin}/api/userTopics/archiveTopic/${props.userid}/${props.topicid}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -35,7 +35,7 @@ function TopicElement(props) {
 
   const activateTopic = () => {
     fetch(
-      `${window.location.origin}/userTopics/activateTopic/${props.userid}/${props.topicid}`
+      `${window.location.origin}/api/userTopics/activateTopic/${props.userid}/${props.topicid}`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -66,7 +66,7 @@ function TopicElement(props) {
 
   const getTopicUrl = () => {
     fetch(
-      `${window.location.origin}/userTopics/getTopicUrl/${props.userid}/${props.topicid}`
+      `${window.location.origin}/api/userTopics/getTopicUrl/${props.userid}/${props.topicid}`
     )
       .then((res) => res.json())
       .then((res) => {
