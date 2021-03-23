@@ -7,6 +7,7 @@ import Topic from "./components/Topic"
 import ReportPage from "./components/ReportPage"
 import Statistics from "./components/Statistics"
 
+
 function App() {
 
   const HomePage = () => {

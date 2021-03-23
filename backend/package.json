@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/bartaliskrisztian/report-feedback#readme",
   "dependencies": {
+    "@google-cloud/storage": "^5.8.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",

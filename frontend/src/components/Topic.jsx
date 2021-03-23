@@ -4,12 +4,16 @@ import { useHistory, useParams } from "react-router-dom";
 // importing components
 import Modal from "react-modal";
 import Reports from "./Reports";
+import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
+
+import socketIOClient from "socket.io-client";
 
 import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/Topic.css";
+import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
 
@@ -20,6 +24,12 @@ function Topic({ dispatch }) {
 
   const history = useHistory();
   const params = useParams();
+
+  const socket = socketIOClient(
+    `${process.env.REACT_APP_SERVER_URL}`,
+    { transports: ["websocket"], upgrade: false },
+    { "force new connection": true }
+  );
 
   // for displaying the modal
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -50,6 +60,8 @@ function Topic({ dispatch }) {
     // eslint-disable-next-line
   }, [params]);
 
+  const notifyError = (message) => toast.error(message);
+
   function openModal() {
     setIsOpen(true);
   }
@@ -60,7 +72,7 @@ function Topic({ dispatch }) {
 
   const getTopicDetails = (userGoogleId, topicId) => {
     fetch(
-      `${window.location.origin}/api/topic/${userGoogleId}/${topicId}/details`
+      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/details`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -79,13 +91,20 @@ function Topic({ dispatch }) {
 
   const getTopicReports = (userGoogleId, topicId) => {
     fetch(
-      `${window.location.origin}/api/topic/${userGoogleId}/${topicId}/reports`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setTopicReports(Object.values(res.result));
-        setIsLoading(false);
-      });
+      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/reports`
+    ).catch((error) => {
+      notifyError(error);
+      setIsLoading(false);
+    });
+
+    socket.on("getTopicReports", (data) => {
+      if (data.result !== null) {
+        setTopicReports(Object.values(data.result));
+      } else {
+        setTopicReports([]);
+      }
+      setIsLoading(false);
+    });
   };
 
   const DeleteTopicModal = () => {
@@ -157,6 +176,13 @@ function Topic({ dispatch }) {
         {/* eslint eqeqeq: 0 */ <TopicLink />}
         {!isLoading && <ReportsTable />}
         {isLoading && <div className="topic-loader"></div>}
+        <ToastContainer
+          position="top-center"
+          pauseOnHover={false}
+          hideProgressBar={true}
+          autoClose={3000}
+          closeOnClick={false}
+        />
       </div>
     );
   } else {
@@ -165,6 +191,13 @@ function Topic({ dispatch }) {
         <h1 className="topic-detail__notexists">
           {strings.topic.notExistsText}
         </h1>
+        <ToastContainer
+          position="top-center"
+          pauseOnHover={false}
+          hideProgressBar={true}
+          autoClose={3000}
+          closeOnClick={false}
+        />
       </div>
     );
   }

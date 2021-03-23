@@ -6,6 +6,7 @@ import ImageDropzone from "./ImageDropzone";
 import { useHistory, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
+import { storage } from "../firebase/Firebase";
 import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
@@ -49,7 +50,9 @@ function ReportPage() {
   }, []);
 
   const getTopicDetails = (userGoogleId, topicId) => {
-    fetch(`${window.location.origin}/topic/${userGoogleId}/${topicId}/details`)
+    fetch(
+      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/details`
+    )
       .then((res) => res.json())
       .then((res) => {
         if (res.result) {
@@ -75,25 +78,62 @@ function ReportPage() {
     recaptchaRef.current.props.grecaptcha.reset();
   };
 
+  const uploadImage = async ({ image, imageName }) => {
+    try {
+      const blob = await fetch(image).then((r) => r.blob());
+
+      const snapshot = await storage
+        .ref("report_images")
+        .child(imageName)
+        .put(blob);
+
+      const downloadUrl = await snapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const uploadReport = async () => {
-    const image = files.length ? files[0] : null;
     const date = `${Date.now()}`;
 
-    const data = {
-      date: date,
-      text: reportText,
-      topicOwnerId: userId,
-      topicId: topicId,
-      image: image,
-    };
+    if (files.length) {
+      const image = files.length ? URL.createObjectURL(files[0]) : null;
+      const imageName = files.length ? files[0].name : "";
 
-    fetch(`${window.location.origin}/uploadReport`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+      uploadImage({ image, imageName }).then((url) => {
+        const data = {
+          date: date,
+          text: reportText,
+          topicOwnerId: userId,
+          topicId: topicId,
+          imageUrl: url,
+        };
+        sendRequest(data);
+      });
+    } else {
+      const data = {
+        date: date,
+        text: reportText,
+        topicOwnerId: userId,
+        topicId: topicId,
+        imageUrl: null,
+      };
+      sendRequest(data);
+    }
+  };
+
+  const sendRequest = (data) => {
+    fetch(
+      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/uploadReport`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((res) => {
         if (res.error === "OK") {

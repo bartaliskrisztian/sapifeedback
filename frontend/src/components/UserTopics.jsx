@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 // importing components
 import SortedTopicElements from "./SortedTopicElements";
 import TopicSort from "./TopicSort";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
+import { SocketContext } from "../context/socket";
 import { connect } from "react-redux";
-
-import socketIOClient from "socket.io-client";
 
 import stringRes from "../resources/strings"; // importing language resource file
 
@@ -21,11 +20,7 @@ function UserTopics({ props, dispatch }) {
   let language = process.env.REACT_APP_LANGUAGE;
   let strings = stringRes[language];
 
-  const socket = socketIOClient(
-    "http://localhost:5000/",
-    { transports: ["websocket"], upgrade: false },
-    { "force new connection": true }
-  );
+  const socket = useContext(SocketContext);
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [topicName, setTopicName] = useState("");
@@ -96,18 +91,21 @@ function UserTopics({ props, dispatch }) {
     });
 
     if (ok) {
-      fetch(`${window.location.origin}/api/createTopic`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          date: Date.now(),
-          topicName: topicName,
-          userId: props.user.googleId,
-          host: window.location.origin,
-        }),
-      })
+      fetch(
+        `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/createTopic`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            date: Date.now(),
+            topicName: topicName,
+            userId: props.user.googleId,
+            host: window.location.origin,
+          }),
+        }
+      )
         .then((res) => res.json())
         .then((res) => {
           if (res.error === "OK") {

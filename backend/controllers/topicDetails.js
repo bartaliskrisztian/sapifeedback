@@ -27,13 +27,12 @@ const myFunction = (req, res) => {
 const getTopicReports = (req, res) => {
     const topicId = req.params.topicId;
     const ref = admin.db.ref(`reports/${topicId}`);
+    let result = [];
     ref.on("value", (snapshot) => {
         if (snapshot.val()) {
-            res.send({result: snapshot.val()})
+            result = snapshot.val();
         }
-        else {
-            res.send({result: []})
-        }
+        res.io.emit("getTopicReports", {result: snapshot.val()});
     });
 }
 
