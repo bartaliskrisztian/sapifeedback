@@ -59,7 +59,9 @@ function Topic({ dispatch }) {
   }
 
   const getTopicDetails = (userGoogleId, topicId) => {
-    fetch(`${window.location.origin}/topic/${userGoogleId}/${topicId}/details`)
+    fetch(
+      `${window.location.origin}/api/topic/${userGoogleId}/${topicId}/details`
+    )
       .then((res) => res.json())
       .then((res) => {
         if (res.result) {
@@ -76,7 +78,9 @@ function Topic({ dispatch }) {
   };
 
   const getTopicReports = (userGoogleId, topicId) => {
-    fetch(`${window.location.origin}/topic/${userGoogleId}/${topicId}/reports`)
+    fetch(
+      `${window.location.origin}/api/topic/${userGoogleId}/${topicId}/reports`
+    )
       .then((res) => res.json())
       .then((res) => {
         setTopicReports(Object.values(res.result));

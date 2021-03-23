@@ -39,7 +39,6 @@ function UserTopics({ props, dispatch }) {
     if (props.user != null) {
       getUserTopics();
     }
-
     // eslint-disable-next-line
   }, []);
 
@@ -48,19 +47,18 @@ function UserTopics({ props, dispatch }) {
 
   const getUserTopics = () => {
     fetch(
-      `${window.location.origin}/api/userTopics/${props.user.googleId}`
+      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/${props.user.googleId}`
     ).catch((err) => {
       setIsLoading(false);
       notifyError(err);
     });
-
-    socket.on("asd", (data) => {
+    socket.on("getUserTopics", (data) => {
       dispatch({
         type: "SET_USER_TOPICS",
         payload: Object.entries(data.result),
       });
-      setIsLoading(false);
     });
+    setIsLoading(false);
   };
 
   const showArchivedTopics = () => {
@@ -183,12 +181,15 @@ function UserTopics({ props, dispatch }) {
       </div>
       <div>
         {/* filtering the topics by the searchbar input */}
-        {isLoading && <div className="user-topics__loader"></div>}
-        <SortedTopicElements
-          sortOption={topicSortOption[0].value}
-          openModal={openModal}
-          closeModal={closeModal}
-        />
+        {isLoading ? (
+          <div className="user-topics__loader"></div>
+        ) : (
+          <SortedTopicElements
+            sortOption={topicSortOption[0].value}
+            openModal={openModal}
+            closeModal={closeModal}
+          />
+        )}
       </div>
       <ToastContainer
         position="top-center"
