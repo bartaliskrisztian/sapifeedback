@@ -3,6 +3,7 @@ var router = express.Router()
 const admin = require('../firebase_db');
 
 const getTopicUrl = (req, res) => {
+  // getting the parameters sent from the client side
   const userId = req.params.userId;
   const topicId = req.params.topicId;
 
@@ -21,6 +22,7 @@ const getTopicUrl = (req, res) => {
 };
 
 const activateTopic = (req, res) => {
+  // getting the parameters sent from the client side
   const userId = req.params.userId;
   const topicId = req.params.topicId;
 
@@ -36,6 +38,7 @@ const activateTopic = (req, res) => {
 };
 
 const archiveTopic = (req, res) => {
+  // getting the parameters sent from the client side
   const userId = req.params.userId;
   const topicId = req.params.topicId;
 
@@ -52,8 +55,11 @@ const archiveTopic = (req, res) => {
 };
 
 const getUserTopics = (req, res) => {
+  // getting the parameters sent from the client side
    const userId = req.params.userId;
+
    const ref = admin.db.ref(`topics/${userId}`);
+   // when there is a change between the user's topics, we send them again with the help of a websocket 
    ref.on("value", (snapshot) => {
      res.io.emit("getUserTopics", {result: snapshot.val()});
     });

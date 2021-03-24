@@ -70,6 +70,7 @@ function Topic({ dispatch }) {
     setIsOpen(false);
   }
 
+  // getting the details of a topic
   const getTopicDetails = (userGoogleId, topicId) => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/details`
@@ -77,6 +78,7 @@ function Topic({ dispatch }) {
       .then((res) => res.json())
       .then((res) => {
         if (res.result) {
+          // save the topic's name in the global state
           dispatch({
             type: "SET_CURRENT_TOPIC_NAME",
             payload: res.result.topicName,
@@ -89,6 +91,7 @@ function Topic({ dispatch }) {
       });
   };
 
+  // getting all reports from a topic
   const getTopicReports = (userGoogleId, topicId) => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/reports`

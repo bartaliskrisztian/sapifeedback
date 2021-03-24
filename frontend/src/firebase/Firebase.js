@@ -1,6 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/storage';
 
+// configuration settings, stored in environment variables
 let config = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -10,6 +11,5 @@ let config = {
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
-firebase.initializeApp(config);
-
-export const storage = firebase.storage();
+firebase.initializeApp(config); // initializing app
+export const storage = firebase.storage(); // exporting firabase storage

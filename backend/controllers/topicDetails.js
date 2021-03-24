@@ -1,8 +1,9 @@
 var express = require('express')
 var router = express.Router()
 const admin = require('../firebase_db');
-
 const {PythonShell} = require('python-shell')  // Import PythonShell module
+
+// controller for handling GET request about a topic
 
 const myFunction = (req, res) => {
 
@@ -25,23 +26,28 @@ const myFunction = (req, res) => {
   }
 
 const getTopicReports = (req, res) => {
+  // getting the parameters sent from the client side
     const topicId = req.params.topicId;
     const ref = admin.db.ref(`reports/${topicId}`);
     let result = [];
+    
+    // when there is a change between these reports, we send them to the client with the help of a websocket 
     ref.on("value", (snapshot) => {
         if (snapshot.val()) {
             result = snapshot.val();
         }
-        res.io.emit("getTopicReports", {result: snapshot.val()});
+        res.io.emit("getTopicReports", {result: snapshot.val()}); // sending response to client with socket
     });
 }
 
 const getTopicDetails = (req, res) => {
+  // getting the parameters sent from the client side
     const userId = req.params.userId;
     const topicId = req.params.topicId;
+
     const ref = admin.db.ref(`topics/${userId}/${topicId}`);
     ref.on("value", (snapshot) => {
-        res.send({result: snapshot.val()})
+        res.send({result: snapshot.val()}) // sending response to client
     });
 }
 

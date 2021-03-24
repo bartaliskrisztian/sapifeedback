@@ -11,6 +11,7 @@ function Reports(props) {
   let language = process.env.REACT_APP_LANGUAGE;
   let strings = stringRes[language];
 
+  // variables used for table pagination
   const reportsToShow = 5;
   const [currentPage, setCurrentPage] = useState(0);
   const [pages, setPages] = useState([]);
@@ -19,8 +20,10 @@ function Reports(props) {
 
   useEffect(() => {
     let reportsCopy = props.reports;
-
     setAllReportCount(reportsCopy.length);
+
+    // creating smaller arrays from the array of reports,
+    // each represents a page in the table
     let p = [];
     while (reportsCopy.length > 0) {
       let chunk = reportsCopy.splice(0, reportsToShow);
@@ -33,16 +36,19 @@ function Reports(props) {
     // eslint-disable-next-line
   }, []);
 
+  // go on the first page in the table
   const firstPage = () => {
     setCurrentPage(0);
     setShowedReports(pages[0].length);
   };
 
+  // go on the last page in the table
   const lastPage = () => {
     setCurrentPage(pages.length - 1);
     setShowedReports(allReportsCount);
   };
 
+  // go on the next page in the table
   const nextPage = () => {
     if (currentPage < pages.length - 1) {
       let newIndex = currentPage + 1;
@@ -51,7 +57,8 @@ function Reports(props) {
     }
   };
 
-  const beforePage = () => {
+  // go on the previous page in the table
+  const prevPage = () => {
     if (currentPage > 0) {
       let newIndex = currentPage - 1;
       setShowedReports(showedReports - pages[currentPage].length);
@@ -59,6 +66,7 @@ function Reports(props) {
     }
   };
 
+  // if an image cannot be loaded, use placeholder
   const onImageError = (image) => {
     image.target.src = ImagePlaceholder;
   };
@@ -109,7 +117,7 @@ function Reports(props) {
         <div className="topic-reports__pagination-element" onClick={firstPage}>
           {strings.topic.reports.firstPageButton}
         </div>
-        <div className="topic-reports__pagination-element" onClick={beforePage}>
+        <div className="topic-reports__pagination-element" onClick={prevPage}>
           {strings.topic.reports.prevPageButton}
         </div>
         <div className="topic-reports__pagination-element" onClick={nextPage}>

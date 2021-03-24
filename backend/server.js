@@ -1,26 +1,23 @@
-let topicDetails = require("./controllers/topicDetails");
-let createTopic = require("./controllers/createTopic");
-let getUserTopics = require("./controllers/userTopics");
-let uploadReport = require("./controllers/uploadReport");
-
 const express = require('express');
 const app = express();
-
 const http = require("http");
-const server = http.createServer(app);
+
+const server = http.createServer(app); // creating backend server
 const io = require("socket.io")(server, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"]
   }
-});
+}); // creating websocket for realtime fetching of data
+
+/* using middleware functions */
 
 app.use((req, res, next) => {
   res.io = io;
   next();
-});
+}); // adding socket
 
-app.use(express.json());
+app.use(express.json()); // parse request body as json
 
 app.use(function(req,res,next){
   var _send = res.send;
@@ -31,11 +28,15 @@ app.use(function(req,res,next){
       sent = true;
   };
   next();
-});
+}); // in order to not set headers after a response is sent
+
+// importing controllers
+let topicDetails = require("./controllers/topicDetails");
+let createTopic = require("./controllers/createTopic");
+let getUserTopics = require("./controllers/userTopics");
+let uploadReport = require("./controllers/uploadReport");
 
 const apiPath = process.env.API_PATH;
-console.log();
-
 app.use(`/${apiPath}/topic`, topicDetails);
 app.use(`/${apiPath}`, createTopic);
 app.use(`/${apiPath}/userTopics`, getUserTopics);

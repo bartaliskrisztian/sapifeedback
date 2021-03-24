@@ -9,16 +9,19 @@ import "react-toastify/dist/ReactToastify.css";
 function SortedTopicElements({ props }) {
   const [topics, setTopics] = useState([]);
 
+  // set the sorted topics, based on the sorting option
   useEffect(() => {
     const sortedTopics = getTopics();
     setTopics(sortedTopics);
     // eslint-disable-next-line
   }, [props.sortOption, props.topics]);
 
+  // toast functions
   const notifySuccess = (message) => toast.success(message);
   const notifyInfo = (message) => toast.info(message);
   const notifyError = (message) => toast.error(message);
 
+  // sort topics by name, ascending order
   const sortByAbcAsc = (userTopics) => {
     let sortedTopics = userTopics.sort((a, b) => {
       let la = a[1].topicName.toLowerCase();
@@ -28,6 +31,7 @@ function SortedTopicElements({ props }) {
     return sortedTopics;
   };
 
+  // sort topics by name, descending order
   const sortByAbcDesc = (userTopics) => {
     let sortedTopics = userTopics.sort((a, b) => {
       let la = a[1].topicName.toLowerCase();
@@ -37,6 +41,7 @@ function SortedTopicElements({ props }) {
     return sortedTopics;
   };
 
+  // sort topics by date, ascending order
   const sortByDateAsc = (userTopics) => {
     let sortedTopics = userTopics.sort((a, b) => {
       let la = a[1].date;
@@ -46,6 +51,7 @@ function SortedTopicElements({ props }) {
     return sortedTopics;
   };
 
+  // sort topics by date, descending order
   const sortByDateDesc = (userTopics) => {
     let sortedTopics = userTopics.sort((a, b) => {
       let la = a[1].date;
@@ -72,6 +78,7 @@ function SortedTopicElements({ props }) {
     }
   };
 
+  // returning sorted topics, including the archived topics too
   const SortedAllTopicElements = () => {
     return (
       topics &&
@@ -103,6 +110,7 @@ function SortedTopicElements({ props }) {
     );
   };
 
+  // returning sorted topics, without the archived ones
   const SortedActiveTopicElements = () => {
     return (
       topics &&

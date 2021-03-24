@@ -16,6 +16,7 @@ function TopicElement(props) {
     history.push(`/topic/${props.userid}/${props.topicid}/reports`);
   };
 
+  // archive topic
   const archiveTopic = () => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/archiveTopic/${props.userid}/${props.topicid}`
@@ -33,6 +34,7 @@ function TopicElement(props) {
       .catch((e) => props.onError(e));
   };
 
+  // remove topic from the archived topics
   const activateTopic = () => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/activateTopic/${props.userid}/${props.topicid}`
@@ -50,6 +52,7 @@ function TopicElement(props) {
       .catch((e) => props.notifyError(e));
   };
 
+  // copy topic's url to clipboard
   const copyUrlToClipboard = () => {
     let topicUrl = getTopicUrl();
     var textarea = document.createElement("textarea");
@@ -64,6 +67,7 @@ function TopicElement(props) {
     props.onCopyToClipboard(strings.userTopics.notification.onCopyToClipboard);
   };
 
+  // getting the topic's url
   const getTopicUrl = () => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/getTopicUrl/${props.userid}/${props.topicid}`

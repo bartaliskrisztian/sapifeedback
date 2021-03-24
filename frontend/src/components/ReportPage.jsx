@@ -49,6 +49,7 @@ function ReportPage() {
     // eslint-disable-next-line
   }, []);
 
+  // getting the details about a topic
   const getTopicDetails = (userGoogleId, topicId) => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/details`
@@ -56,7 +57,7 @@ function ReportPage() {
       .then((res) => res.json())
       .then((res) => {
         if (res.result) {
-          setTopic(res.result);
+          setTopic(res.result); // save the response in state
         }
       });
   };
@@ -78,6 +79,7 @@ function ReportPage() {
     recaptchaRef.current.props.grecaptcha.reset();
   };
 
+  // uploading the report image on client side
   const uploadImage = async ({ image, imageName }) => {
     try {
       const blob = await fetch(image).then((r) => r.blob());
@@ -123,6 +125,7 @@ function ReportPage() {
     }
   };
 
+  // POST request for uploading a report
   const sendRequest = (data) => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/uploadReport`,

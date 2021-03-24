@@ -40,6 +40,7 @@ function UserTopics({ props, dispatch }) {
   const notifySuccess = (message) => toast.success(message);
   const notifyError = (message) => toast.error(message);
 
+  // getting all topics from a user
   const getUserTopics = () => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/${props.user.googleId}`
@@ -47,7 +48,9 @@ function UserTopics({ props, dispatch }) {
       setIsLoading(false);
       notifyError(err);
     });
+    // websocket listening on change
     socket.on("getUserTopics", (data) => {
+      // saving the result in the global state
       dispatch({
         type: "SET_USER_TOPICS",
         payload: Object.entries(data.result),

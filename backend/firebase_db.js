@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
-
 require('dotenv').config();
 
+// credentials (stored in environment variables)
 const serviceAccount = {
   type: process.env.FIREBASE_TYPE,
   projectId: process.env.FIREBASE_PROJECT_ID,
@@ -15,6 +15,7 @@ const serviceAccount = {
   clientX509CertUrl: process.env.FIREBASE_CLIENT_X509_CERT_URL
 };
 
+// initializing firabase application
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: process.env.FIREBASE_DATABASE_URL,
@@ -22,6 +23,7 @@ admin.initializeApp({
 
 const db = admin.database();
 
+// exporting the realtime database in order to be accessible for other modules
 module.exports = {
   db
 };

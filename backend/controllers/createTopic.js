@@ -2,6 +2,8 @@ var express = require('express')
 var router = express.Router()
 const admin = require('../firebase_db');
 
+
+// POST request for creating a topic
 const createTopic = (req, res) => {
     const date = req.body.date;
     const topicName = req.body.topicName;
