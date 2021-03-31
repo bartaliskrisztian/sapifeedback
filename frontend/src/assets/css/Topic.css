@@ -1,7 +1,12 @@
 @import url("../../resources/colors.css");
 
+.topic-detail__holder {
+  height: calc(100% - 60px);
+}
+
 .topic-detail {
-  padding-top: 50px;
+  height: 100%;
+  overflow: auto;
 }
 
 .topic-detail__title {

@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 // importing components
 import SortedTopicElements from "./SortedTopicElements";
 import TopicSort from "./TopicSort";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
-import { SocketContext } from "../context/socket";
 import { connect } from "react-redux";
+
+import socket from "../socketConfig";
 
 import stringRes from "../resources/strings"; // importing language resource file
 
@@ -19,8 +20,6 @@ function UserTopics({ props, dispatch }) {
   // string resources
   let language = process.env.REACT_APP_LANGUAGE;
   let strings = stringRes[language];
-
-  const socket = useContext(SocketContext);
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [topicName, setTopicName] = useState("");

@@ -21,8 +21,7 @@
 }
 
 .topics {
-  height: calc(100% - 60px);
-  padding-top: 60px;
+  height: 100%;
 }
 
 .topics-title {
@@ -115,6 +114,12 @@
   position: absolute;
   background: var(--app_color);
   right: 20px;
+
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .topic-element__dropdown.open {

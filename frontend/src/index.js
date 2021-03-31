@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { HashRouter } from "react-router-dom"
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-import {SocketContext, socket} from "./context/socket";
 
 import "./assets/css/index.css"
 
@@ -13,13 +12,11 @@ window.store = store
 
 ReactDOM.render(
   <HashRouter>
-    <SocketContext.Provider value={socket} >
       <Provider store={store}>
         <React.StrictMode>
           <App />
         </React.StrictMode>
       </Provider>
-    </SocketContext.Provider>
   </HashRouter>,
   document.getElementById('root')
 );

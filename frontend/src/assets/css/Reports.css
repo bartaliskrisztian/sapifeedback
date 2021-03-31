@@ -1,14 +1,16 @@
 @import url("../../resources/colors.css");
 
 .topic-reports__container {
-  width: max-content;
   margin: auto;
+  height: 100%;
 }
 
 .topic-reports {
   border-radius: 8px;
   box-shadow: 2px 2px 4px #000;
   background: var(--app_color_light_hover);
+  height: 100%;
+  margin: auto;
 }
 
 .topic-reports__row-header {
@@ -49,10 +51,6 @@
   word-wrap: anywhere;
   overflow: auto;
 }
-
-/* .topic-reports__text::-webkit-scrollbar {
-  width: 0 !important;
-} */
 
 .topic-reports__image {
   object-fit: none;

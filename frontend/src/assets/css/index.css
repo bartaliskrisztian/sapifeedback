@@ -13,6 +13,17 @@ body,
   color: var(--font-color);
 }
 
+.page-holder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.topic-page__content {
+  width: 80%;
+  height: 100%;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

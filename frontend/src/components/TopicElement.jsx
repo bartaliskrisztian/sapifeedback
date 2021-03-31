@@ -1,18 +1,25 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+
 import stringRes from "../resources/strings"; // importing language resource file
 
 // importing styles
 import AddIcon from "../assets/images/plus.svg";
 import MoreIcon from "../assets/images/more.svg";
 
-function TopicElement(props) {
+function TopicElement({ props, dispatch }) {
   let history = useHistory();
   let language = process.env.REACT_APP_LANGUAGE;
   let strings = stringRes[language];
   const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
 
   const onTopicClicked = () => {
+    // save the topic's name in the global state
+    dispatch({
+      type: "SET_CURRENT_TOPIC_NAME",
+      payload: props.name,
+    });
     history.push(`/topic/${props.userid}/${props.topicid}/reports`);
   };
 
@@ -150,4 +157,28 @@ function TopicElement(props) {
   );
 }
 
-export default TopicElement;
+// getting the global state variables with redux
+const mapStateToProps = (state, ownProps) => {
+  const props = {
+    name: ownProps.name,
+    type: ownProps.type,
+    date: ownProps.date,
+    isArchived: ownProps.isArchived,
+    onClick: ownProps.onClick,
+    topicid: ownProps.topicid,
+    userid: ownProps.userid,
+    onArchive: ownProps.onArchive,
+    onError: ownProps.onError,
+    onCopyToClipboard: ownProps.onCopyToClipboard,
+  };
+  return { props };
+};
+
+// getting redux dispatch function for changing global state variables
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatch,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopicElement);

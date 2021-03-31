@@ -5,16 +5,22 @@
   height: 50px;
   background: var(--navbar_color);
   padding: 5px 0;
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  top: 0; */
   display: flex;
   z-index: 5;
+}
+
+.elements-to-end {
+  display: flex;
+  height: 100%;
+  margin-left: auto;
+  padding: 0 20px;
 }
 
 .navbar-menus {
   padding: 10px 20px 10px 10px;
   display: flex;
-  margin-left: auto;
   border-left: 1px solid var(--font-color);
 }
 
@@ -34,7 +40,6 @@
 }
 
 .user-menu {
-  margin-right: 20px;
   height: 100%;
 }
 
@@ -49,7 +54,7 @@
 
 .profile-dropdown {
   height: 0;
-  width: 0;
+  width: 300px;
   position: absolute;
   right: 10px;
   margin-top: 10px;
@@ -60,17 +65,12 @@
   overflow: hidden;
   background: var(--app_color_light);
 
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  transition: 0.5s;
-
   box-shadow: 2px 2px 7px #000;
   border-radius: 8px;
 }
 
 .profile-dropdown.open {
   height: 250px;
-  width: 300px;
   cursor: auto;
   padding: 10px;
 }
@@ -84,22 +84,9 @@
   font-weight: 900;
 }
 
-.topic-name {
+.navbar__topic-name {
   align-self: center;
   color: var(--button_grey);
   font-size: 30px;
-  padding-left: 20px;
-}
-
-.topic-menu__container {
-  display: flex;
-  padding-left: 20px;
-}
-
-.topic-menu {
-  text-decoration: none;
-  align-self: center;
-  color: var(--font-color);
-  padding: 5px;
-  border-radius: 8px;
+  padding-left: 30px;
 }

@@ -7,7 +7,7 @@ import Reports from "./Reports";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 
-import socketIOClient from "socket.io-client";
+import socket from "../socketConfig";
 
 import stringRes from "../resources/strings"; // importing language resource file
 
@@ -17,19 +17,13 @@ import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
 
-function Topic({ dispatch }) {
+function Topic({ props, dispatch }) {
   // string resources
   let language = process.env.REACT_APP_LANGUAGE;
   let strings = stringRes[language];
 
   const history = useHistory();
   const params = useParams();
-
-  const socket = socketIOClient(
-    `${process.env.REACT_APP_SERVER_URL}`,
-    { transports: ["websocket"], upgrade: false },
-    { "force new connection": true }
-  );
 
   // for displaying the modal
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -38,12 +32,9 @@ function Topic({ dispatch }) {
   const [topicExists, setTopicExists] = useState(true);
 
   const [topic, setTopic] = useState({});
-  const [topicReports, setTopicReports] = useState([]);
 
   // fetching the details of a topic before rendering
   useEffect(() => {
-    const abortController = new AbortController();
-
     // getting the url parameters
     const userid = params.userId;
     const topicid = params.topicId;
@@ -54,11 +45,8 @@ function Topic({ dispatch }) {
       history.push("/");
     }
 
-    return function cleanup() {
-      abortController.abort();
-    };
     // eslint-disable-next-line
-  }, [params]);
+  }, [params, socket]);
 
   const notifyError = (message) => toast.error(message);
 
@@ -78,36 +66,73 @@ function Topic({ dispatch }) {
       .then((res) => res.json())
       .then((res) => {
         if (res.result) {
-          // save the topic's name in the global state
-          dispatch({
-            type: "SET_CURRENT_TOPIC_NAME",
-            payload: res.result.topicName,
-          });
           setTopic(res.result);
+          dispatch({
+            type: "SET_CURRENT_TOPIC_DETAILS",
+            payload: res.result,
+          });
           getTopicReports(userGoogleId, topicId);
         } else {
           setTopicExists(false);
         }
+      })
+      .catch((error) => {
+        notifyError(error);
+        setIsLoading(false);
       });
+    // socket.on("getTopicDetails", (res) => {
+    //   if (res.result) {
+    //     setTopic(res.result);
+    //     dispatch({
+    //       type: "SET_CURRENT_TOPIC_DETAILS",
+    //       payload: res.result,
+    //     });
+    //     getTopicReports(userGoogleId, topicId);
+    //   } else {
+    //     setTopicExists(false);
+    //   }
+    // });
   };
 
   // getting all reports from a topic
   const getTopicReports = (userGoogleId, topicId) => {
     fetch(
       `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/reports`
-    ).catch((error) => {
-      notifyError(error);
-      setIsLoading(false);
-    });
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.result !== null) {
+          dispatch({
+            type: "SET_CURRENT_TOPIC_REPORTS",
+            payload: Object.values(res.result),
+          });
+        } else {
+          dispatch({
+            type: "SET_CURRENT_TOPIC_REPORTS",
+            payload: Object.values([]),
+          });
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        notifyError(error);
+        setIsLoading(false);
+      });
 
-    socket.on("getTopicReports", (data) => {
-      if (data.result !== null) {
-        setTopicReports(Object.values(data.result));
-      } else {
-        setTopicReports([]);
-      }
-      setIsLoading(false);
-    });
+    // socket.on("getTopicReports", (data) => {
+    //   if (data.result !== null) {
+    //     dispatch({
+    //       type: "SET_CURRENT_TOPIC_REPORTS",
+    //       payload: Object.entries(data.result),
+    //     });
+    //     console.log(data.result);
+    //   } else {
+    //     dispatch({
+    //       type: "SET_CURRENT_TOPIC_REPORTS",
+    //       payload: Object.entries([]),
+    //     });
+    //   }
+    // });
   };
 
   const DeleteTopicModal = () => {
@@ -158,8 +183,8 @@ function Topic({ dispatch }) {
   };
 
   const ReportsTable = () => {
-    if (topicReports.length > 0) {
-      return <Reports reports={topicReports} />;
+    if (props.topicReports.length > 0) {
+      return <Reports reports={props.topicReports} />;
     } else {
       return <h1 className="topic__no-reports">{strings.topic.noReports}</h1>;
     }
@@ -174,11 +199,17 @@ function Topic({ dispatch }) {
 
   if (topicExists) {
     return (
-      <div className="topic-detail">
+      <div className="topic-detail__holder">
         <DeleteTopicModal />
-        {/* eslint eqeqeq: 0 */ <TopicLink />}
-        {!isLoading && <ReportsTable />}
-        {isLoading && <div className="topic-loader"></div>}
+        {!isLoading ? (
+          <div className="topic-detail">
+            <TopicLink />
+            <ReportsTable />
+          </div>
+        ) : (
+          <div className="topic-loader"></div>
+        )}
+
         <ToastContainer
           position="top-center"
           pauseOnHover={false}
@@ -206,6 +237,14 @@ function Topic({ dispatch }) {
   }
 }
 
+// getting the global state variables with redux
+const mapStateToProps = (state) => {
+  const props = {
+    topicReports: state.currentTopicReports,
+  };
+  return { props };
+};
+
 // getting redux dispatch function for changing global state variables
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -213,4 +252,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapDispatchToProps)(Topic);
+export default connect(mapStateToProps, mapDispatchToProps)(Topic);
