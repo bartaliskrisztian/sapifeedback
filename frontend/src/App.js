@@ -19,7 +19,7 @@ function App() {
     )
   }
 
-  const TopicDetailsPage = () => {
+  const TopicReportsPage = () => {
     return (
       <div className="page-holder">
         <TopicSideMenus />
@@ -48,7 +48,7 @@ function App() {
       <Layout>
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/topic/:userId/:topicId/reports" component={TopicDetailsPage} />
+          <Route exact path="/topic/:userId/:topicId/reports" component={TopicReportsPage} />
           <Route exact path="/topic/:userId/:topicId/wordCloud" component={WordCloudPage} />
           <Route exact path="/report/:userId/:topicId" component={ReportPage} />
       </Layout>

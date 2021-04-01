@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
 import stringRes from "../resources/strings"; // importing language resource file
 
@@ -6,7 +7,7 @@ import stringRes from "../resources/strings"; // importing language resource fil
 import "../assets/css/Reports.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 
-function Reports(props) {
+function Reports({ props }) {
   // string resources
   let language = process.env.REACT_APP_LANGUAGE;
   let strings = stringRes[language];
@@ -92,7 +93,9 @@ function Reports(props) {
                 </td>
                 <td className="topic-reports__cell-image">
                   <a
-                    href={report.imageUrl ? report.imageUrl : ImagePlaceholder}
+                    href={
+                      !report.imageUrl ? window.location.href : report.imageUrl
+                    }
                     target="blank"
                     className="topic-reports__image-holder"
                   >
@@ -144,4 +147,12 @@ function Reports(props) {
   );
 }
 
-export default Reports;
+// getting the global state variables with redux
+const mapStateToProps = (state) => {
+  const props = {
+    reports: state.currentTopicReports,
+  };
+  return { props };
+};
+
+export default connect(mapStateToProps)(Reports);

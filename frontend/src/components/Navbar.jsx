@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 
 // importing components
@@ -82,13 +82,35 @@ function Navbar({ props, dispatch }) {
     );
   };
 
+  const TopicLink = () => {
+    return (
+      <div>
+        <ul>
+          <li>
+            {strings.topic.reports.reportUrl}:
+            <a
+              href={props.topic.reportUrl}
+              target="blank"
+              className="topic-detail__reportUrl"
+            >
+              {props.topic.reportUrl}
+            </a>
+          </li>
+        </ul>
+      </div>
+    );
+  };
+
   if (props.user) {
     return (
       <div className="navbar">
         {/* we only see the searchbar if we are at the homepage */}
         {props.page === "home" && <SearchBar onSearch={onSearch} />}
         {props.page === "topic" && (
-          <div className="navbar__topic-name">{props.topicName}</div>
+          <div className="navbar__topic-details">
+            <div className="navbar__topic-name">{props.topicName}</div>
+            <TopicLink />
+          </div>
         )}
         <div className="elements-to-end">
           <UserTopicsMenu />
@@ -108,6 +130,7 @@ const mapStateToProps = (state, ownProps) => {
     user: state.user,
     topicName: state.currentTopicName,
     page: ownProps.page,
+    topic: state.currentTopicDetails,
   };
   return { props };
 };

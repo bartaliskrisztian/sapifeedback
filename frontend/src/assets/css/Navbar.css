@@ -11,6 +11,12 @@
   z-index: 5;
 }
 
+.navbar__topic-details {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
 .elements-to-end {
   display: flex;
   height: 100%;
@@ -30,9 +36,9 @@
   color: #fff;
   font-size: 20px;
   text-decoration: none;
-  background: var(--app_color_light);
-  padding: 5px;
+  padding: 10px;
   border-radius: 8px;
+  transition: 300ms;
 }
 
 .navbar-menus__element:hover {

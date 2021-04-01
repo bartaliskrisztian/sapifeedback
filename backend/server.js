@@ -35,11 +35,14 @@ let topicDetails = require("./controllers/topicDetails");
 let createTopic = require("./controllers/createTopic");
 let getUserTopics = require("./controllers/userTopics");
 let uploadReport = require("./controllers/uploadReport");
+let createWordCloud = require("./controllers/wordCloud");
+
 
 const apiPath = process.env.API_PATH;
 app.use(`/${apiPath}/topic`, topicDetails);
-app.use(`/${apiPath}`, createTopic);
+app.use(`/${apiPath}/topic`, createWordCloud);
 app.use(`/${apiPath}/userTopics`, getUserTopics);
+app.use(`/${apiPath}`, createTopic);
 app.use(`/${apiPath}`, uploadReport);
 
 // console.log that your server is up and running

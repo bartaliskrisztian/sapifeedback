@@ -19,6 +19,7 @@
   padding-left: 10px;
   background: var(--app_color_light);
   color: var(--font_color);
+  transition: 300ms;
 }
 
 .searchbar-input:hover,

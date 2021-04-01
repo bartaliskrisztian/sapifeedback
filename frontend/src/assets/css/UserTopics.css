@@ -36,6 +36,7 @@
   border-radius: 8px;
   margin: 20px;
   background: var(--navbar_color);
+  transition: 300ms;
 }
 
 .topic-element:hover {

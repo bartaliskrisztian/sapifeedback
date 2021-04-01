@@ -3,13 +3,13 @@
 .topic-reports__container {
   margin: auto;
   height: 100%;
+  overflow: auto;
 }
 
 .topic-reports {
-  border-radius: 8px;
   box-shadow: 2px 2px 4px #000;
   background: var(--app_color_light_hover);
-  height: 100%;
+  width: 100%;
   margin: auto;
 }
 
@@ -30,17 +30,18 @@
 
 .topic-reports__row {
   box-shadow: 0 1px var(--font-color);
+  width: 100%;
 }
 
 .topic-reports__cell-text {
-  width: 500px;
+  width: 75%;
   height: 230px;
   padding: 20px;
   box-shadow: 1px 0 var(--font-color);
 }
 
 .topic-reports__cell-image {
-  width: 250px;
+  width: 25%;
   height: 230px;
   padding: 20px;
 }

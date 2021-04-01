@@ -24,6 +24,7 @@
   border: 1px solid var(--app_color);
   margin: 0 20px;
   padding-left: 5px;
+  transition: 300ms;
 }
 
 .topic-sort .react-dropdown-select:hover {
@@ -55,6 +56,7 @@
 
 .topic-sort .react-dropdown-select-item:hover {
   background: var(--app_color_light_hover);
+  transition: 300ms;
 }
 
 .react-dropdown-select-dropdown-handle {

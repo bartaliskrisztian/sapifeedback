@@ -31,8 +31,6 @@ function Topic({ props, dispatch }) {
 
   const [topicExists, setTopicExists] = useState(true);
 
-  const [topic, setTopic] = useState({});
-
   // fetching the details of a topic before rendering
   useEffect(() => {
     // getting the url parameters
@@ -66,7 +64,6 @@ function Topic({ props, dispatch }) {
       .then((res) => res.json())
       .then((res) => {
         if (res.result) {
-          setTopic(res.result);
           dispatch({
             type: "SET_CURRENT_TOPIC_DETAILS",
             payload: res.result,
@@ -101,17 +98,10 @@ function Topic({ props, dispatch }) {
     )
       .then((res) => res.json())
       .then((res) => {
-        if (res.result !== null) {
-          dispatch({
-            type: "SET_CURRENT_TOPIC_REPORTS",
-            payload: Object.values(res.result),
-          });
-        } else {
-          dispatch({
-            type: "SET_CURRENT_TOPIC_REPORTS",
-            payload: Object.values([]),
-          });
-        }
+        dispatch({
+          type: "SET_CURRENT_TOPIC_REPORTS",
+          payload: Object.values(res.result),
+        });
         setIsLoading(false);
       })
       .catch((error) => {
@@ -163,28 +153,9 @@ function Topic({ props, dispatch }) {
     );
   };
 
-  const TopicLink = () => {
-    return (
-      <div>
-        <ul>
-          <li>
-            {strings.topic.reports.reportUrl}:
-            <a
-              href={topic.reportUrl}
-              target="blank"
-              className="topic-detail__reportUrl"
-            >
-              {topic.reportUrl}
-            </a>
-          </li>
-        </ul>
-      </div>
-    );
-  };
-
   const ReportsTable = () => {
     if (props.topicReports.length > 0) {
-      return <Reports reports={props.topicReports} />;
+      return <Reports />;
     } else {
       return <h1 className="topic__no-reports">{strings.topic.noReports}</h1>;
     }
@@ -201,14 +172,7 @@ function Topic({ props, dispatch }) {
     return (
       <div className="topic-detail__holder">
         <DeleteTopicModal />
-        {!isLoading ? (
-          <div className="topic-detail">
-            <TopicLink />
-            <ReportsTable />
-          </div>
-        ) : (
-          <div className="topic-loader"></div>
-        )}
+        {!isLoading ? <ReportsTable /> : <div className="topic-loader"></div>}
 
         <ToastContainer
           position="top-center"
