@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 // importing language resource file
-import stringRes from "../resources/strings";
+import strings from "../resources/strings";
 
 import "../assets/css/TopicSideMenus.css";
 
 function TopicSideMenus() {
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
   const params = useParams();
   const topicOptions = strings.topic.menus;
 
@@ -35,7 +33,7 @@ function TopicSideMenus() {
 
   return (
     <div className="topic__side-menu">
-      <div className="side-menu__title">Feedback</div>
+      <div className="side-menu__title">{strings.appName}</div>
       <div className="side-menu__elements" id="side-menu__elements">
         <a
           className="side-menu__item"

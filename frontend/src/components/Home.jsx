@@ -3,13 +3,10 @@ import React, { useEffect } from "react";
 import UserTopics from "./UserTopics";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
-import stringRes from "../resources/strings"; // importing language resource file
+import strings from "../resources/strings"; // importing language resource file
 import "react-toastify/dist/ReactToastify.css"; // importing styles
 
 function Home({ isLoggedIn, dispatch }) {
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
-
   useEffect(() => {
     // on rendering we notify the user about successful login with a toast
     if (!isLoggedIn) {

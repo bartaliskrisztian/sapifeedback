@@ -61,7 +61,12 @@ const getUserTopics = (req, res) => {
    const ref = admin.db.ref(`topics/${userId}`);
    // when there is a change between the user's topics, we send them again with the help of a websocket 
    ref.on("value", (snapshot) => {
-     res.io.emit("getUserTopics", {result: snapshot.val()});
+     if(snapshot.val()) {
+      res.io.emit("getUserTopics", {result: snapshot.val()});
+     }
+     else {
+      res.io.emit("getUserTopics", {result: []});
+     }
     });
 }
 

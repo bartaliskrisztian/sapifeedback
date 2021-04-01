@@ -72,6 +72,9 @@
 }
 
 .topic__no-reports {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
   padding: 20px;
 }
 

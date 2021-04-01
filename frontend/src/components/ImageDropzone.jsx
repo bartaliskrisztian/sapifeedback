@@ -1,13 +1,10 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone"; // importing components
 import Compress from "client-compress";
-import stringRes from "../resources/strings"; // importing language resource file
+import strings from "../resources/strings"; // importing language resource file
 import "../assets/css/ImageDropzone.css"; // importing styles
 
 function ImageDropzone(prop) {
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
-
   // options for reducing file size
   const compress = new Compress({
     targetSize: 1,

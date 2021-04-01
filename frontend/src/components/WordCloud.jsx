@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
+import strings from "../resources/strings"; // importing language resource file
+
 import "../assets/css/WordCloud.css";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,6 +12,7 @@ function WordCloud({ props }) {
   const params = useParams();
 
   const [wordCloudLoaded, setWordCloudLoaded] = useState(false);
+  const [noWordCloudText, setNoWordCloudText] = useState("");
   const [wordCloudSource, setWordCloudSource] = useState("");
 
   // fetching the details of a topic before rendering
@@ -19,8 +22,24 @@ function WordCloud({ props }) {
   }, []);
 
   const createWordcloud = () => {
+    const textArray = props.reports.map((report) => report.text);
+    const text = textArray.join("");
+    if (!text.length) {
+      setNoWordCloudText(strings.topic.noReports);
+      setWordCloudLoaded(true);
+      return;
+    }
     fetch(
-      `http://localhost:3000/api/topic/${params.userId}/${params.topicId}/wordCloud`
+      `http://localhost:3000/api/topic/${params.userId}/${params.topicId}/wordCloud`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: text,
+        }),
+      }
     )
       .then((res) => res.json())
       .then((res) => {
@@ -44,8 +63,14 @@ function WordCloud({ props }) {
 
   return (
     <div className="word-cloud">
-      {!wordCloudLoaded && <div className="wordcloud-loader"></div>}
-      {wordCloudLoaded && <WordCloud />}
+      <div className="word-cloud__no-reports">{noWordCloudText}</div>
+      {!wordCloudLoaded && (
+        <div>
+          <div className="wordcloud-loader"></div>
+          <div>{strings.wordCloud.loadingText}</div>
+        </div>
+      )}
+      {wordCloudLoaded && !noWordCloudText && <WordCloud />}
       <ToastContainer
         position="top-center"
         pauseOnHover={false}

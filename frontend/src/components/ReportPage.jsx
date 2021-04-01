@@ -7,7 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import { storage } from "../firebase/Firebase";
-import stringRes from "../resources/strings"; // importing language resource file
+import strings from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/ReportPage.css";
@@ -17,10 +17,6 @@ function ReportPage() {
   const history = useHistory(); // hook for getting the url
   const params = useParams(); // hook for getting the url's parameters
   const recaptchaRef = React.useRef(); // reference of the recaptcha
-
-  // string resources
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
 
   const [files, setFiles] = useState([]); // for storing image(s) uploaded by user
   const [reportText, setReportText] = useState(""); // text reported by user

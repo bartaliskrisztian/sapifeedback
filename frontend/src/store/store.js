@@ -52,6 +52,18 @@ const reducer = (state = initialState, action) => {
             currentTopicReports: action.payload
         })
     }
+    if(action.type === "RESET_STATE") {
+        return Object.assign({}, state, {
+            user: null,
+            searchText: "",
+            currentTopicName: "",
+            isLoggedIn: false,
+            showArchivedTopics: false,
+            userTopics: [],
+            currentTopicDetails: {},
+            currentTopicReports: []
+        })
+    }
     return state
 }
 

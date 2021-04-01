@@ -1,5 +1,6 @@
-const strings = {
+const all_strings = {
     EN: {
+        appName: 'Feedback',
         login: {
             loginButtonText: 'Sign up or log in with Google Account',
             logoutSuccess: 'Logged out successfully.',
@@ -86,9 +87,13 @@ const strings = {
                 tooLargeFile: 'File is too large',
                 wrongFileFormat: 'File format is invalid'
             }
+        },
+        wordCloud: {
+            loadingText: 'Generating wordcloud'
         }
     },
     HU: {
+        appName: 'Feedback',
         login: {
             loginButtonText: 'Regisztráljon vagy jelentkezzen be Google Account segítségével',
             logoutSuccess: 'Sikeres kijelentkezés.',
@@ -171,8 +176,14 @@ const strings = {
                 tooLargeFile: 'A fájl túl nagy méretű',
                 wrongFileFormat: 'Érvénytelen fájlformátum'
             }
+        },
+        wordCloud: {
+            loadingText: 'Szófelhő generálása'
         }
     }
 };
+
+const language = process.env.REACT_APP_LANGUAGE;
+const strings = all_strings[language];
 
 export default strings;

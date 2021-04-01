@@ -7,7 +7,7 @@ import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
 
 // importing language resource file
-import stringRes from "../resources/strings";
+import strings from "../resources/strings";
 
 // importing styles
 import "../assets/css/Navbar.css";
@@ -15,9 +15,6 @@ import UserPlaceholder from "../assets/images/user.svg";
 
 function Navbar({ props, dispatch }) {
   const history = useHistory();
-
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
 
   // whether to show the profile menu or not
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -29,7 +26,7 @@ function Navbar({ props, dispatch }) {
   // on logout we set the user to null and redirect the page
   const logout = () => {
     history.push("/login");
-    dispatch({ type: "SET_USER", payload: null });
+    dispatch({ type: "RESET_STATE", payload: null });
   };
 
   const UserTopicsMenu = () => {

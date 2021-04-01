@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
-import stringRes from "../resources/strings"; // importing language resource file
+import strings from "../resources/strings"; // importing language resource file
 
 // importing styles
 import AddIcon from "../assets/images/plus.svg";
@@ -10,8 +10,6 @@ import MoreIcon from "../assets/images/more.svg";
 
 function TopicElement({ props, dispatch }) {
   let history = useHistory();
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
   const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
 
   const onTopicClicked = () => {

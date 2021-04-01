@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 import socket from "../socketConfig";
 
-import stringRes from "../resources/strings"; // importing language resource file
+import strings from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/Topic.css";
@@ -18,10 +18,6 @@ import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
 
 function Topic({ props, dispatch }) {
-  // string resources
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
-
   const history = useHistory();
   const params = useParams();
 
@@ -157,7 +153,7 @@ function Topic({ props, dispatch }) {
     if (props.topicReports.length > 0) {
       return <Reports />;
     } else {
-      return <h1 className="topic__no-reports">{strings.topic.noReports}</h1>;
+      return <div className="topic__no-reports">{strings.topic.noReports}</div>;
     }
   };
 

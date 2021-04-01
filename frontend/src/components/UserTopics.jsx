@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 
 import socket from "../socketConfig";
 
-import stringRes from "../resources/strings"; // importing language resource file
+import strings from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "react-toastify/dist/ReactToastify.css";
@@ -17,10 +17,6 @@ import "../assets/css/UserTopics.css";
 import CancelIcon from "../assets/images/cancel.svg";
 
 function UserTopics({ props, dispatch }) {
-  // string resources
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
-
   const [modalIsOpen, setIsOpen] = useState(false);
   const [topicName, setTopicName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -50,10 +46,12 @@ function UserTopics({ props, dispatch }) {
     // websocket listening on change
     socket.on("getUserTopics", (data) => {
       // saving the result in the global state
-      dispatch({
-        type: "SET_USER_TOPICS",
-        payload: Object.entries(data.result),
-      });
+      if (data) {
+        dispatch({
+          type: "SET_USER_TOPICS",
+          payload: Object.entries(data.result),
+        });
+      }
     });
     setIsLoading(false);
   };

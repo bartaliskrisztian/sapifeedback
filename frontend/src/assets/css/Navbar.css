@@ -5,10 +5,7 @@
   height: 50px;
   background: var(--navbar_color);
   padding: 5px 0;
-  /* position: fixed;
-  top: 0; */
   display: flex;
-  z-index: 5;
 }
 
 .navbar__topic-details {
@@ -36,7 +33,7 @@
   color: #fff;
   font-size: 20px;
   text-decoration: none;
-  padding: 10px;
+  padding: 5px 10px;
   border-radius: 8px;
   transition: 300ms;
 }
@@ -60,7 +57,7 @@
 
 .profile-dropdown {
   height: 0;
-  width: 300px;
+  width: fit-content;
   position: absolute;
   right: 10px;
   margin-top: 10px;
@@ -70,6 +67,7 @@
   justify-content: space-evenly;
   overflow: hidden;
   background: var(--app_color_light);
+  z-index: 1;
 
   box-shadow: 2px 2px 7px #000;
   border-radius: 8px;

@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import stringRes from "../resources/strings"; // importing language resource file
+import strings from "../resources/strings"; // importing language resource file
 
 // importing styles
 import "../assets/css/Reports.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 
 function Reports({ props }) {
-  // string resources
-  let language = process.env.REACT_APP_LANGUAGE;
-  let strings = stringRes[language];
-
   // variables used for table pagination
   const reportsToShow = 5;
   const [currentPage, setCurrentPage] = useState(0);
@@ -20,7 +16,7 @@ function Reports({ props }) {
   const [allReportsCount, setAllReportCount] = useState(0);
 
   useEffect(() => {
-    let reportsCopy = props.reports;
+    let reportsCopy = [...props.reports];
     setAllReportCount(reportsCopy.length);
 
     // creating smaller arrays from the array of reports,

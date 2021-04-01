@@ -34,10 +34,6 @@ def main():
 
     file_name = "word_cloud.jpg"
     wordcloud.to_file(file_name)
-    # with io.BytesIO() as output:
-    #     with Image.open(file_name) as img:
-    #         img.convert('RGB').save(output, 'BMP')
-    #         data = output.getvalue()[14:]
     with open(file_name, 'rb') as img:
         data = base64.b64encode(img.read())
     os.remove(file_name)
