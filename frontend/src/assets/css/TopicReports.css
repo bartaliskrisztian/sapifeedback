@@ -1,0 +1,41 @@
+@import url("../../resources/colors.css");
+
+.topic-reports__holder {
+  height: calc(100% - 60px);
+}
+
+.topic-detail {
+  height: 100%;
+  overflow: auto;
+}
+
+.topic-detail__title {
+  font-size: 24px;
+  padding: 10px 0 10px 40px;
+}
+
+.topic-detail__notexists {
+  padding: 20px;
+}
+
+.topic-detail__reportUrl {
+  color: var(--link-color);
+  padding-left: 10px;
+}
+
+.topic__no-reports {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  padding: 20px;
+}
+
+.reports-loader {
+  border: 4px solid var(--font-color);
+  border-top: 4px solid var(--app_color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 50px auto;
+}

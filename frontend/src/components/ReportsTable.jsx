@@ -7,7 +7,7 @@ import strings from "../resources/strings"; // importing language resource file
 import "../assets/css/Reports.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 
-function Reports({ props }) {
+function ReportsTable({ props }) {
   // variables used for table pagination
   const reportsToShow = 5;
   const [currentPage, setCurrentPage] = useState(0);
@@ -151,4 +151,4 @@ const mapStateToProps = (state) => {
   return { props };
 };
 
-export default connect(mapStateToProps)(Reports);
+export default connect(mapStateToProps)(ReportsTable);

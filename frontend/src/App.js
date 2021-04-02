@@ -3,9 +3,10 @@ import Layout from "./components/Layout"
 import Login from "./components/Login"
 import Home from "./components/Home"
 import Navbar from "./components/Navbar"
-import Topic from "./components/Topic"
-import ReportPage from "./components/ReportPage"
+import TopicDetails from "./components/TopicDetails";
+import TopicReports from "./components/TopicReports"
 import WordCloud from "./components/WordCloud"
+import ReportPage from "./components/ReportPage"
 import TopicSideMenus from "./components/TopicSideMenus";
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
         <TopicSideMenus />
         <div className="topic-page__content">
           <Navbar page="topic" />
-          <Topic />
+          <TopicReports />
         </div>
       </div>
     )
@@ -43,11 +44,24 @@ function App() {
     )
   }
 
+  const TopicDetailsPage = () => {
+    return (
+      <div className="page-holder">
+        <TopicSideMenus />
+        <div className="topic-page__content">
+          <Navbar page="topic" />
+          <TopicDetails />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="App">
       <Layout>
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/topic/:userId/:topicId/details" component={TopicDetailsPage} />
           <Route exact path="/topic/:userId/:topicId/reports" component={TopicReportsPage} />
           <Route exact path="/topic/:userId/:topicId/wordCloud" component={WordCloudPage} />
           <Route exact path="/report/:userId/:topicId" component={ReportPage} />

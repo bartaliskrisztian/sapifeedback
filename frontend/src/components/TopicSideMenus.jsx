@@ -37,6 +37,16 @@ function TopicSideMenus() {
       <div className="side-menu__elements" id="side-menu__elements">
         <a
           className="side-menu__item"
+          id="details"
+          href={`/#/topic/${params.userId}/${params.topicId}/details`}
+        >
+          <div className="side-menu__content">
+            <div className="side-menu__icon details-icon"></div>
+            {topicOptions.details}
+          </div>
+        </a>
+        <a
+          className="side-menu__item"
           id="reports"
           href={`/#/topic/${params.userId}/${params.topicId}/reports`}
         >

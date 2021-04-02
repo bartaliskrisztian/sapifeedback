@@ -18,7 +18,7 @@ function TopicElement({ props, dispatch }) {
       type: "SET_CURRENT_TOPIC_NAME",
       payload: props.name,
     });
-    history.push(`/topic/${props.userid}/${props.topicid}/reports`);
+    history.push(`/topic/${props.userid}/${props.topicid}/details`);
   };
 
   // archive topic

@@ -52,6 +52,12 @@
   margin-right: 10px;
 }
 
+.side-menu__icon.details-icon {
+  background: url("../images/details_icon.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .side-menu__icon.report-icon {
   background: url("../images/report_icon.svg");
   background-size: cover;

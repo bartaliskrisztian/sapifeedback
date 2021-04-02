@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
 import strings from "../resources/strings"; // importing language resource file
+import { apiPostRequest } from "../api/utils";
 
 import "../assets/css/WordCloud.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,27 +30,25 @@ function WordCloud({ props }) {
       setWordCloudLoaded(true);
       return;
     }
-    fetch(
-      `http://localhost:3000/api/topic/${params.userId}/${params.topicId}/wordCloud`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          text: text,
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        let data = res.result.slice(2);
+    apiPostRequest(
+      params.userId,
+      params.topicId,
+      JSON.stringify({
+        text: text,
+      }),
+      "topicWordCloud"
+    ).then(
+      (response) => {
+        let data = response.result.slice(2);
         data = data.slice(0, -1);
         const wordCloudBase64 = `data:image/jpg;base64,${data}`;
         setWordCloudSource(wordCloudBase64);
         setWordCloudLoaded(true);
-      })
-      .catch((error) => notifyError(error));
+      },
+      (reject) => {
+        notifyError(reject);
+      }
+    );
   };
 
   const notifyError = (message) => toast.error(message);

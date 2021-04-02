@@ -79,25 +79,6 @@ function Navbar({ props, dispatch }) {
     );
   };
 
-  const TopicLink = () => {
-    return (
-      <div>
-        <ul>
-          <li>
-            {strings.topic.reports.reportUrl}:
-            <a
-              href={props.topic.reportUrl}
-              target="blank"
-              className="topic-detail__reportUrl"
-            >
-              {props.topic.reportUrl}
-            </a>
-          </li>
-        </ul>
-      </div>
-    );
-  };
-
   if (props.user) {
     return (
       <div className="navbar">
@@ -106,7 +87,6 @@ function Navbar({ props, dispatch }) {
         {props.page === "topic" && (
           <div className="navbar__topic-details">
             <div className="navbar__topic-name">{props.topicName}</div>
-            <TopicLink />
           </div>
         )}
         <div className="elements-to-end">

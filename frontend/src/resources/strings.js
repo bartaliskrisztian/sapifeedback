@@ -54,6 +54,7 @@ const all_strings = {
             deleteButtonText: 'Delete topic',
             notExistsText: 'This topic does not exists.',
             menus: {
+                details: "Details",
                 reports: "Reports",
                 wordCloud: "Word Cloud"
             },
@@ -147,6 +148,7 @@ const all_strings = {
             deleteButtonText: 'Téma törlése',
             notExistsText: 'Nem létezik ez a téma.',
             menus: {
+                details: "Részletek",
                 reports: "Bejelentések",
                 wordCloud: "Szófelhő"
             },
