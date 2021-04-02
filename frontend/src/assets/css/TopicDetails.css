@@ -1,5 +1,16 @@
 @import url("../../resources/colors.css");
 
+.topic-details {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.topic-detail__reportUrl {
+  color: var(--link-color);
+  padding-left: 10px;
+}
+
 .topic-loader {
   border: 4px solid var(--font-color);
   border-top: 4px solid var(--app_color);
@@ -23,6 +34,7 @@
   margin: 5px;
   font-size: 18px;
   transition: 300ms;
+  width: fit-content;
 }
 
 .delete-topic__button.delete {

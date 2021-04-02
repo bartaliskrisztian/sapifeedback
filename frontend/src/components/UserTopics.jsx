@@ -7,6 +7,7 @@ import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 
+import { apiGetRequest, apiPostRequest } from "../api/utils";
 import socket from "../socketConfig";
 
 import strings from "../resources/strings"; // importing language resource file
@@ -37,12 +38,11 @@ function UserTopics({ props, dispatch }) {
 
   // getting all topics from a user
   const getUserTopics = () => {
-    fetch(
-      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/${props.user.googleId}`
-    ).catch((err) => {
+    apiGetRequest(props.user.googleId, null, "userTopics").catch((err) => {
       setIsLoading(false);
       notifyError(err);
     });
+
     // websocket listening on change
     socket.on("getUserTopics", (data) => {
       // saving the result in the global state
@@ -91,34 +91,25 @@ function UserTopics({ props, dispatch }) {
     });
 
     if (ok) {
-      fetch(
-        `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/createTopic`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            date: Date.now(),
-            topicName: topicName,
-            userId: props.user.googleId,
-            host: window.location.origin,
-          }),
-        }
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.error === "OK") {
+      const body = JSON.stringify({
+        date: Date.now(),
+        topicName: topicName,
+        userId: props.user.googleId,
+        host: window.location.origin,
+      });
+      apiPostRequest(null, null, body, "createTopic").then(
+        (response) => {
+          if (response.error === "OK") {
             closeModal();
             notifySuccess(strings.userTopics.modal.onSuccess);
           } else {
-            console.log(res.error);
-            notifyError(res.error);
+            notifyError(response.error);
           }
-        })
-        .catch((error) => {
-          notifyError(error);
-        });
+        },
+        (reject) => {
+          notifyError(reject);
+        }
+      );
     }
   };
 

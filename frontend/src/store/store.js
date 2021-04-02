@@ -8,7 +8,7 @@ const initialState = {
     showArchivedTopics: false,
     userTopics: [],
     currentTopicDetails: {},
-    currentTopicReports: []
+    currentTopicReports: [],
 }
 
 const reducer = (state = initialState, action) => {

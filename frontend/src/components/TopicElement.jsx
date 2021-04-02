@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { apiGetRequest } from "../api/utils";
+
 import strings from "../resources/strings"; // importing language resource file
 
 // importing styles
@@ -23,65 +25,58 @@ function TopicElement({ props, dispatch }) {
 
   // archive topic
   const archiveTopic = () => {
-    fetch(
-      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/archiveTopic/${props.userid}/${props.topicid}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error === "OK") {
+    apiGetRequest(props.userid, props.topicid, "archiveTopic").then(
+      (response) => {
+        if (response.error === "OK") {
           props.onArchive(strings.userTopics.notification.onArchive);
           setShowMoreDropwdown(false);
         } else {
-          props.onError(res.error);
+          props.notifyError(response.error);
           setShowMoreDropwdown(false);
         }
-      })
-      .catch((e) => props.onError(e));
+      },
+      (reject) => {
+        props.notifyError(reject);
+      }
+    );
   };
 
   // remove topic from the archived topics
   const activateTopic = () => {
-    fetch(
-      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/activateTopic/${props.userid}/${props.topicid}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error === "OK") {
+    apiGetRequest(props.userid, props.topicid, "activateTopic").then(
+      (response) => {
+        if (response.error === "OK") {
           props.onArchive(strings.userTopics.notification.onActivate);
           setShowMoreDropwdown(false);
         } else {
-          props.onError(res.error);
+          props.notifyError(response.error);
           setShowMoreDropwdown(false);
         }
-      })
-      .catch((e) => props.notifyError(e));
+      },
+      (reject) => {
+        props.notifyError(reject);
+      }
+    );
   };
 
   // copy topic's url to clipboard
   const copyUrlToClipboard = () => {
-    let topicUrl = getTopicUrl();
-    var textarea = document.createElement("textarea");
-
-    document.body.appendChild(textarea);
-    textarea.value = topicUrl;
-    textarea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textarea);
-
+    getTopicUrl();
     setShowMoreDropwdown(false);
     props.onCopyToClipboard(strings.userTopics.notification.onCopyToClipboard);
   };
 
   // getting the topic's url
   const getTopicUrl = () => {
-    fetch(
-      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/userTopics/getTopicUrl/${props.userid}/${props.topicid}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        return res.result;
-      })
-      .catch((e) => props.notifyError(e));
+    apiGetRequest(props.userid, props.topicid, "topicUrl").then(
+      (response) => {
+        navigator.clipboard.writeText(response.result);
+        return response.result;
+      },
+      (reject) => {
+        props.notifyError(reject);
+      }
+    );
   };
 
   const AddTopicCard = () => {

@@ -86,7 +86,7 @@ function Navbar({ props, dispatch }) {
         {props.page === "home" && <SearchBar onSearch={onSearch} />}
         {props.page === "topic" && (
           <div className="navbar__topic-details">
-            <div className="navbar__topic-name">{props.topicName}</div>
+            <div className="navbar__topic-name">{props.topic.topicName}</div>
           </div>
         )}
         <div className="elements-to-end">
@@ -105,7 +105,6 @@ function Navbar({ props, dispatch }) {
 const mapStateToProps = (state, ownProps) => {
   const props = {
     user: state.user,
-    topicName: state.currentTopicName,
     page: ownProps.page,
     topic: state.currentTopicDetails,
   };

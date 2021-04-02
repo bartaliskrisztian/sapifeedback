@@ -103,6 +103,7 @@ function SortedTopicElements({ props }) {
               userid={props.user.googleId}
               onArchive={notifySuccess}
               onCopyToClipboard={notifyInfo}
+              notifyError={notifyError}
               isArchived={topic[1].isArchived}
             />
           );

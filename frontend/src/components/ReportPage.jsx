@@ -6,6 +6,7 @@ import ImageDropzone from "./ImageDropzone";
 import { useHistory, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
+import { apiGetRequest, apiPostRequest } from "../api/utils";
 import { storage } from "../firebase/Firebase";
 import strings from "../resources/strings"; // importing language resource file
 
@@ -35,7 +36,7 @@ function ReportPage() {
     if (userid !== null && topicid !== null) {
       setUserId(userid);
       setTopicId(topicid);
-      getTopicDetails(userid, topicid);
+      getTopic(userid, topicid);
     }
     // if there are no parameters, means that the url is wrong, then redirect
     else {
@@ -46,16 +47,15 @@ function ReportPage() {
   }, []);
 
   // getting the details about a topic
-  const getTopicDetails = (userGoogleId, topicId) => {
-    fetch(
-      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/topic/${userGoogleId}/${topicId}/details`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.result) {
-          setTopic(res.result); // save the response in state
-        }
-      });
+  const getTopic = (userid, topicid) => {
+    apiGetRequest(userid, topicid, "topicDetails").then(
+      (response) => {
+        setTopic(response.result); // save the response in state
+      },
+      (reject) => {
+        notifyError(reject);
+      }
+    );
   };
 
   // toast notify functions
@@ -123,24 +123,18 @@ function ReportPage() {
 
   // POST request for uploading a report
   const sendRequest = (data) => {
-    fetch(
-      `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}/uploadReport`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error === "OK") {
+    apiPostRequest(null, null, JSON.stringify(data), "uploadReport").then(
+      (response) => {
+        if (response.error === "OK") {
           notifySuccess(strings.report.errorText.successfulReport);
         } else {
-          notifyError(res.error);
+          notifyError(response.error);
         }
-      });
+      },
+      (reject) => {
+        notifyError(reject);
+      }
+    );
   };
 
   // when the user presses the submit button

@@ -18,12 +18,12 @@ function WordCloud({ props }) {
 
   // fetching the details of a topic before rendering
   useEffect(() => {
-    createWordcloud();
+    createWordcloud(props.reports);
     // eslint-disable-next-line
   }, []);
 
-  const createWordcloud = () => {
-    const textArray = props.reports.map((report) => report.text);
+  const createWordcloud = (reports) => {
+    const textArray = reports.map((report) => report.text);
     const text = textArray.join("");
     if (!text.length) {
       setNoWordCloudText(strings.topic.noReports);

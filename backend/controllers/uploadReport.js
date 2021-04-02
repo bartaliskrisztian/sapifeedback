@@ -19,10 +19,15 @@ const uploadReport = (req, res) => {
         imageUrl: imageUrl
     }
 
-    const ref = admin.db.ref(`reports/${topicId}`); // db reference for the actual topic
-    const uid = ref.push().key; // getting new unique key
+    const reportRef = admin.db.ref(`reports/${topicId}`); // db reference for the actual topic
+    const topicRef = admin.db.ref(`topics/${topicOwnerId}/${topicId}/reportsUploaded`);
 
-    ref.child(uid).set(data).catch(e => {if(e) throw e}); // uploading
+    const uid = reportRef.push().key; // getting new unique key
+
+    reportRef.child(uid).set(data).catch(e => {if(e) throw e}); // uploading
+    topicRef.transaction((current_value) => {
+        return (current_value || 0) + 1;
+    });
 
     res.send({error: "OK"}); // sending response to client
 }

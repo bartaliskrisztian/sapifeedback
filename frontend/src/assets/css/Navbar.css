@@ -94,3 +94,7 @@
   font-size: 30px;
   padding-left: 30px;
 }
+
+.navbar__topic-archived {
+  color: red;
+}

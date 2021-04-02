@@ -19,6 +19,7 @@ function TopicDetails({ props, dispatch }) {
   // for displaying the modal
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [topicDate, setTopicDate] = useState("");
 
   // fetching the details of a topic before rendering
   useEffect(() => {
@@ -28,6 +29,7 @@ function TopicDetails({ props, dispatch }) {
 
     if (userid !== undefined && topicid !== undefined) {
       getTopic(userid, topicid);
+      getReports(userid, topicid);
     } else {
       history.push("/");
     }
@@ -44,6 +46,25 @@ function TopicDetails({ props, dispatch }) {
           type: "SET_CURRENT_TOPIC_DETAILS",
           payload: response.result,
         });
+        const date = new Date(response.result.date).toLocaleDateString();
+        setTopicDate(date);
+      },
+      (reject) => {
+        notifyError(reject);
+        setIsLoading(false);
+      }
+    );
+  };
+
+  const getReports = (userid, topicid) => {
+    apiGetRequest(userid, topicid, "topicReports").then(
+      (response) => {
+        if (response.result) {
+          dispatch({
+            type: "SET_CURRENT_TOPIC_REPORTS",
+            payload: Object.values(response.result),
+          });
+        }
         setIsLoading(false);
       },
       (reject) => {
@@ -56,18 +77,14 @@ function TopicDetails({ props, dispatch }) {
   const TopicLink = () => {
     return (
       <div>
-        <ul>
-          <li>
-            {strings.topic.reports.reportUrl}:
-            <a
-              href={props.topic.reportUrl}
-              target="blank"
-              className="topic-detail__reportUrl"
-            >
-              {props.topic.reportUrl}
-            </a>
-          </li>
-        </ul>
+        {strings.topic.reports.reportUrl}:
+        <a
+          href={props.topic.reportUrl}
+          target="blank"
+          className="topic-detail__reportUrl"
+        >
+          {props.topic.reportUrl}
+        </a>
       </div>
     );
   };
@@ -134,6 +151,10 @@ function TopicDetails({ props, dispatch }) {
       {isLoading && <div className="topic-loader"></div>}
       {!isLoading && (
         <div className="topic-details">
+          <div>{`Created at: ${topicDate}`}</div>
+          <div>{`Number of reports: ${
+            props.topic.reportsUploaded ? props.topic.reportsUploaded : "0"
+          }`}</div>
           <TopicLink />
           <DeleteTopicButton />
         </div>

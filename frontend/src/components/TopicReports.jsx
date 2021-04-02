@@ -6,7 +6,6 @@ import ReportsTable from "./ReportsTable";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 
-import { apiGetRequest } from "../api/utils";
 import socket from "../socketConfig";
 
 import strings from "../resources/strings"; // importing language resource file
@@ -18,20 +17,13 @@ import "react-toastify/dist/ReactToastify.css";
 function TopicReports({ props, dispatch }) {
   const params = useParams();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   // fetching the details of a topic before rendering
   useEffect(() => {
-    // getting the url parameters
-    const userid = params.userId;
-    const topicid = params.topicId;
-
-    if (userid !== undefined && topicid !== undefined) {
-      getReports(userid, topicid);
-    } else {
-      notifyError("Url is not valid.");
+    if (!props.topicReports) {
+      notifyError("Error");
     }
-
     // eslint-disable-next-line
   }, [params]);
 
@@ -43,23 +35,6 @@ function TopicReports({ props, dispatch }) {
     } else {
       return <div className="topic__no-reports">{strings.topic.noReports}</div>;
     }
-  };
-
-  const getReports = (userid, topicid) => {
-    apiGetRequest(userid, topicid, "topicReports").then(
-      (response) => {
-        console.log(response);
-        dispatch({
-          type: "SET_CURRENT_TOPIC_REPORTS",
-          payload: Object.values(response.result),
-        });
-        setIsLoading(false);
-      },
-      (reject) => {
-        notifyError(reject);
-        setIsLoading(false);
-      }
-    );
   };
 
   return (
