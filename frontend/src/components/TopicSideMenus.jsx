@@ -65,6 +65,16 @@ function TopicSideMenus() {
             {topicOptions.wordCloud}
           </div>
         </a>
+        <a
+          className="side-menu__item"
+          id="wordCloud"
+          href={`/#/topic/${params.userId}/${params.topicId}/freq`}
+        >
+          <div className="side-menu__content">
+            <div className="side-menu__icon frequency-icon"></div>
+            {topicOptions.frequency}
+          </div>
+        </a>
       </div>
     </div>
   );

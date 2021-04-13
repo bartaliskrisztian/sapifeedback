@@ -28,8 +28,18 @@ function TopicDetails({ props, dispatch }) {
     const topicid = params.topicId;
 
     if (userid !== undefined && topicid !== undefined) {
-      getTopic(userid, topicid);
-      getReports(userid, topicid);
+      if (props.topicId !== topicid) {
+        dispatch({
+          type: "SET_CURRENT_TOPIC_ID",
+          payload: topicid,
+        });
+        getTopic(userid, topicid);
+        getReports(userid, topicid);
+      } else {
+        const date = new Date(props.topic.date).toLocaleDateString();
+        setTopicDate(date);
+        setIsLoading(false);
+      }
     } else {
       history.push("/");
     }
@@ -174,6 +184,7 @@ function TopicDetails({ props, dispatch }) {
 const mapStateToProps = (state) => {
   const props = {
     topic: state.currentTopicDetails,
+    topicId: state.currentTopicId,
   };
   return { props };
 };

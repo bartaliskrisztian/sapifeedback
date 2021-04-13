@@ -56,7 +56,8 @@ const all_strings = {
             menus: {
                 details: "Details",
                 reports: "Reports",
-                wordCloud: "Word Cloud"
+                wordCloud: "Word Cloud",
+                frequency: "Report frequency"
             },
             noReports: "There are no reports yet.",
             reports: {

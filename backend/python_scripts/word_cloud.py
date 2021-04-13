@@ -1,7 +1,4 @@
 import sys
-import io
-import os
-import base64
 
 import nltk
 from nltk.tokenize import word_tokenize
@@ -10,7 +7,8 @@ from nltk.corpus import stopwords
 
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-from PIL import Image
+import os
+import base64
 
 
 def main():
@@ -19,7 +17,7 @@ def main():
     token_words = [w for w in tokens if w.isalpha()]
 
     # removing empty strings and stop words
-    stop_words = set(stopwords.words('hungarian'))
+    stop_words = set(stopwords.words('english'))
     meaningful_words = [w for w in token_words if not w in stop_words]
 
     d = list(dict.fromkeys(meaningful_words))

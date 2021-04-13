@@ -69,3 +69,9 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.side-menu__icon.frequency-icon {
+  background: url("../images/frequency.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}

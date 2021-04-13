@@ -3,17 +3,17 @@ var router = express.Router()
 const {PythonShell} = require('python-shell');  // Import PythonShell module
 
 
-const createWordCloud = (req, res) => {
+const createReportFrequencyFigure = (req, res) => {
 
-    const reportsText = req.body.text;
+    const dates_timestamp = req.body.dates;
     const options = { 
       mode: 'text', 
       pythonOptions: ['-u'], // get print results in real-time 
       scriptPath: './python_scripts', //If you are having python_test.py script in same folder, then it's optional. 
-      args: [reportsText] //An argument which can be accessed in the script using sys.argv[1] 
+      args: [dates_timestamp] //An argument which can be accessed in the script using sys.argv[1] 
     }
 
-    const pyshell = new PythonShell("word_cloud.py", options);
+    const pyshell = new PythonShell("report_frequency.py", options);
   
     pyshell.on("message", (data) => {
       res.send({result: data})
@@ -24,6 +24,6 @@ const createWordCloud = (req, res) => {
     })
 }
 
-router.post("/", createWordCloud)
+router.post("/", createReportFrequencyFigure)
 
 module.exports = router

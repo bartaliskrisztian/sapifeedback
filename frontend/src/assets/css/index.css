@@ -8,7 +8,7 @@ body,
 .container {
   margin: 0;
   height: 100%;
-  font-family: helvetica;
+  font-family: "Studio-Feixen-Sans", Arial;
   background: var(--app_color);
   color: var(--font-color);
 }

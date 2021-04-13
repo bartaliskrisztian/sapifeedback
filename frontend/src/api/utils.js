@@ -47,8 +47,11 @@ const apiPath = `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}
            endpoint = `${apiPath}/uploadReport`;
            break;
         case 'topicWordCloud':
-           endpoint = `${apiPath}/topic/${userGoogleId}/${topicId}/wordCloud`;
+           endpoint = `${apiPath}/topic/wordCloud`;
            break;
+        case 'reportFrequency':
+            endpoint = `${apiPath}/topic/report-frequency`;
+            break;
        default: break;
     }
 
