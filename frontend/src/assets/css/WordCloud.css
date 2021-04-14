@@ -12,7 +12,8 @@
 .word-cloud__image {
   width: 50%;
   height: 50%;
-  padding-top: 40px;
+  margin-top: 40px;
+  border-radius: 20px;
 }
 
 .word-cloud__no-reports {

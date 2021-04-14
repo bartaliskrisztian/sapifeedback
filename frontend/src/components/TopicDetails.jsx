@@ -74,6 +74,11 @@ function TopicDetails({ props, dispatch }) {
             type: "SET_CURRENT_TOPIC_REPORTS",
             payload: Object.values(response.result),
           });
+        } else {
+          dispatch({
+            type: "SET_CURRENT_TOPIC_REPORTS",
+            payload: [],
+          });
         }
         setIsLoading(false);
       },
@@ -142,18 +147,18 @@ function TopicDetails({ props, dispatch }) {
     );
   };
 
-  const DeleteTopicButton = () => {
-    return (
-      <button
-        type="submit"
-        className="delete-topic__button delete"
-        onClick={openModal}
-      >
-        <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
-        {strings.topic.deleteButtonText}
-      </button>
-    );
-  };
+  // const DeleteTopicButton = () => {
+  //   return (
+  //     <button
+  //       type="submit"
+  //       className="delete-topic__button delete"
+  //       onClick={openModal}
+  //     >
+  //       <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
+  //       {strings.topic.deleteButtonText}
+  //     </button>
+  //   );
+  // };
 
   return (
     <div className="topic-details__holder">
@@ -166,7 +171,7 @@ function TopicDetails({ props, dispatch }) {
             props.topic.reportsUploaded ? props.topic.reportsUploaded : "0"
           }`}</div>
           <TopicLink />
-          <DeleteTopicButton />
+          {/* <DeleteTopicButton /> */}
         </div>
       )}
       <ToastContainer

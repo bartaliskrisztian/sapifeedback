@@ -67,7 +67,7 @@ function TopicSideMenus() {
         </a>
         <a
           className="side-menu__item"
-          id="wordCloud"
+          id="freq"
           href={`/#/topic/${params.userId}/${params.topicId}/freq`}
         >
           <div className="side-menu__content">

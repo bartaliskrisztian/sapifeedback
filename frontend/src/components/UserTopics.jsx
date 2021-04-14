@@ -27,6 +27,11 @@ function UserTopics({ props, dispatch }) {
 
   // fetching the topics based on the user
   useEffect(() => {
+    dispatch({
+      type: "SET_CURRENT_TOPIC_ID",
+      payload: null,
+    });
+
     if (props.user != null) {
       getUserTopics();
     }

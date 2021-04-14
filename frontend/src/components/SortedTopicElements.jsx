@@ -141,6 +141,8 @@ function SortedTopicElements({ props }) {
                 isArchived={topic[1].isArchived}
               />
             );
+          } else {
+            return null;
           }
         })
     );

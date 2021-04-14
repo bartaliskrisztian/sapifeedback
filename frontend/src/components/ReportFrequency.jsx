@@ -21,7 +21,6 @@ function ReportFrequency({ props }) {
 
   const createReportFrequency = (reports) => {
     const dates = reports.map((report) => report.date);
-
     if (!dates.length) {
       setNoReportsText(strings.topic.noReports);
       setImageLoaded(true);
@@ -36,11 +35,12 @@ function ReportFrequency({ props }) {
       "reportFrequency"
     ).then(
       (response) => {
-        let data = response.result.slice(2);
-        data = data.slice(0, -1);
-        const src = `data:image/jpg;base64,${data}`;
-        setImageSource(src);
-        setImageLoaded(true);
+        console.log(response.result);
+        // let data = response.result.slice(2);
+        // data = data.slice(0, -1);
+        // const src = `data:image/jpg;base64,${data}`;
+        // setImageSource(src);
+        // setImageLoaded(true);
       },
       (reject) => {
         notifyError(reject);

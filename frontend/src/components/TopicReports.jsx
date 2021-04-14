@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 // importing components
 import ReportsTable from "./ReportsTable";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
-
-import socket from "../socketConfig";
 
 import strings from "../resources/strings"; // importing language resource file
 
@@ -16,8 +14,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 function TopicReports({ props, dispatch }) {
   const params = useParams();
-
-  const [isLoading, setIsLoading] = useState(false);
 
   // fetching the details of a topic before rendering
   useEffect(() => {
@@ -39,12 +35,7 @@ function TopicReports({ props, dispatch }) {
 
   return (
     <div className="topic-reports__holder">
-      {!isLoading ? (
-        <TopicReportsTable />
-      ) : (
-        <div className="reports-loader"></div>
-      )}
-
+      <TopicReportsTable />
       <ToastContainer
         position="top-center"
         pauseOnHover={false}

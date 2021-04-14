@@ -8,8 +8,14 @@ import base64
 
 
 def main():
-    dates_ts = list(eval(sys.argv[1]))
-    dates_temp = pd.Series([datetime.fromtimestamp(date).date()
+    # getting the array of report dates
+    argv_tmp = eval(sys.argv[1])
+    if type(argv_tmp) == int:
+        dates_ts = [argv_tmp]
+    else:
+        dates_ts = list(argv_tmp)
+
+    dates_temp = pd.Series([datetime.fromtimestamp(float(date)).date()
                            for date in dates_ts])
     occurences = dates_temp.value_counts().to_dict()
 
