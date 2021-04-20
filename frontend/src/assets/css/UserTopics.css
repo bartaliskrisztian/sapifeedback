@@ -1,5 +1,5 @@
-@import url("../../resources/colors.css");
 @import url("./index.css");
+@import url("../../resources/themes.css");
 
 .home {
   height: 100%;
@@ -98,6 +98,7 @@
   align-self: flex-end;
   padding: 5px;
   border-radius: 50%;
+  content: var(--more-icon-source);
 }
 
 .topic__more-icon:hover {
@@ -148,7 +149,6 @@
   box-shadow: 2px 2px 7px #000;
   border: none;
   outline: none;
-  background: var(--app_color);
   margin: auto;
   margin-top: 100px;
   display: flex;
@@ -175,7 +175,7 @@
 .create-topic__input {
   outline: none;
   border: none;
-  background: var(--app_color_light);
+  background-color: var(--app_color_light);
   width: 50%;
   font-size: 24px;
   font-weight: bold;

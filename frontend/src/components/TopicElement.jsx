@@ -8,7 +8,6 @@ import strings from "../resources/strings"; // importing language resource file
 
 // importing styles
 import AddIcon from "../assets/images/plus.svg";
-import MoreIcon from "../assets/images/more.svg";
 
 function TopicElement({ props, dispatch }) {
   let history = useHistory();
@@ -92,7 +91,6 @@ function TopicElement({ props, dispatch }) {
     return (
       <div className="topic-element__content">
         <img
-          src={MoreIcon}
           alt="more"
           className="topic__more-icon"
           onClick={() => setShowMoreDropwdown(!showMoreDropdown)}

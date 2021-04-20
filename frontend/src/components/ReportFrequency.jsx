@@ -35,12 +35,11 @@ function ReportFrequency({ props }) {
       "reportFrequency"
     ).then(
       (response) => {
-        console.log(response.result);
-        // let data = response.result.slice(2);
-        // data = data.slice(0, -1);
-        // const src = `data:image/jpg;base64,${data}`;
-        // setImageSource(src);
-        // setImageLoaded(true);
+        let data = response.result.slice(2);
+        data = data.slice(0, -1);
+        const src = `data:image/jpg;base64,${data}`;
+        setImageSource(src);
+        setImageLoaded(true);
       },
       (reject) => {
         notifyError(reject);

@@ -120,7 +120,7 @@ function UserTopics({ props, dispatch }) {
 
   const modalStyle = {
     overlay: {
-      backgroundColor: "#3a3b3c",
+      backgroundColor: props.theme === "dark" ? "#242526" : "#6b6d6f",
     },
   };
 
@@ -132,7 +132,7 @@ function UserTopics({ props, dispatch }) {
         closeTimeoutMS={500}
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="create-topic__modal"
+        className={`create-topic__modal ${props.theme}`}
         style={modalStyle}
       >
         <img
@@ -199,6 +199,7 @@ function UserTopics({ props, dispatch }) {
 // getting the global state variables with redux
 const mapStateToProps = (state) => {
   const props = {
+    theme: state.appTheme,
     user: state.user,
     searchText: state.searchText,
     showArchivedTopics: state.showArchivedTopics,

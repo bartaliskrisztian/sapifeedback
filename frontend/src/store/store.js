@@ -1,6 +1,7 @@
 import { createStore } from 'redux'
 
 const initialState = {
+    appTheme: 'light',
     user: null,
     searchText: "",
     currentTopicName: "",
@@ -16,6 +17,11 @@ const reducer = (state = initialState, action) => {
     if(action.type === "SET_USER") {
         return Object.assign({}, state, {
             user: action.payload
+        })
+    }
+    if(action.type === "SET_THEME") {
+        return Object.assign({}, state, {
+            appTheme: action.payload
         })
     }
     if(action.type === "SET_SEARCHTEXT") {

@@ -1,5 +1,3 @@
-@import url("../../resources/colors.css");
-
 .topic__side-menu {
   width: 20%;
   height: 100%;
@@ -32,12 +30,17 @@
   display: flex;
   align-items: center;
   color: var(--font-color);
+  background: var(--app_color);
   text-decoration: none;
   font-size: 20px;
   transition: 300ms;
 }
 
 .side-menu__item:hover {
+  background: var(--app_color_light);
+}
+
+.side-menu__item.selected {
   background: var(--app_color_light_hover);
 }
 
@@ -53,25 +56,25 @@
 }
 
 .side-menu__icon.details-icon {
-  background: url("../images/details_icon.svg");
+  background: var(--details-icon-source);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .side-menu__icon.report-icon {
-  background: url("../images/report_icon.svg");
+  background: var(--reports-icon-source);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .side-menu__icon.wordCloud-icon {
-  background: url("../images/word-cloud_icon.svg");
+  background: var(--wordcloud-icon-source);
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .side-menu__icon.frequency-icon {
-  background: url("../images/frequency.svg");
+  background: var(--frequency-icon-source);
   background-size: cover;
   background-repeat: no-repeat;
 }

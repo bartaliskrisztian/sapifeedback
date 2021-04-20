@@ -10,7 +10,11 @@ import ReportFrequency from "./components/ReportFrequency";
 import ReportPage from "./components/ReportPage";
 import TopicSideMenus from "./components/TopicSideMenus";
 
-function App() {
+import { connect } from "react-redux";
+
+import "./resources/themes.css";
+
+function App({theme}) {
 
   const HomePage = () => {
     return(
@@ -70,7 +74,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <Layout>
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
@@ -84,4 +88,11 @@ function App() {
   );
 }
 
-export default App;
+// getting the global state variables with redux
+const mapStateToProps = (state) => {
+  const theme = state.appTheme;
+  
+  return { theme };
+};
+
+export default connect(mapStateToProps)(App);

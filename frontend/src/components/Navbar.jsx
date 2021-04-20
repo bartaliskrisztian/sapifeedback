@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 
 // importing components
+import Switch from "react-input-switch";
 import { GoogleLogout } from "react-google-login";
 import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
@@ -12,6 +13,8 @@ import strings from "../resources/strings";
 // importing styles
 import "../assets/css/Navbar.css";
 import UserPlaceholder from "../assets/images/user.svg";
+import HungaryIcon from "../assets/images/hungary.svg";
+import UnitedKingdomIcon from "../assets/images/united-kingdom.svg";
 
 function Navbar({ props, dispatch }) {
   const history = useHistory();
@@ -42,10 +45,17 @@ function Navbar({ props, dispatch }) {
     );
   };
 
+  const onThemeChange = () => {
+    let theme = "dark";
+    if (props.theme === "dark") {
+      theme = "light";
+    }
+    dispatch({ type: "SET_THEME", payload: theme });
+  };
+
   const onImageError = (image) => {
     image.target.src = UserPlaceholder;
   };
-
   const ProfileMenu = () => {
     return (
       <div className="user-menu">
@@ -57,6 +67,7 @@ function Navbar({ props, dispatch }) {
           onError={onImageError}
         />
         <div className={`profile-dropdown${showProfileMenu ? " open" : ""}`}>
+          <div className="settings"></div>
           <img
             className="profile-dropdown__image"
             src={
@@ -79,6 +90,42 @@ function Navbar({ props, dispatch }) {
     );
   };
 
+  const Settings = () => {
+    return (
+      <div className="settings">
+        <div className="settings__theme">
+          <label className="settings__theme-label">
+            Theme:
+            <Switch
+              on="dark"
+              off="light"
+              value={props.theme}
+              onChange={onThemeChange}
+              className="settings__theme-switch"
+              styles={{
+                track: {
+                  backgroundColor: "#7c7777",
+                },
+              }}
+            />
+          </label>
+        </div>
+        <div className="settings__language">
+          <img
+            alt="hungary"
+            src={HungaryIcon}
+            className="settings__language-icon"
+          />
+          <img
+            alt="united-kingdom"
+            src={UnitedKingdomIcon}
+            className="settings__language-icon"
+          />
+        </div>
+      </div>
+    );
+  };
+
   if (props.user) {
     return (
       <div className="navbar">
@@ -91,6 +138,7 @@ function Navbar({ props, dispatch }) {
         )}
         <div className="elements-to-end">
           <UserTopicsMenu />
+          <Settings />
           <ProfileMenu />
         </div>
       </div>
@@ -104,6 +152,7 @@ function Navbar({ props, dispatch }) {
 // getting the global state variables with redux
 const mapStateToProps = (state, ownProps) => {
   const props = {
+    theme: state.appTheme,
     user: state.user,
     page: ownProps.page,
     topic: state.currentTopicDetails,

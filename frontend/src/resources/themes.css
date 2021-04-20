@@ -1,0 +1,31 @@
+.dark {
+  --app_color: #18191a;
+  --app_color_light: #3a3b3c;
+  --app_color_light_hover: #4e4f50;
+  --navbar_color: #242526;
+  --font-color: #cfd1d5;
+  --link-color: #444d7c;
+
+  /* icon sources */
+  --more-icon-source: url("../assets/images/dark/more.svg");
+  --details-icon-source: url("../assets/images/dark/details_icon.svg");
+  --reports-icon-source: url("../assets/images/dark/report_icon.svg");
+  --wordcloud-icon-source: url("../assets/images/dark/word-cloud_icon.svg");
+  --frequency-icon-source: url("../assets/images/dark/frequency_icon.svg");
+}
+
+.light {
+  --app_color: #fff;
+  --app_color_light: #bec0c2;
+  --app_color_light_hover: #868686;
+  --navbar_color: #d1d1d1;
+  --font-color: #000;
+  --link-color: #444d7c;
+
+  /* icon sources */
+  --more-icon-source: url("../assets/images/light/more.svg");
+  --details-icon-source: url("../assets/images/light/details_icon.svg");
+  --reports-icon-source: url("../assets/images/light/report_icon.svg");
+  --wordcloud-icon-source: url("../assets/images/light/word-cloud_icon.svg");
+  --frequency-icon-source: url("../assets/images/light/frequency_icon.svg");
+}

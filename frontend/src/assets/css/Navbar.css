@@ -1,5 +1,3 @@
-@import url("../../resources/colors.css");
-
 .navbar {
   width: 100%;
   height: 50px;
@@ -21,6 +19,28 @@
   padding: 0 20px;
 }
 
+.settings {
+  display: flex;
+  flex-direction: column;
+}
+
+.settings__theme-label {
+  padding-left: 5px;
+}
+
+.settings__theme-switch {
+  margin-left: 5px;
+}
+
+.settings__language {
+  display: flex;
+}
+
+.settings__language-icon {
+  width: 50px;
+  height: 30px;
+}
+
 .navbar-menus {
   padding: 10px 20px 10px 10px;
   display: flex;
@@ -30,7 +50,7 @@
 .navbar-menus__element {
   cursor: pointer;
   align-self: center;
-  color: #fff;
+  color: var(--font-color);
   font-size: 20px;
   text-decoration: none;
   padding: 5px 10px;
