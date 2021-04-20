@@ -1,15 +1,15 @@
 import React from "react";
 import Select from "react-dropdown-select"; // importing components
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 import "../assets/css/TopicSort.css"; // importing styles
 
-function TopicSort(props) {
+function TopicSort({ t }, props) {
   const options = [
-    { label: strings.userTopics.sort.unsorted, value: "unsorted" },
-    { label: strings.userTopics.sort.byAbcAsc, value: "a-z" },
-    { label: strings.userTopics.sort.byAbcDesc, value: "z-a" },
-    { label: strings.userTopics.sort.byDateAsc, value: "date-asc" },
-    { label: strings.userTopics.sort.byDateDesc, value: "date-desc" },
+    { label: t("Unsorted"), value: "unsorted" },
+    { label: t("A-Z"), value: "a-z" },
+    { label: t("Z-A"), value: "z-a" },
+    { label: t("By date ascending"), value: "date-asc" },
+    { label: t("By date descending"), value: "date-desc" },
   ];
 
   const onSortOptionChange = (option) => {
@@ -18,9 +18,7 @@ function TopicSort(props) {
 
   return (
     <div className="topic-sort">
-      <label className="topic-sort__label">
-        {strings.userTopics.sort.title}
-      </label>
+      <div className="topic-sort__label">{t("Sort by:")}</div>
       <Select
         className="topic-sort__select"
         options={options}
@@ -32,4 +30,4 @@ function TopicSort(props) {
   );
 }
 
-export default TopicSort;
+export default withNamespaces()(TopicSort);

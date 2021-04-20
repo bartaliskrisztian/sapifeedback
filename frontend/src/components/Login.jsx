@@ -6,14 +6,14 @@ import GoogleLogin from "react-google-login";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "../assets/css/Login.css";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../assets/images/logo.svg";
 
-function Login({ isLoggedIn, dispatch }) {
+function Login({ t, isLoggedIn, dispatch }) {
   let history = useHistory();
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function Login({ isLoggedIn, dispatch }) {
     // eslint-disable-next-line
   }, []);
 
-  const notifyLoggingOut = () => toast.info(strings.logoutSuccess);
+  const notifyLoggingOut = () => toast.info(t("Logged out successfully."));
 
   // if the login is successful, set the user and go to homepage
   const responseGoogleSuccess = (response) => {
@@ -42,7 +42,7 @@ function Login({ isLoggedIn, dispatch }) {
       <img src={Logo} alt="logo" className="login-logo" />
       <GoogleLogin
         clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-        buttonText={strings.login.loginButtonText}
+        buttonText={t("Sign up or log in with Google Account")}
         onSuccess={responseGoogleSuccess}
         onFailure={responseGoogleFailure}
         cookiePolicy={"single_host_origin"}
@@ -73,4 +73,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(Login));

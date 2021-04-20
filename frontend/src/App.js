@@ -10,6 +10,7 @@ import ReportFrequency from "./components/ReportFrequency";
 import ReportPage from "./components/ReportPage";
 import TopicSideMenus from "./components/TopicSideMenus";
 
+import { withNamespaces } from 'react-i18next';
 import { connect } from "react-redux";
 
 import "./resources/themes.css";
@@ -95,4 +96,4 @@ const mapStateToProps = (state) => {
   return { theme };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(withNamespaces()(App));

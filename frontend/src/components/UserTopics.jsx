@@ -10,19 +10,19 @@ import { connect } from "react-redux";
 import { apiGetRequest, apiPostRequest } from "../api/utils";
 import socket from "../socketConfig";
 
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/css/UserTopics.css";
 import CancelIcon from "../assets/images/cancel.svg";
 
-function UserTopics({ props, dispatch }) {
+function UserTopics({ t, props, dispatch }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [topicName, setTopicName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [topicSortOption, setTopicSortOption] = useState([
-    { label: strings.userTopics.sort.unsorted, value: "unsorted" },
+    { label: t("Unsorted"), value: "unsorted" },
   ]);
 
   // fetching the topics based on the user
@@ -83,14 +83,14 @@ function UserTopics({ props, dispatch }) {
 
   const createTopic = () => {
     if (topicName === "") {
-      notifyError(strings.userTopics.modal.errorText.emptyTopicName);
+      notifyError(t("Enter your topic name"));
       return false;
     }
 
     let ok = true;
     props.userTopics.forEach((topic) => {
       if (topic[1].topicName === topicName) {
-        notifyError(strings.userTopics.modal.errorText.usedTopicName);
+        notifyError(t("You already have a topic with this name."));
         ok = false;
       }
     });
@@ -106,7 +106,7 @@ function UserTopics({ props, dispatch }) {
         (response) => {
           if (response.error === "OK") {
             closeModal();
-            notifySuccess(strings.userTopics.modal.onSuccess);
+            notifySuccess(t("Topic created."));
           } else {
             notifyError(response.error);
           }
@@ -141,13 +141,11 @@ function UserTopics({ props, dispatch }) {
           className="modal__cancel-icon"
           onClick={closeModal}
         />
-        <div className="create-topic__title">
-          {strings.userTopics.modal.title}
-        </div>
+        <div className="create-topic__title">{t("Create topic")}</div>
         <input
           className="create-topic__input"
           type="text"
-          placeholder={strings.userTopics.modal.inputPlaceholder}
+          placeholder={t("Enter your topic name")}
           onChange={onTopicNameChange}
         />
         <button
@@ -155,7 +153,7 @@ function UserTopics({ props, dispatch }) {
           type="submit"
           onClick={createTopic}
         >
-          {strings.userTopics.modal.createButtonText}
+          {t("Create")}
         </button>
       </Modal>
       <div className="topic-sort__container">
@@ -166,7 +164,7 @@ function UserTopics({ props, dispatch }) {
             className="topic-checkbox"
             onClick={showArchivedTopics}
           />
-          <label>{strings.userTopics.showArchivedTopics}</label>
+          <label>{t("Show archived topics")}</label>
         </div>
         <TopicSort
           sortOption={topicSortOption}
@@ -215,4 +213,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserTopics);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(UserTopics));

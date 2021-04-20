@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 import { apiPostRequest } from "../api/utils";
 
 import "../assets/css/WordCloud.css";
 import "react-toastify/dist/ReactToastify.css";
 
-function WordCloud({ props }) {
+function WordCloud({ t, props }) {
   const [wordCloudLoaded, setWordCloudLoaded] = useState(false);
   const [noWordCloudText, setNoWordCloudText] = useState("");
   const [wordCloudSource, setWordCloudSource] = useState("");
@@ -23,7 +23,7 @@ function WordCloud({ props }) {
     const textArray = reports.map((report) => report.text);
     const text = textArray.join("");
     if (!text.length) {
-      setNoWordCloudText(strings.topic.noReports);
+      setNoWordCloudText(t("There are no reports yet."));
       setWordCloudLoaded(true);
       return;
     }
@@ -63,7 +63,7 @@ function WordCloud({ props }) {
       {!wordCloudLoaded && (
         <div>
           <div className="wordcloud-loader"></div>
-          <div>{strings.wordCloud.loadingText}</div>
+          <div>{t("Generating wordcloud")}</div>
         </div>
       )}
       {wordCloudLoaded && !noWordCloudText && <WordCloud />}
@@ -87,4 +87,4 @@ const mapStateToProps = (state) => {
   return { props };
 };
 
-export default connect(mapStateToProps)(WordCloud);
+export default connect(mapStateToProps)(withNamespaces()(WordCloud));

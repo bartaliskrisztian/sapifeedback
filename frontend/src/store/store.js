@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 
 const initialState = {
-    appTheme: 'light',
+    appTheme: 'dark',
     user: null,
     searchText: "",
     currentTopicName: "",

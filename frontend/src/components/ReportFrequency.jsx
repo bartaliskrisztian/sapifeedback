@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 import { apiPostRequest } from "../api/utils";
 
 import "../assets/css/ReportFrequency.css";
 import "react-toastify/dist/ReactToastify.css";
 
-function ReportFrequency({ props }) {
+function ReportFrequency({ t, props }) {
   const [noReportsText, setNoReportsText] = useState("");
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageSource, setImageSource] = useState("");
@@ -22,7 +22,7 @@ function ReportFrequency({ props }) {
   const createReportFrequency = (reports) => {
     const dates = reports.map((report) => report.date);
     if (!dates.length) {
-      setNoReportsText(strings.topic.noReports);
+      setNoReportsText(t("There are no reports yet."));
       setImageLoaded(true);
       return;
     }
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => {
   return { props };
 };
 
-export default connect(mapStateToProps)(ReportFrequency);
+export default connect(mapStateToProps)(withNamespaces()(ReportFrequency));

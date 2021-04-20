@@ -5,14 +5,14 @@ import Modal from "react-modal";
 import { connect } from "react-redux";
 
 import { apiGetRequest } from "../api/utils";
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 
 import "../assets/css/TopicDetails.css";
 import "react-toastify/dist/ReactToastify.css";
 import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
 
-function TopicDetails({ props, dispatch }) {
+function TopicDetails({ t, props, dispatch }) {
   const history = useHistory();
   const params = useParams();
 
@@ -92,7 +92,7 @@ function TopicDetails({ props, dispatch }) {
   const TopicLink = () => {
     return (
       <div>
-        {strings.topic.reports.reportUrl}:
+        {t("Link for reporting")}:
         <a
           href={props.topic.reportUrl}
           target="blank"
@@ -133,14 +133,12 @@ function TopicDetails({ props, dispatch }) {
           onClick={closeModal}
         />
         <div className="delete-topic__title">
-          {strings.topic.deleteModal.title}
+          {t("Are you sure you want to delete this topic?")}
         </div>
         <div className="delete-topic__button-holder">
-          <button className="delete-topic__button delete">
-            {strings.topic.deleteModal.deleteButtonText}
-          </button>
+          <button className="delete-topic__button delete">{t("Delete")}</button>
           <button className="delete-topic__button cancel" onClick={closeModal}>
-            {strings.topic.deleteModal.cancelButtonText}
+            {t("Cancel")}
           </button>
         </div>
       </Modal>
@@ -155,7 +153,7 @@ function TopicDetails({ props, dispatch }) {
   //       onClick={openModal}
   //     >
   //       <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
-  //       {strings.topic.deleteButtonText}
+  //       {t("Delete")}
   //     </button>
   //   );
   // };
@@ -201,4 +199,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicDetails);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(TopicDetails));

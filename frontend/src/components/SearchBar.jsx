@@ -1,18 +1,18 @@
 import React from "react";
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 import "../assets/css/SearchBar.css"; // importing styles
 
-function SearchBar(props) {
+function SearchBar({ t }, props) {
   return (
     <div className="searchbar">
       <input
         className="searchbar-input"
         type="text"
-        placeholder={strings.navbar.searchBarText}
+        placeholder={t("Search between your topics")}
         onChange={props.onSearch}
       />
     </div>
   );
 }
 
-export default SearchBar;
+export default withNamespaces()(SearchBar);

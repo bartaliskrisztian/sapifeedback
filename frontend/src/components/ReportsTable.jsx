@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "../assets/css/Reports.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 
-function ReportsTable({ props }) {
+function ReportsTable({ t, props }) {
   // variables used for table pagination
   const reportsToShow = 5;
   const [currentPage, setCurrentPage] = useState(0);
@@ -73,11 +73,9 @@ function ReportsTable({ props }) {
       <table className="topic-reports">
         <tbody>
           <tr className="topic-reports__row-header">
-            <th className="topic-reports__header text">
-              {strings.topic.reports.reportText}
-            </th>
+            <th className="topic-reports__header text">{t("Text")}</th>
             <th className="topic-reports__header image">
-              {strings.topic.reports.reportImage}
+              {t("Attached image")}
             </th>
           </tr>
           {props.reports &&
@@ -114,16 +112,16 @@ function ReportsTable({ props }) {
     return (
       <div className="topic-reports__pagination-container">
         <div className="topic-reports__pagination-element" onClick={firstPage}>
-          {strings.topic.reports.firstPageButton}
+          {t("First")}
         </div>
         <div className="topic-reports__pagination-element" onClick={prevPage}>
-          {strings.topic.reports.prevPageButton}
+          {t("Previous")}
         </div>
         <div className="topic-reports__pagination-element" onClick={nextPage}>
-          {strings.topic.reports.nextPageButton}
+          {t("Next")}
         </div>
         <div className="topic-reports__pagination-element" onClick={lastPage}>
-          {strings.topic.reports.lastPageButton}
+          {t("Last")}
         </div>
         {props.reports && pages.length > 0 && (
           <div className="topic-reports__pagination-element counter">
@@ -151,4 +149,4 @@ const mapStateToProps = (state) => {
   return { props };
 };
 
-export default connect(mapStateToProps)(ReportsTable);
+export default connect(mapStateToProps)(withNamespaces()(ReportsTable));

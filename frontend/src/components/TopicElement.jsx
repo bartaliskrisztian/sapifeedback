@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 
 import { apiGetRequest } from "../api/utils";
 
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 
 // importing styles
 import AddIcon from "../assets/images/plus.svg";
 
-function TopicElement({ props, dispatch }) {
+function TopicElement({ t, props, dispatch }) {
   let history = useHistory();
   const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
 
@@ -27,7 +27,7 @@ function TopicElement({ props, dispatch }) {
     apiGetRequest(props.userid, props.topicid, "archiveTopic").then(
       (response) => {
         if (response.error === "OK") {
-          props.onArchive(strings.userTopics.notification.onArchive);
+          props.onArchive(t("Topic archived successfully."));
           setShowMoreDropwdown(false);
         } else {
           props.notifyError(response.error);
@@ -45,7 +45,7 @@ function TopicElement({ props, dispatch }) {
     apiGetRequest(props.userid, props.topicid, "activateTopic").then(
       (response) => {
         if (response.error === "OK") {
-          props.onArchive(strings.userTopics.notification.onActivate);
+          props.onArchive(t("Archiving cancelled."));
           setShowMoreDropwdown(false);
         } else {
           props.notifyError(response.error);
@@ -62,7 +62,7 @@ function TopicElement({ props, dispatch }) {
   const copyUrlToClipboard = () => {
     getTopicUrl();
     setShowMoreDropwdown(false);
-    props.onCopyToClipboard(strings.userTopics.notification.onCopyToClipboard);
+    props.onCopyToClipboard(t("Link copied to clipboard."));
   };
 
   // getting the topic's url
@@ -82,7 +82,7 @@ function TopicElement({ props, dispatch }) {
     return (
       <div className="topic-add" onClick={props.onClick}>
         <img src={AddIcon} alt="add topic" className="add-icon" />
-        <div>{strings.userTopics.createTopicText}</div>
+        <div>{t("Create topic")}</div>
       </div>
     );
   };
@@ -102,13 +102,13 @@ function TopicElement({ props, dispatch }) {
             }`}
           >
             <div className="more-dropdown__element" onClick={archiveTopic}>
-              {strings.userTopics.menu.archive}
+              {t("Archive")}
             </div>
             <div
               className="more-dropdown__element"
               onClick={copyUrlToClipboard}
             >
-              {strings.userTopics.menu.copyLink}
+              {t("Copy link")}
             </div>
           </div>
         )}
@@ -119,7 +119,7 @@ function TopicElement({ props, dispatch }) {
             }`}
           >
             <div className="more-dropdown__element" onClick={activateTopic}>
-              {strings.userTopics.menu.toActive}
+              {t("Cancel archiving")}
             </div>
           </div>
         )}
@@ -130,9 +130,7 @@ function TopicElement({ props, dispatch }) {
         >
           <div className="topic-element__name">{props.name}</div>
           {props.isArchived && (
-            <div className="topic-element__archived">
-              {strings.userTopics.archived}
-            </div>
+            <div className="topic-element__archived">{t("Archived")}</div>
           )}
           <div className="topic-element__date">{props.date}</div>
         </div>
@@ -172,4 +170,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicElement);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(TopicElement));

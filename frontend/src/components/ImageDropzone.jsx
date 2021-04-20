@@ -1,10 +1,11 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone"; // importing components
 import Compress from "client-compress";
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
+
 import "../assets/css/ImageDropzone.css"; // importing styles
 
-function ImageDropzone(prop) {
+function ImageDropzone({ t }, prop) {
   // options for reducing file size
   const compress = new Compress({
     targetSize: 1,
@@ -84,15 +85,15 @@ function ImageDropzone(prop) {
         file.errors.forEach((err) => {
           // when the file is too large
           if (err.code === "file-too-large") {
-            setErrors(strings.report.errorText.tooLargeFile);
+            setErrors(t("File is too large"));
           }
           // when the file's type is not acccepted
           if (err.code === "file-invalid-type") {
-            setErrors(strings.report.errorText.wrongFileFormat);
+            setErrors(t("File format is invalid"));
           }
           // when he user drops chooses more than one image
           if (err.code === "too-many-files") {
-            setErrors(strings.report.errorText.tooManyFiles);
+            setErrors(t("Too many files"));
           }
         });
       });
@@ -137,7 +138,7 @@ function ImageDropzone(prop) {
         <input {...getInputProps()} />
         {!prop.files.length ? (
           <div className="drop-title">
-            {strings.report.imageDropText}
+            {t("DRAG AND DROP HERE THE IMAGE")}
             <div className="drop-arrow">
               <span></span>
               <span></span>
@@ -150,14 +151,14 @@ function ImageDropzone(prop) {
         <div className="upload-buttons">
           <div className="image-errors">{errors}</div>
           <button className="upload-image__button" type="button" onClick={open}>
-            {strings.report.imageSelectButtonText}
+            {t("Choose an image")}
           </button>
           <button
             className="clear-images__button"
             type="button"
             onClick={removeImages}
           >
-            {strings.report.imageRemoveButtonText}
+            {t("Remove the image")}
           </button>
         </div>
       </div>
@@ -165,4 +166,4 @@ function ImageDropzone(prop) {
   );
 }
 
-export default ImageDropzone;
+export default withNamespaces()(ImageDropzone);

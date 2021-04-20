@@ -6,13 +6,13 @@ import ReportsTable from "./ReportsTable";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "../assets/css/TopicReports.css";
 import "react-toastify/dist/ReactToastify.css";
 
-function TopicReports({ props, dispatch }) {
+function TopicReports({ t, props, dispatch }) {
   const params = useParams();
 
   // fetching the details of a topic before rendering
@@ -29,7 +29,11 @@ function TopicReports({ props, dispatch }) {
     if (props.topicReports.length > 0) {
       return <ReportsTable />;
     } else {
-      return <div className="topic__no-reports">{strings.topic.noReports}</div>;
+      return (
+        <div className="topic__no-reports">
+          {t("There are no reports yet.")}
+        </div>
+      );
     }
   };
 
@@ -62,4 +66,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicReports);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(TopicReports));

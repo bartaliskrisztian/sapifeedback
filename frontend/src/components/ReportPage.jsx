@@ -8,13 +8,13 @@ import { ToastContainer, toast } from "react-toastify";
 
 import { apiGetRequest, apiPostRequest } from "../api/utils";
 import { storage } from "../firebase/Firebase";
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "../assets/css/ReportPage.css";
 import "react-toastify/dist/ReactToastify.css";
 
-function ReportPage() {
+function ReportPage({ t }) {
   const history = useHistory(); // hook for getting the url
   const params = useParams(); // hook for getting the url's parameters
   const recaptchaRef = React.useRef(); // reference of the recaptcha
@@ -126,7 +126,7 @@ function ReportPage() {
     apiPostRequest(null, null, JSON.stringify(data), "uploadReport").then(
       (response) => {
         if (response.error === "OK") {
-          notifySuccess(strings.report.errorText.successfulReport);
+          notifySuccess(t("Successful report"));
         } else {
           notifyError(response.error);
         }
@@ -140,7 +140,7 @@ function ReportPage() {
   // when the user presses the submit button
   const onSubmitWithReCAPTCHA = async () => {
     if (topic.isArchived) {
-      notifyError("Ehhez a témához jelenleg nem lehet visszajelezni.");
+      notifyError(t("You can't report to his topic at the moment."));
       return;
     }
 
@@ -148,13 +148,17 @@ function ReportPage() {
     // if the reCaptcha's token is empty string or null, means that the user did not solve the captcha
 
     if (token === "" || token === null) {
-      notifyError(strings.report.errorText.notRobot);
+      notifyError(t("Prove that you are human."));
       return;
     }
 
     // if the given text for report is too short
     if (reportText.length < 20) {
-      notifyError(strings.report.errorText.shortReport);
+      notifyError(
+        t(
+          "The given report text is too short (should be at least 20 character)."
+        )
+      );
       return;
     }
     setIsUploading(true); // setting up loader
@@ -162,7 +166,7 @@ function ReportPage() {
     setIsUploading(false);
 
     // providing success message for 2 secs
-    notifySuccess(strings.report.errorText.successfulReport);
+    notifySuccess(t("Successful report"));
 
     resetPage();
   };
@@ -173,30 +177,36 @@ function ReportPage() {
         <div className="report-text">
           <div className="info">
             <div className="info-text">
-              {strings.report.title}
+              {t(
+                "YOU CAN REPORT ANONYMOUSLY YOUR PROBLEM/COMMENT ABOUT THE TOPIC:"
+              )}
               <span className="info-text__topic-name"> {topic.topicName}</span>
             </div>
           </div>
           <textarea
             className="text-input"
             value={reportText}
-            placeholder={strings.report.inputPlaceHolder}
+            placeholder={t("Your comments about the topic")}
             onChange={handleTextChange}
           />
           <div className="source-code">
-            {`${strings.report.sourceCodeText}: `}
+            {`${t("SOURCE CODE")}: `}
             <a
               target="blank"
-              href={`${strings.report.sourceCode}`}
+              href={`${t(
+                "https://github.com/bartaliskrisztian/report-feedback"
+              )}`}
               className="source-code__link"
             >
-              {strings.report.sourceCodeShort}
+              {t("github.com/bartaliskrisztian/report-feedback")}
             </a>
           </div>
         </div>
         <div className="report-image">
           <div className="info">
-            <div className="info-text">{strings.report.attachImageText}</div>
+            <div className="info-text">
+              {t("YOU CAN ATTACH AN IMAGE OPTIONALLY")}
+            </div>
           </div>
           <ImageDropzone setUploadedImages={setFiles} files={files} />
         </div>
@@ -214,7 +224,7 @@ function ReportPage() {
             type="submit"
             onClick={onSubmitWithReCAPTCHA}
           >
-            {strings.report.submitButtonText}
+            {t("SEND")}
           </button>
           {/*  */}
           {isUploading && <div className="loader"></div>}
@@ -231,4 +241,4 @@ function ReportPage() {
   );
 }
 
-export default ReportPage;
+export default withNamespaces()(ReportPage);

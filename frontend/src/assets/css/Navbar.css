@@ -39,6 +39,7 @@
 .settings__language-icon {
   width: 50px;
   height: 30px;
+  cursor: pointer;
 }
 
 .navbar-menus {

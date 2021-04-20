@@ -7,8 +7,8 @@ import { GoogleLogout } from "react-google-login";
 import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
 
-// importing language resource file
-import strings from "../resources/strings";
+import i18n from "../language";
+import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "../assets/css/Navbar.css";
@@ -16,9 +16,8 @@ import UserPlaceholder from "../assets/images/user.svg";
 import HungaryIcon from "../assets/images/hungary.svg";
 import UnitedKingdomIcon from "../assets/images/united-kingdom.svg";
 
-function Navbar({ props, dispatch }) {
+function Navbar({ t, props, dispatch }) {
   const history = useHistory();
-
   // whether to show the profile menu or not
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
@@ -38,7 +37,7 @@ function Navbar({ props, dispatch }) {
         {/* if we are the user topics page, this button is unnecessary */}
         {window.location.hash !== "#/" && (
           <Link className="navbar-menus__element" to="/">
-            {strings.navbar.myTopicsMenu}
+            {t("My topics")}
           </Link>
         )}
       </div>
@@ -53,12 +52,17 @@ function Navbar({ props, dispatch }) {
     dispatch({ type: "SET_THEME", payload: theme });
   };
 
+  const changeLanguage = (e) => {
+    const language = e.target.id;
+    i18n.changeLanguage(language);
+  };
+
   const onImageError = (image) => {
     image.target.src = UserPlaceholder;
   };
   const ProfileMenu = () => {
     return (
-      <div className="user-menu">
+      <div className="user-menu" title={t("Your profile")}>
         <img
           className="user-image"
           src={props.user.imageUrl}
@@ -81,7 +85,7 @@ function Navbar({ props, dispatch }) {
           <div>{props.user.email}</div>
           <GoogleLogout
             clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-            buttonText={strings.navbar.logoutButtonText}
+            buttonText={t("Logout")}
             onLogoutSuccess={logout}
             className="logout-button"
           ></GoogleLogout>
@@ -94,8 +98,8 @@ function Navbar({ props, dispatch }) {
     return (
       <div className="settings">
         <div className="settings__theme">
-          <label className="settings__theme-label">
-            Theme:
+          <div className="settings__theme-label">
+            {t("Theme:")}
             <Switch
               on="dark"
               off="light"
@@ -108,17 +112,23 @@ function Navbar({ props, dispatch }) {
                 },
               }}
             />
-          </label>
+          </div>
         </div>
         <div className="settings__language">
           <img
             alt="hungary"
+            id="hu"
             src={HungaryIcon}
+            onClick={changeLanguage}
+            title={t("Change language to hungarian.")}
             className="settings__language-icon"
           />
           <img
             alt="united-kingdom"
+            id="en"
             src={UnitedKingdomIcon}
+            onClick={changeLanguage}
+            title={t("Change language to english.")}
             className="settings__language-icon"
           />
         </div>
@@ -167,4 +177,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(Navbar));

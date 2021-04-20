@@ -3,10 +3,11 @@ import React, { useEffect } from "react";
 import UserTopics from "./UserTopics";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
-import strings from "../resources/strings"; // importing language resource file
+import { withNamespaces } from "react-i18next";
+
 import "react-toastify/dist/ReactToastify.css"; // importing styles
 
-function Home({ isLoggedIn, dispatch }) {
+function Home({ t, isLoggedIn, dispatch }) {
   useEffect(() => {
     // on rendering we notify the user about successful login with a toast
     if (!isLoggedIn) {
@@ -16,7 +17,7 @@ function Home({ isLoggedIn, dispatch }) {
     // eslint-disable-next-line
   }, []);
 
-  const notifyLoggingIn = () => toast.info(strings.loginSuccess);
+  const notifyLoggingIn = () => toast.info(t("Logged in successfully."));
 
   return (
     <div className="home">
@@ -45,4 +46,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(Home));
