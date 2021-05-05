@@ -79,11 +79,11 @@ function App({theme}) {
       <Layout>
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/topic/:userId/:topicId/details" component={TopicDetailsPage} />
-          <Route exact path="/topic/:userId/:topicId/reports" component={TopicReportsPage} />
-          <Route exact path="/topic/:userId/:topicId/wordCloud" component={WordCloudPage} />
-          <Route exact path="/topic/:userId/:topicId/freq" component={ReportFrequencyPage } />
-          <Route exact path="/report/:userId/:topicId" component={ReportPage} />
+          <Route exact path="/topic/:topicId/details" component={TopicDetailsPage} />
+          <Route exact path="/topic/:topicId/reports" component={TopicReportsPage} />
+          <Route exact path="/topic/:topicId/wordCloud" component={WordCloudPage} />
+          <Route exact path="/topic/:topicId/freq" component={ReportFrequencyPage } />
+          <Route exact path="/report/:topicId" component={ReportPage} />
       </Layout>
     </div>
   );

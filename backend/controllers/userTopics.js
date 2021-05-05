@@ -7,7 +7,7 @@ const getTopicUrl = (req, res) => {
   const userId = req.params.userId;
   const topicId = req.params.topicId;
 
-  const ref = admin.db.ref(`topics/${userId}/${topicId}/reportUrl`)
+  const ref = admin.db.ref(`topics/${topicId}/reportUrl`)
   
   let url = null;
   ref.on(
@@ -26,9 +26,14 @@ const activateTopic = (req, res) => {
   const userId = req.params.userId;
   const topicId = req.params.topicId;
 
-  const ref = admin.db.ref(`topics/${userId}/${topicId}`) 
+  const ref1 = admin.db.ref(`users/${userId}/topics/${topicId}`);
+  const ref2 = admin.db.ref(`topics/${topicId}`);
 
-  ref.update({
+  ref1.update({
+    isArchived: null,
+  });
+
+  ref2.update({
     isArchived: null,
   }).catch(e => {
     res.send({error: e});
@@ -42,9 +47,14 @@ const archiveTopic = (req, res) => {
   const userId = req.params.userId;
   const topicId = req.params.topicId;
 
-  const ref = admin.db.ref(`topics/${userId}/${topicId}`) 
+  const ref1 = admin.db.ref(`users/${userId}/topics/${topicId}`);
+  const ref2 = admin.db.ref(`topics/${topicId}`);
 
-  ref.update({
+  ref1.update({
+    isArchived: "true",
+  });
+
+  ref2.update({
     isArchived: "true",
   }).catch(e => {
     res.send({error: e});
@@ -58,7 +68,7 @@ const getUserTopics = (req, res) => {
   // getting the parameters sent from the client side
    const userId = req.params.userId;
 
-   const ref = admin.db.ref(`topics/${userId}`);
+   const ref = admin.db.ref(`users/${userId}/topics`);
    // when there is a change between the user's topics, we send them again with the help of a websocket 
    ref.on("value", (snapshot) => {
      if(snapshot.val()) {
@@ -71,8 +81,8 @@ const getUserTopics = (req, res) => {
 }
 
 router.get("/:userId", getUserTopics);
-router.get("/getTopicUrl/:userId/:topicId", getTopicUrl);
-router.get("/archiveTopic/:userId/:topicId", archiveTopic);
-router.get("/activateTopic/:userId/:topicId", activateTopic);
+router.get("/getTopicUrl/:topicId", getTopicUrl);
+router.get("/archiveTopic/:topicId", archiveTopic);
+router.get("/activateTopic/:topicId", activateTopic);
 
 module.exports = router

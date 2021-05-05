@@ -8,11 +8,12 @@ const createTopic = (req, res) => {
     const date = req.body.date;
     const topicName = req.body.topicName;
     const userId = req.body.userId;
-    const host = req.body.host;
 
-    const ref = admin.db.ref(`topics/${userId}`);
-    const uid = ref.push().key;
-    const reportUrl = `${host}/#/report/${userId}/${uid}`;
+    const ref1 = admin.db.ref(`topics`);
+    const ref2 = admin.db.ref(`users/${userId}/topics`);
+
+    const uid = ref1.push().key;
+    const reportUrl = `report/${uid}`;
 
     const newTopic = {
         date: date,
@@ -20,7 +21,11 @@ const createTopic = (req, res) => {
         reportUrl: reportUrl,
     };
 
-    ref
+    ref1
+    .child(uid)
+    .set(newTopic);
+
+    ref2
     .child(uid)
     .set(newTopic).then(res.send({error: "OK"})).catch(res.send({error: "Error: could not create topic"}));
 }

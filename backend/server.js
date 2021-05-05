@@ -31,6 +31,7 @@ app.use(function(req,res,next){
 }); // in order to not set headers after a response is sent
 
 // importing controllers
+let login = require("./controllers/login");
 let topicDetails = require("./controllers/topicDetails");
 let createTopic = require("./controllers/createTopic");
 let getUserTopics = require("./controllers/userTopics");
@@ -40,6 +41,7 @@ let createReportFrequency = require("./controllers/reportFrequency.js");
 
 
 const apiPath = process.env.API_PATH;
+app.use(`/${apiPath}/login`, login);
 app.use(`/${apiPath}/topic`, topicDetails);
 app.use(`/${apiPath}/topic/wordCloud`, createWordCloud);
 app.use(`/${apiPath}/topic/report-frequency`, createReportFrequency);

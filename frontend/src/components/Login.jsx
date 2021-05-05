@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import Settings from "./Settings";
 import { withNamespaces } from "react-i18next";
+import { apiPostRequest } from "../api/utils";
 
 // importing styles
 import "../assets/css/Login.css";
@@ -20,18 +21,31 @@ function Login({ t, isLoggedIn, dispatch }) {
   useEffect(() => {
     if (isLoggedIn) {
       // notifying the user about logging out
-      notifyLoggingOut();
+      //notifyLoggingOut();
       dispatch({ type: "SET_IS_LOGGED_IN", payload: false });
     }
     // eslint-disable-next-line
   }, []);
 
   const notifyLoggingOut = () => toast.info(t("Logged out successfully."));
+  const notifyError = (message) => toast.error(message);
 
   // if the login is successful, set the user and go to homepage
   const responseGoogleSuccess = (response) => {
     dispatch({ type: "SET_USER", payload: response.profileObj });
-    history.push("/");
+    apiPostRequest("login", JSON.stringify(response.profileObj)).then(
+      (response) => {
+        if (response.result === "Error") {
+          notifyError(response.result);
+        } else {
+          dispatch({ type: "SET_LOGIN_MESSAGE", payload: response.result });
+          history.push("/");
+        }
+      },
+      (reject) => {
+        notifyError(reject);
+      }
+    );
   };
 
   const responseGoogleFailure = (response) => {

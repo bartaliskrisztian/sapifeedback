@@ -27,12 +27,10 @@ function ReportFrequency({ t, props }) {
       return;
     }
     apiPostRequest(
-      null,
-      null,
+      "reportFrequency",
       JSON.stringify({
         dates: dates,
-      }),
-      "reportFrequency"
+      })
     ).then(
       (response) => {
         let data = response.result.slice(2);

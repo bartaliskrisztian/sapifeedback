@@ -20,12 +20,18 @@ const uploadReport = (req, res) => {
     }
 
     const reportRef = admin.db.ref(`reports/${topicId}`); // db reference for the actual topic
-    const topicRef = admin.db.ref(`topics/${topicOwnerId}/${topicId}/reportsUploaded`);
+    const topicRef1 = admin.db.ref(`topics/${topicId}/reportsUploaded`);
+    const topicRef2 = admin.db.ref(`users/${topicOwnerId}/${topicId}/reportsUploaded`);
 
     const uid = reportRef.push().key; // getting new unique key
 
     reportRef.child(uid).set(data).catch(e => {if(e) throw e}); // uploading
-    topicRef.transaction((current_value) => {
+
+    topicRef1.transaction((current_value) => {
+        return (current_value || 0) + 1;
+    });
+
+    topicRef2.transaction((current_value) => {
         return (current_value || 0) + 1;
     });
 

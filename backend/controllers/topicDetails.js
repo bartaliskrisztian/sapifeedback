@@ -19,10 +19,9 @@ const getTopicReports = (req, res) => {
 
 const getTopicDetails = (req, res) => {
   // getting the parameters sent from the client side
-    const userId = req.params.userId;
     const topicId = req.params.topicId;
 
-    const ref = admin.db.ref(`topics/${userId}/${topicId}`);
+    const ref = admin.db.ref(`topics/${topicId}`);
 
     ref.on("value", (snapshot) => {
         // res.io.emit("getTopicDetails", {result: snapshot.val()}) // sending response to client
@@ -31,7 +30,7 @@ const getTopicDetails = (req, res) => {
 
 }
 
-router.get("/:userId/:topicId/reports", getTopicReports)
-router.get("/:userId/:topicId/details", getTopicDetails)
+router.get("/:topicId/reports", getTopicReports)
+router.get("/:topicId/details", getTopicDetails)
 
 module.exports = router

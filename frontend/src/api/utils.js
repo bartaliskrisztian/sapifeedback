@@ -1,25 +1,25 @@
 const apiPath = `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}`;
  
- const apiGetRequest = (userGoogleId, topicId, type) => {
+ const apiGetRequest = (type, params) => {
      let endpoint = '';
      switch(type) {
          case 'topicDetails':
-            endpoint = `${apiPath}/topic/${userGoogleId}/${topicId}/details`;
+            endpoint = `${apiPath}/topic/${params.topicId}/details`;
             break;
         case 'topicReports':
-            endpoint = `${apiPath}/topic/${userGoogleId}/${topicId}/reports`;
+            endpoint = `${apiPath}/topic/${params.topicId}/reports`;
             break;
         case 'topicUrl':
-            endpoint = `${apiPath}/userTopics/getTopicUrl/${userGoogleId}/${topicId}`;
+            endpoint = `${apiPath}/userTopics/getTopicUrl/${params.topicId}`;
             break;
         case 'archiveTopic':
-            endpoint = `${apiPath}/userTopics/archiveTopic/${userGoogleId}/${topicId}`;
+            endpoint = `${apiPath}/userTopics/archiveTopic/${params.topicId}`;
             break;
         case 'activateTopic':
-            endpoint = `${apiPath}/userTopics/activateTopic/${userGoogleId}/${topicId}`;
+            endpoint = `${apiPath}/userTopics/activateTopic/${params.topicId}`;
             break;
         case 'userTopics':
-            endpoint = `${apiPath}/userTopics/${userGoogleId}`;
+            endpoint = `${apiPath}/userTopics/${params.userGoogleId}`;
             break;
         default: break;
      }
@@ -37,9 +37,12 @@ const apiPath = `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}
     );
  }
 
- const apiPostRequest = (userGoogleId, topicId, body, type) => {
+ const apiPostRequest = (type, body) => {
     let endpoint = '';
     switch(type) {
+        case 'login':
+            endpoint = `${apiPath}/login`;
+            break;
         case 'createTopic':
            endpoint = `${apiPath}/createTopic`;
            break;

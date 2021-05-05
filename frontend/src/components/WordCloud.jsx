@@ -28,12 +28,10 @@ function WordCloud({ t, props }) {
       return;
     }
     apiPostRequest(
-      null,
-      null,
+      "topicWordCloud",
       JSON.stringify({
         text: text,
-      }),
-      "topicWordCloud"
+      })
     ).then(
       (response) => {
         let data = response.result.slice(2);

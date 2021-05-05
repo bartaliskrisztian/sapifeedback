@@ -24,17 +24,17 @@ function TopicDetails({ t, props, dispatch }) {
   // fetching the details of a topic before rendering
   useEffect(() => {
     // getting the url parameters
-    const userid = params.userId;
     const topicid = params.topicId;
 
-    if (userid !== undefined && topicid !== undefined) {
+    if (topicid !== undefined) {
       if (props.topicId !== topicid) {
         dispatch({
           type: "SET_CURRENT_TOPIC_ID",
           payload: topicid,
         });
-        getTopic(userid, topicid);
-        getReports(userid, topicid);
+        console.log(topicid);
+        getTopic(topicid);
+        getReports(topicid);
       } else {
         const date = new Date(props.topic.date).toLocaleDateString();
         setTopicDate(date);
@@ -49,8 +49,8 @@ function TopicDetails({ t, props, dispatch }) {
 
   const notifyError = (message) => toast.error(message);
 
-  const getTopic = (userid, topicid) => {
-    apiGetRequest(userid, topicid, "topicDetails").then(
+  const getTopic = (topicid) => {
+    apiGetRequest("topicDetails", { topicId: topicid }).then(
       (response) => {
         dispatch({
           type: "SET_CURRENT_TOPIC_DETAILS",
@@ -66,8 +66,8 @@ function TopicDetails({ t, props, dispatch }) {
     );
   };
 
-  const getReports = (userid, topicid) => {
-    apiGetRequest(userid, topicid, "topicReports").then(
+  const getReports = (topicid) => {
+    apiGetRequest("topicReports", { topicId: topicid }).then(
       (response) => {
         if (response.result) {
           dispatch({

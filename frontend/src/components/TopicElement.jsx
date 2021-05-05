@@ -19,12 +19,15 @@ function TopicElement({ t, props, dispatch }) {
       type: "SET_CURRENT_TOPIC_NAME",
       payload: props.name,
     });
-    history.push(`/topic/${props.userid}/${props.topicid}/details`);
+    history.push(`/topic/${props.topicid}/details`);
   };
 
   // archive topic
   const archiveTopic = () => {
-    apiGetRequest(props.userid, props.topicid, "archiveTopic").then(
+    apiGetRequest("archiveTopic", {
+      topicId: props.topicid,
+      userGoogleId: props.userid,
+    }).then(
       (response) => {
         if (response.error === "OK") {
           props.onArchive(t("Topic archived successfully."));
@@ -42,7 +45,10 @@ function TopicElement({ t, props, dispatch }) {
 
   // remove topic from the archived topics
   const activateTopic = () => {
-    apiGetRequest(props.userid, props.topicid, "activateTopic").then(
+    apiGetRequest("activateTopic", {
+      topicId: props.topicid,
+      userGoogleId: props.userid,
+    }).then(
       (response) => {
         if (response.error === "OK") {
           props.onArchive(t("Archiving cancelled."));
@@ -67,7 +73,10 @@ function TopicElement({ t, props, dispatch }) {
 
   // getting the topic's url
   const getTopicUrl = () => {
-    apiGetRequest(props.userid, props.topicid, "topicUrl").then(
+    apiGetRequest("topicUrl", {
+      topicId: props.topicid,
+      userGoogleId: props.userid,
+    }).then(
       (response) => {
         navigator.clipboard.writeText(response.result);
         return response.result;

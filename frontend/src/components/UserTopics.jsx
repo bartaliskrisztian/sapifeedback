@@ -43,10 +43,12 @@ function UserTopics({ t, props, dispatch }) {
 
   // getting all topics from a user
   const getUserTopics = () => {
-    apiGetRequest(props.user.googleId, null, "userTopics").catch((err) => {
-      setIsLoading(false);
-      notifyError(err);
-    });
+    apiGetRequest("userTopics", { userGoogleId: props.user.googleId }).catch(
+      (err) => {
+        setIsLoading(false);
+        notifyError(err);
+      }
+    );
 
     // websocket listening on change
     socket.on("getUserTopics", (data) => {
@@ -100,9 +102,8 @@ function UserTopics({ t, props, dispatch }) {
         date: Date.now(),
         topicName: topicName,
         userId: props.user.googleId,
-        host: window.location.origin,
       });
-      apiPostRequest(null, null, body, "createTopic").then(
+      apiPostRequest("createTopic", body).then(
         (response) => {
           if (response.error === "OK") {
             closeModal();

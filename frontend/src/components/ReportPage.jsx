@@ -48,7 +48,10 @@ function ReportPage({ t }) {
 
   // getting the details about a topic
   const getTopic = (userid, topicid) => {
-    apiGetRequest(userid, topicid, "topicDetails").then(
+    apiGetRequest("topicDetails", {
+      topicId: topicid,
+      userGoogleId: userid,
+    }).then(
       (response) => {
         setTopic(response.result); // save the response in state
       },
@@ -123,7 +126,7 @@ function ReportPage({ t }) {
 
   // POST request for uploading a report
   const sendRequest = (data) => {
-    apiPostRequest(null, null, JSON.stringify(data), "uploadReport").then(
+    apiPostRequest("uploadReport", JSON.stringify(data)).then(
       (response) => {
         if (response.error === "OK") {
           notifySuccess(t("Successful report"));

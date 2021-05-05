@@ -25,7 +25,7 @@ function TopicSideMenus({ t }) {
           className={`side-menu__item ${
             selectedMenu === "details" ? "selected" : ""
           }`}
-          href={`/#/topic/${params.userId}/${params.topicId}/details`}
+          href={`/#/topic/${params.topicId}/details`}
         >
           <div className="side-menu__content">
             <div className="side-menu__icon details-icon"></div>
@@ -36,7 +36,7 @@ function TopicSideMenus({ t }) {
           className={`side-menu__item ${
             selectedMenu === "reports" ? "selected" : ""
           }`}
-          href={`/#/topic/${params.userId}/${params.topicId}/reports`}
+          href={`/#/topic/${params.topicId}/reports`}
         >
           <div className="side-menu__content">
             <div className="side-menu__icon report-icon"></div>
@@ -47,7 +47,7 @@ function TopicSideMenus({ t }) {
           className={`side-menu__item ${
             selectedMenu === "wordcloud" ? "selected" : ""
           }`}
-          href={`/#/topic/${params.userId}/${params.topicId}/wordCloud`}
+          href={`/#/topic/${params.topicId}/wordCloud`}
         >
           <div className="side-menu__content">
             <div className="side-menu__icon wordCloud-icon"></div>
@@ -58,7 +58,7 @@ function TopicSideMenus({ t }) {
           className={`side-menu__item ${
             selectedMenu === "freq" ? "selected" : ""
           }`}
-          href={`/#/topic/${params.userId}/${params.topicId}/freq`}
+          href={`/#/topic/${params.topicId}/freq`}
         >
           <div className="side-menu__content">
             <div className="side-menu__icon frequency-icon"></div>

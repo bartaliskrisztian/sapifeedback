@@ -25,7 +25,6 @@ function Navbar({ t, props, dispatch }) {
   // on logout we set the user to null and redirect the page
   const logout = () => {
     history.push("/login");
-    dispatch({ type: "RESET_STATE", payload: null });
   };
 
   const UserTopicsMenu = () => {
