@@ -19,7 +19,7 @@ function TopicSideMenus({ t }) {
 
   return (
     <div className="topic__side-menu">
-      <div className="side-menu__title">{t("Feedback")}</div>
+      <div className="side-menu__title">{t("Feedback app")}</div>
       <div className="side-menu__elements" id="side-menu__elements">
         <a
           className={`side-menu__item ${

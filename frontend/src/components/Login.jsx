@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 // importing components
 import GoogleLogin from "react-google-login";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
-
+import Settings from "./Settings";
 import { withNamespaces } from "react-i18next";
 
 // importing styles
@@ -15,6 +15,7 @@ import Logo from "../assets/images/logo.svg";
 
 function Login({ t, isLoggedIn, dispatch }) {
   let history = useHistory();
+  const [topidId, setTopicId] = useState("");
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -37,18 +38,47 @@ function Login({ t, isLoggedIn, dispatch }) {
     console.log(response);
   };
 
+  const onSearch = (e) => {
+    setTopicId(e.target.value);
+  };
+
   return (
-    <div className="login">
-      <img src={Logo} alt="logo" className="login-logo" />
-      <GoogleLogin
-        clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-        buttonText={t("Sign up or log in with Google Account")}
-        onSuccess={responseGoogleSuccess}
-        onFailure={responseGoogleFailure}
-        cookiePolicy={"single_host_origin"}
-        isSignedIn={true}
-        className="login-button"
-      />
+    <div className="login-page">
+      <Settings page="login" />
+      <div className="login-page__header">
+        <img src={Logo} alt="logo" className="login-logo" />
+        <div className="login-page__title">{t("Feedback app")}</div>
+      </div>
+      <div className="login-page__content">
+        <div className="login-page__login">
+          <div className="login-page__login-title">
+            {t("Log in, then create topics for getting feedbacks")}
+          </div>
+          <GoogleLogin
+            clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+            buttonText={t("Sign up or log in with Google Account")}
+            onSuccess={responseGoogleSuccess}
+            onFailure={responseGoogleFailure}
+            cookiePolicy={"single_host_origin"}
+            isSignedIn={true}
+            className="login-button"
+          />
+        </div>
+        <div className="login-page__report">
+          <div className="login-page__report-title">
+            {t("Enter a topic ID and give a feedback anonymously")}
+          </div>
+          <div className="login-page__report-inputs">
+            <input
+              type="text"
+              onChange={onSearch}
+              className="login-page__input"
+              placeholder={t("Topic ID")}
+            />
+            <button className="login-page__submit-button">{t("Go")}</button>
+          </div>
+        </div>
+      </div>
       <ToastContainer
         position="top-center"
         pauseOnHover={false}

@@ -14,37 +14,16 @@
 
 .elements-to-end {
   display: flex;
+  align-items: center;
   height: 100%;
   margin-left: auto;
   padding: 0 20px;
 }
 
-.settings {
-  display: flex;
-  flex-direction: column;
-}
-
-.settings__theme-label {
-  padding-left: 5px;
-}
-
-.settings__theme-switch {
-  margin-left: 5px;
-}
-
-.settings__language {
-  display: flex;
-}
-
-.settings__language-icon {
-  width: 50px;
-  height: 30px;
-  cursor: pointer;
-}
-
 .navbar-menus {
-  padding: 10px 20px 10px 10px;
+  margin: 5px 10px;
   display: flex;
+  height: 100%;
   border-left: 1px solid var(--font-color);
 }
 
@@ -107,6 +86,14 @@
 
 .profile-dropdown__name {
   font-weight: 900;
+}
+
+.logout-button {
+  border-radius: 8px !important;
+}
+
+.logout-button div {
+  border-radius: 8px !important;
 }
 
 .navbar__topic-name {

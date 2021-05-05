@@ -7,6 +7,8 @@ body,
   margin: 0;
   height: 100%;
   font-family: "Studio-Feixen-Sans", Arial;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
   background: var(--app_color);
   color: var(--font-color);
 }

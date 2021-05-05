@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 
 // importing components
-import Switch from "react-input-switch";
 import { GoogleLogout } from "react-google-login";
 import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
+import Settings from "./Settings";
 
-import i18n from "../language";
 import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "../assets/css/Navbar.css";
 import UserPlaceholder from "../assets/images/user.svg";
-import HungaryIcon from "../assets/images/hungary.svg";
-import UnitedKingdomIcon from "../assets/images/united-kingdom.svg";
 
 function Navbar({ t, props, dispatch }) {
   const history = useHistory();
@@ -44,19 +41,6 @@ function Navbar({ t, props, dispatch }) {
     );
   };
 
-  const onThemeChange = () => {
-    let theme = "dark";
-    if (props.theme === "dark") {
-      theme = "light";
-    }
-    dispatch({ type: "SET_THEME", payload: theme });
-  };
-
-  const changeLanguage = (e) => {
-    const language = e.target.id;
-    i18n.changeLanguage(language);
-  };
-
   const onImageError = (image) => {
     image.target.src = UserPlaceholder;
   };
@@ -71,7 +55,6 @@ function Navbar({ t, props, dispatch }) {
           onError={onImageError}
         />
         <div className={`profile-dropdown${showProfileMenu ? " open" : ""}`}>
-          <div className="settings"></div>
           <img
             className="profile-dropdown__image"
             src={
@@ -94,48 +77,6 @@ function Navbar({ t, props, dispatch }) {
     );
   };
 
-  const Settings = () => {
-    return (
-      <div className="settings">
-        <div className="settings__theme">
-          <div className="settings__theme-label">
-            {t("Theme:")}
-            <Switch
-              on="dark"
-              off="light"
-              value={props.theme}
-              onChange={onThemeChange}
-              className="settings__theme-switch"
-              styles={{
-                track: {
-                  backgroundColor: "#7c7777",
-                },
-              }}
-            />
-          </div>
-        </div>
-        <div className="settings__language">
-          <img
-            alt="hungary"
-            id="hu"
-            src={HungaryIcon}
-            onClick={changeLanguage}
-            title={t("Change language to hungarian.")}
-            className="settings__language-icon"
-          />
-          <img
-            alt="united-kingdom"
-            id="en"
-            src={UnitedKingdomIcon}
-            onClick={changeLanguage}
-            title={t("Change language to english.")}
-            className="settings__language-icon"
-          />
-        </div>
-      </div>
-    );
-  };
-
   if (props.user) {
     return (
       <div className="navbar">
@@ -148,7 +89,7 @@ function Navbar({ t, props, dispatch }) {
         )}
         <div className="elements-to-end">
           <UserTopicsMenu />
-          <Settings />
+          <Settings page="" />
           <ProfileMenu />
         </div>
       </div>

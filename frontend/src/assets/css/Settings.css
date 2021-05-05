@@ -1,0 +1,67 @@
+.settings.login {
+  padding: 10px 0;
+  right: 5px;
+  position: absolute;
+}
+
+.settings-icon {
+  background: var(--settings-icon-source);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 40px;
+  margin: 0 20px 0 0;
+  cursor: pointer;
+}
+
+.settings-dropdown {
+  height: 0;
+  width: 0;
+  position: absolute;
+  right: 30px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--app_color_light);
+  z-index: 1;
+
+  box-shadow: 2px 2px 7px #000;
+  border-radius: 8px;
+}
+
+.settings-dropdown.open {
+  height: fit-content;
+  width: fit-content;
+  cursor: auto;
+  padding: 10px;
+}
+
+.settings__theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--font-color);
+}
+
+.settings__theme-icon {
+  background: var(--settings-theme-icon-source);
+  background-size: cover;
+  height: 20px;
+  width: 20px;
+}
+
+.settings__theme-switch {
+  margin: 10px 5px;
+}
+
+.settings__language {
+  display: flex;
+  padding-top: 10px;
+}
+
+.settings__language-icon {
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+}

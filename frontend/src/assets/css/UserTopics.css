@@ -116,12 +116,6 @@
   position: absolute;
   background: var(--app_color);
   right: 20px;
-
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease;
-  transition: all 0.3s ease;
 }
 
 .topic-element__dropdown.open {
@@ -195,9 +189,8 @@
   padding: 5px 20px;
   border-radius: 4px;
   border: none;
-  background: var(--app_color_light);
+  background: var(--button-color-green);
   margin-top: 40px;
-  color: var(--font-color);
 }
 
 .create-topic__button:focus {
@@ -206,7 +199,7 @@
 
 .create-topic__button:hover {
   cursor: pointer;
-  background: var(--app_color_light_hover);
+  background: var(--button-color-green-hover);
 }
 
 .user-topics__loader {
