@@ -6,10 +6,8 @@ import TopicSort from "./TopicSort";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
-
 import { apiGetRequest, apiPostRequest } from "../api/utils";
 import socket from "../socketConfig";
-
 import { withNamespaces } from "react-i18next";
 
 // importing styles
@@ -58,9 +56,9 @@ function UserTopics({ t, props, dispatch }) {
           type: "SET_USER_TOPICS",
           payload: Object.entries(data.result),
         });
+        setIsLoading(false);
       }
     });
-    setIsLoading(false);
   };
 
   const showArchivedTopics = () => {

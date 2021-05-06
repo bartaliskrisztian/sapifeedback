@@ -2,10 +2,11 @@ import React, { useMemo, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone"; // importing components
 import Compress from "client-compress";
 import { withNamespaces } from "react-i18next";
+import { connect } from "react-redux";
 
 import "../assets/css/ImageDropzone.css"; // importing styles
 
-function ImageDropzone({ t }, prop) {
+function ImageDropzone({ t, props }) {
   // options for reducing file size
   const compress = new Compress({
     targetSize: 1,
@@ -20,10 +21,7 @@ function ImageDropzone({ t }, prop) {
     border: 1,
     borderRadius: 10,
     borderColor: "#eeeeee",
-    // borderStyle: "dashed",
     boxShadow: "2px 2px 7px #000",
-    backgroundColor: "#3a3b3c",
-    color: "#cfd1d5",
     fontSize: "large",
     outline: "none",
     transition: "border .24s ease-in-out",
@@ -75,7 +73,7 @@ function ImageDropzone({ t }, prop) {
             path: photo.name,
           });
           setErrors("");
-          prop.setUploadedImages([
+          props.setUploadedImages([
             Object.assign(file, { preview: URL.createObjectURL(file) }),
           ]);
         });
@@ -103,7 +101,7 @@ function ImageDropzone({ t }, prop) {
   // removes all images from the dropzone and from the state
   const removeImages = () => {
     setErrors("");
-    prop.setUploadedImages([]);
+    props.setUploadedImages([]);
   };
 
   // setting style depending on the user's interaction
@@ -118,8 +116,8 @@ function ImageDropzone({ t }, prop) {
     [isDragActive, isDragReject]
   );
 
-  const thumbs = prop.files.map((file, i) => (
-    <div className="thumb-image__holder" key={i}>
+  const thumbs = props.files.map((file, i) => (
+    <div className="thumb-image__holder" key={file.name}>
       <img className="thumb-image" src={file.preview} alt={file.name} />
     </div>
   ));
@@ -127,16 +125,16 @@ function ImageDropzone({ t }, prop) {
   useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      prop.files.forEach((file) => URL.revokeObjectURL(file.preview));
+      props.files.forEach((file) => URL.revokeObjectURL(file.preview));
     },
-    [prop.files]
+    [props.files]
   );
 
   return (
     <div className="dropzone-container">
       <div className="dropzone-container__content" {...getRootProps({ style })}>
         <input {...getInputProps()} />
-        {!prop.files.length ? (
+        {props.files.length === 0 ? (
           <div className="drop-title">
             {t("DRAG AND DROP HERE THE IMAGE")}
             <div className="drop-arrow">
@@ -166,4 +164,13 @@ function ImageDropzone({ t }, prop) {
   );
 }
 
-export default withNamespaces()(ImageDropzone);
+// getting the global state variables with redux
+const mapStateToProps = (state, ownProps) => {
+  const props = {
+    files: ownProps.files,
+    setUploadedImages: ownProps.setUploadedImages,
+  };
+  return { props };
+};
+
+export default connect(mapStateToProps)(withNamespaces()(ImageDropzone));

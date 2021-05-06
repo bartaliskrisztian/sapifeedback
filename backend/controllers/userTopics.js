@@ -4,7 +4,6 @@ const admin = require('../firebase_db');
 
 const getTopicUrl = (req, res) => {
   // getting the parameters sent from the client side
-  const userId = req.params.userId;
   const topicId = req.params.topicId;
 
   const ref = admin.db.ref(`topics/${topicId}/reportUrl`)
@@ -82,7 +81,7 @@ const getUserTopics = (req, res) => {
 
 router.get("/:userId", getUserTopics);
 router.get("/getTopicUrl/:topicId", getTopicUrl);
-router.get("/archiveTopic/:topicId", archiveTopic);
-router.get("/activateTopic/:topicId", activateTopic);
+router.get("/archiveTopic/:userId/:topicId", archiveTopic);
+router.get("/activateTopic/:userId/:topicId", activateTopic);
 
 module.exports = router

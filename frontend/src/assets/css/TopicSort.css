@@ -45,7 +45,7 @@
   border-radius: 8px;
   border: none;
   box-shadow: 2px 2px 7px #000;
-  background: var(--navbar_color);
+  background: var(--card_color);
   color: var(--font_color);
   font-style: normal;
   font-weight: bold;

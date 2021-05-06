@@ -20,14 +20,11 @@ function Login({ t, isLoggedIn, dispatch }) {
 
   useEffect(() => {
     if (isLoggedIn) {
-      // notifying the user about logging out
-      //notifyLoggingOut();
       dispatch({ type: "SET_IS_LOGGED_IN", payload: false });
     }
     // eslint-disable-next-line
   }, []);
 
-  const notifyLoggingOut = () => toast.info(t("Logged out successfully."));
   const notifyError = (message) => toast.error(message);
 
   // if the login is successful, set the user and go to homepage
@@ -38,7 +35,6 @@ function Login({ t, isLoggedIn, dispatch }) {
         if (response.result === "Error") {
           notifyError(response.result);
         } else {
-          dispatch({ type: "SET_LOGIN_MESSAGE", payload: response.result });
           history.push("/");
         }
       },
@@ -54,6 +50,12 @@ function Login({ t, isLoggedIn, dispatch }) {
 
   const onSearch = (e) => {
     setTopicId(e.target.value);
+  };
+
+  const goToReport = () => {
+    if (topidId !== "") {
+      history.push(`/report/${topidId}`);
+    }
   };
 
   return (
@@ -89,7 +91,9 @@ function Login({ t, isLoggedIn, dispatch }) {
               className="login-page__input"
               placeholder={t("Topic ID")}
             />
-            <button className="login-page__submit-button">{t("Go")}</button>
+            <button className="login-page__submit-button" onClick={goToReport}>
+              {t("Go")}
+            </button>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import ImageDropzone from "./ImageDropzone";
 import { useHistory, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Settings from "./Settings";
 
 import { apiGetRequest, apiPostRequest } from "../api/utils";
 import { storage } from "../firebase/Firebase";
@@ -23,20 +24,17 @@ function ReportPage({ t }) {
   const [reportText, setReportText] = useState(""); // text reported by user
   const [isUploading, setIsUploading] = useState(false);
 
-  const [userId, setUserId] = useState(null);
   const [topicId, setTopicId] = useState(null);
-  const [topic, setTopic] = useState({});
+  const [topic, setTopic] = useState(null);
 
   useEffect(() => {
     // getting the url's parameters
-    const userid = params.userId;
     const topicid = params.topicId;
 
     // if there are parameters we set the state variables and get the topic's details
-    if (userid !== null && topicid !== null) {
-      setUserId(userid);
+    if (topicid !== null) {
       setTopicId(topicid);
-      getTopic(userid, topicid);
+      getTopic(topicid);
     }
     // if there are no parameters, means that the url is wrong, then redirect
     else {
@@ -47,13 +45,16 @@ function ReportPage({ t }) {
   }, []);
 
   // getting the details about a topic
-  const getTopic = (userid, topicid) => {
+  const getTopic = (topicid) => {
     apiGetRequest("topicDetails", {
       topicId: topicid,
-      userGoogleId: userid,
     }).then(
       (response) => {
-        setTopic(response.result); // save the response in state
+        if (response.result) {
+          setTopic(response.result); // save the response in state
+        } else {
+          notifyError(t("There is no topic with this id"));
+        }
       },
       (reject) => {
         notifyError(reject);
@@ -106,7 +107,6 @@ function ReportPage({ t }) {
         const data = {
           date: date,
           text: reportText,
-          topicOwnerId: userId,
           topicId: topicId,
           imageUrl: url,
         };
@@ -116,7 +116,6 @@ function ReportPage({ t }) {
       const data = {
         date: date,
         text: reportText,
-        topicOwnerId: userId,
         topicId: topicId,
         imageUrl: null,
       };
@@ -176,14 +175,17 @@ function ReportPage({ t }) {
 
   return (
     <div className="report-container">
+      <Settings page="report" />
       <div className="report-container__content">
         <div className="report-text">
           <div className="info">
             <div className="info-text">
               {t(
-                "YOU CAN REPORT ANONYMOUSLY YOUR PROBLEM/COMMENT ABOUT THE TOPIC:"
+                "YOU CAN REPORT ANONYMOUSLY YOUR PROBLEM/COMMENT ABOUT THE TOPIC"
               )}
-              <span className="info-text__topic-name"> {topic.topicName}</span>
+              {topic && (
+                <span className="info-text__topic-name">{topic.topicName}</span>
+              )}
             </div>
           </div>
           <textarea
@@ -226,10 +228,10 @@ function ReportPage({ t }) {
             className="submit-button"
             type="submit"
             onClick={onSubmitWithReCAPTCHA}
+            disabled={topic !== null ? false : true}
           >
             {t("SEND")}
           </button>
-          {/*  */}
           {isUploading && <div className="loader"></div>}
         </div>
       </div>

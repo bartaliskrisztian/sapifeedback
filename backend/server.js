@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const http = require("http");
 
@@ -11,6 +12,8 @@ const io = require("socket.io")(server, {
 }); // creating websocket for realtime fetching of data
 
 /* using middleware functions */
+
+app.use(cors());
 
 app.use((req, res, next) => {
   res.io = io;
@@ -40,15 +43,14 @@ let createWordCloud = require("./controllers/wordCloud");
 let createReportFrequency = require("./controllers/reportFrequency.js");
 
 
-const apiPath = process.env.API_PATH;
-app.use(`/${apiPath}/login`, login);
-app.use(`/${apiPath}/topic`, topicDetails);
-app.use(`/${apiPath}/topic/wordCloud`, createWordCloud);
-app.use(`/${apiPath}/topic/report-frequency`, createReportFrequency);
-app.use(`/${apiPath}/userTopics`, getUserTopics);
-app.use(`/${apiPath}`, createTopic);
-app.use(`/${apiPath}`, uploadReport);
+app.use('/api/login', login);
+app.use('/api/topic', topicDetails);
+app.use('/api/topic/wordCloud', createWordCloud);
+app.use('/api/topic/report-frequency', createReportFrequency);
+app.use('/api/userTopics', getUserTopics);
+app.use('/api', createTopic);
+app.use('/api', uploadReport);
 
 // console.log that your server is up and running
-const port = process.env.PORT || 5000;
+const port = process.env.SERVER_PORT || 5000;
 server.listen(port, () => console.log(`Listening on port ${port}`));

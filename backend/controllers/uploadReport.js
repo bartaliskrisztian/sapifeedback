@@ -7,31 +7,24 @@ const uploadReport = (req, res) => {
     // getting the parameters sent from the client side
     const date = req.body.date;
     const text = req.body.text;
-    const topicOwnerId = req.body.topicOwnerId;
     const topicId = req.body.topicId;
     const imageUrl = req.body.imageUrl;
 
     const data = {
         date: date,
         text: text,
-        topicOwnerId: topicOwnerId,
         topicId: topicId,
         imageUrl: imageUrl
     }
 
     const reportRef = admin.db.ref(`reports/${topicId}`); // db reference for the actual topic
-    const topicRef1 = admin.db.ref(`topics/${topicId}/reportsUploaded`);
-    const topicRef2 = admin.db.ref(`users/${topicOwnerId}/${topicId}/reportsUploaded`);
+    const topicRef = admin.db.ref(`topics/${topicId}/reportsUploaded`);
 
     const uid = reportRef.push().key; // getting new unique key
 
     reportRef.child(uid).set(data).catch(e => {if(e) throw e}); // uploading
 
-    topicRef1.transaction((current_value) => {
-        return (current_value || 0) + 1;
-    });
-
-    topicRef2.transaction((current_value) => {
+    topicRef.transaction((current_value) => {
         return (current_value || 0) + 1;
     });
 

@@ -10,10 +10,6 @@ const getTopicReports = (req, res) => {
     // when there is a change between these reports, we send them to the client with the help of a websocket 
     ref.on("value", (snapshot) => {
         res.send({result: snapshot.val()});
-        // else {
-        //   res.send({result: []});
-        //   //res.io.emit("getTopicReports", {result: []});
-        // }
     });
 }
 

@@ -30,11 +30,15 @@ function Settings({ t, props, dispatch }) {
     <div className={`settings ${props.page}`}>
       <div
         alt="settings-icon"
-        className="settings-icon"
+        className={`settings-icon ${props.page}`}
         title={t("Settings")}
         onClick={() => setDropdownOpen(!dropdownOpen)}
       ></div>
-      <div className={`settings-dropdown${dropdownOpen ? " open" : ""}`}>
+      <div
+        className={`settings-dropdown${dropdownOpen ? " open" : ""} ${
+          props.page
+        }`}
+      >
         <div className="settings__theme">
           <div className="settings__theme-icon"></div>
           <Switch

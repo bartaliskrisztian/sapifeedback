@@ -27,19 +27,15 @@ function TopicDetails({ t, props, dispatch }) {
     const topicid = params.topicId;
 
     if (topicid !== undefined) {
-      if (props.topicId !== topicid) {
-        dispatch({
-          type: "SET_CURRENT_TOPIC_ID",
-          payload: topicid,
-        });
-        console.log(topicid);
-        getTopic(topicid);
-        getReports(topicid);
-      } else {
-        const date = new Date(props.topic.date).toLocaleDateString();
-        setTopicDate(date);
-        setIsLoading(false);
-      }
+      dispatch({
+        type: "SET_CURRENT_TOPIC_ID",
+        payload: topicid,
+      });
+      getTopic(topicid);
+      getReports(topicid);
+      const date = new Date(props.topic.date).toLocaleDateString();
+      setTopicDate(date);
+      setIsLoading(false);
     } else {
       history.push("/");
     }
@@ -94,11 +90,11 @@ function TopicDetails({ t, props, dispatch }) {
       <div>
         {t("Link for reporting")}:
         <a
-          href={props.topic.reportUrl}
+          href={`${window.location.origin}/#/${props.topic.reportUrl}`}
           target="blank"
           className="topic-detail__reportUrl"
         >
-          {props.topic.reportUrl}
+          {`${window.location.origin}/#/${props.topic.reportUrl}`}
         </a>
       </div>
     );

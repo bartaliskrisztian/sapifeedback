@@ -71,6 +71,9 @@ function TopicElement({ t, props, dispatch }) {
     props.onCopyToClipboard(t("Link copied to clipboard."));
   };
 
+  const copyTopicIdToClipboard = () => {
+    navigator.clipboard.writeText(props.topicid);
+  };
   // getting the topic's url
   const getTopicUrl = () => {
     apiGetRequest("topicUrl", {
@@ -78,8 +81,9 @@ function TopicElement({ t, props, dispatch }) {
       userGoogleId: props.userid,
     }).then(
       (response) => {
-        navigator.clipboard.writeText(response.result);
-        return response.result;
+        const endpoint = response.result;
+        const url = `${window.location.href}${endpoint}`;
+        navigator.clipboard.writeText(url);
       },
       (reject) => {
         props.notifyError(reject);
@@ -116,6 +120,12 @@ function TopicElement({ t, props, dispatch }) {
             <div
               className="more-dropdown__element"
               onClick={copyUrlToClipboard}
+            >
+              {t("Copy link")}
+            </div>
+            <div
+              className="more-dropdown__element"
+              onClick={copyTopicIdToClipboard}
             >
               {t("Copy link")}
             </div>

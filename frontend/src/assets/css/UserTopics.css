@@ -35,7 +35,7 @@
   box-shadow: 2px 2px 7px #000;
   border-radius: 8px;
   margin: 20px;
-  background: var(--navbar_color);
+  background: var(--card_color);
   transition: 300ms;
 }
 

@@ -5,7 +5,6 @@ const initialState = {
     user: null,
     searchText: "",
     currentTopicName: "",
-    loginMessage: "",
     isLoggedIn: false,
     showArchivedTopics: false,
     userTopics: [],
@@ -33,11 +32,6 @@ const reducer = (state = initialState, action) => {
     if(action.type === "SET_CURRENT_TOPIC_NAME") {
         return Object.assign({}, state, {
             currentTopicName: action.payload
-        })
-    }
-    if(action.type === "SET_LOGIN_MESSAGE") {
-        return Object.assign({}, state, {
-            loginMessage: action.payload
         })
     }
     if(action.type === "SET_IS_LOGGED_IN") {

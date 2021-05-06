@@ -6,6 +6,7 @@
 
 .dropzone-container__content {
   background-color: var(--app_color_light);
+  color: var(--font-color);
 }
 
 .upload-buttons {
@@ -82,8 +83,8 @@
   display: block;
   width: 30px;
   height: 30px;
-  border-bottom: 5px solid var(--app_color);
-  border-right: 5px solid var(--app_color);
+  border-bottom: 5px solid var(--font-color);
+  border-right: 5px solid var(--font-color);
   transform: rotate(45deg);
   margin: -10px;
   animation: animate 2s infinite;

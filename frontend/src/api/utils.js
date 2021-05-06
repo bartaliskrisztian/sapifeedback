@@ -1,6 +1,6 @@
-const apiPath = `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}`;
- 
- const apiGetRequest = (type, params) => {
+const apiPath = `${window.location.protocol}//${window.location.hostname}:${process.env.REACT_APP_SERVER_PORT}/api`;
+
+const apiGetRequest = (type, params) => {
      let endpoint = '';
      switch(type) {
          case 'topicDetails':
@@ -13,10 +13,10 @@ const apiPath = `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}
             endpoint = `${apiPath}/userTopics/getTopicUrl/${params.topicId}`;
             break;
         case 'archiveTopic':
-            endpoint = `${apiPath}/userTopics/archiveTopic/${params.topicId}`;
+            endpoint = `${apiPath}/userTopics/archiveTopic/${params.userGoogleId}/${params.topicId}`;
             break;
         case 'activateTopic':
-            endpoint = `${apiPath}/userTopics/activateTopic/${params.topicId}`;
+            endpoint = `${apiPath}/userTopics/activateTopic/${params.userGoogleId}/${params.topicId}`;
             break;
         case 'userTopics':
             endpoint = `${apiPath}/userTopics/${params.userGoogleId}`;
@@ -37,7 +37,7 @@ const apiPath = `${window.location.origin}/${process.env.REACT_APP_RESTAPI_PATH}
     );
  }
 
- const apiPostRequest = (type, body) => {
+const apiPostRequest = (type, body) => {
     let endpoint = '';
     switch(type) {
         case 'login':
