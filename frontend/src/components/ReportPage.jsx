@@ -52,8 +52,15 @@ function ReportPage({ t }) {
       (response) => {
         if (response.result) {
           setTopic(response.result); // save the response in state
+          if (response.result.isArchived) {
+            toast.error(t("This topic is archived."), {
+              autoClose: 60000,
+            });
+          }
         } else {
-          notifyError(t("There is no topic with this id"));
+          toast.error(t("There is no topic with this id"), {
+            autoClose: 60000,
+          });
         }
       },
       (reject) => {
@@ -97,15 +104,12 @@ function ReportPage({ t }) {
   };
 
   const uploadReport = async () => {
-    const date = `${Date.now()}`;
-
     if (files.length) {
       const image = files.length ? URL.createObjectURL(files[0]) : null;
       const imageName = files.length ? files[0].name : "";
 
       uploadImage({ image, imageName }).then((url) => {
         const data = {
-          date: date,
           text: reportText,
           topicId: topicId,
           imageUrl: url,
@@ -114,7 +118,6 @@ function ReportPage({ t }) {
       });
     } else {
       const data = {
-        date: date,
         text: reportText,
         topicId: topicId,
         imageUrl: null,
@@ -228,7 +231,7 @@ function ReportPage({ t }) {
             className="submit-button"
             type="submit"
             onClick={onSubmitWithReCAPTCHA}
-            disabled={topic !== null ? false : true}
+            disabled={topic && !topic.isArchived ? false : true}
           >
             {t("SEND")}
           </button>

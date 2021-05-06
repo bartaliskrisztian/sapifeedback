@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import { withNamespaces } from "react-i18next";
 
 import "../assets/css/Settings.css";
-import HungaryIcon from "../assets/images/hungary.svg";
-import UnitedKingdomIcon from "../assets/images/united-kingdom.svg";
+import HungaryIcon from "../assets/images/country-icons/hungary.svg";
+import UnitedKingdomIcon from "../assets/images/country-icons/united-kingdom.svg";
 
 function Settings({ t, props, dispatch }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);

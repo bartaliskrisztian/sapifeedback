@@ -20,7 +20,7 @@ function UserTopics({ t, props, dispatch }) {
   const [topicName, setTopicName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [topicSortOption, setTopicSortOption] = useState([
-    { label: t("Unsorted"), value: "unsorted" },
+    { label: t("By date descending"), value: "date-desc" },
   ]);
 
   // fetching the topics based on the user
@@ -41,12 +41,26 @@ function UserTopics({ t, props, dispatch }) {
 
   // getting all topics from a user
   const getUserTopics = () => {
-    apiGetRequest("userTopics", { userGoogleId: props.user.googleId }).catch(
-      (err) => {
+    apiGetRequest("userTopics", { userGoogleId: props.user.googleId })
+      .then(
+        (data) => {
+          if (data) {
+            dispatch({
+              type: "SET_USER_TOPICS",
+              payload: Object.entries(data.result),
+            });
+            setIsLoading(false);
+          }
+        },
+        (reject) => {
+          setIsLoading(false);
+          notifyError(reject);
+        }
+      )
+      .catch((err) => {
         setIsLoading(false);
         notifyError(err);
-      }
-    );
+      });
 
     // websocket listening on change
     socket.on("getUserTopics", (data) => {

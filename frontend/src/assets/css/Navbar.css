@@ -4,6 +4,7 @@
   background: var(--navbar_color);
   padding: 5px 0;
   display: flex;
+  justify-content: flex-end;
 }
 
 .navbar__topic-details {
@@ -16,12 +17,12 @@
   display: flex;
   align-items: center;
   height: 100%;
-  margin-left: auto;
   padding: 0 20px;
 }
 
 .navbar-menus {
   margin: 5px 10px;
+  padding: 0 5px;
   display: flex;
   height: 100%;
   border-left: 1px solid var(--font-color);
@@ -57,7 +58,7 @@
 
 .profile-dropdown {
   height: 0;
-  width: fit-content;
+  width: 300px;
   position: absolute;
   right: 10px;
   margin-top: 10px;

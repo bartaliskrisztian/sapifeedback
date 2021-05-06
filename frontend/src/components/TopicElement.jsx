@@ -73,6 +73,7 @@ function TopicElement({ t, props, dispatch }) {
 
   const copyTopicIdToClipboard = () => {
     navigator.clipboard.writeText(props.topicid);
+    props.onCopyToClipboard(t("Topic ID copied to clipboard."));
   };
   // getting the topic's url
   const getTopicUrl = () => {
@@ -127,7 +128,7 @@ function TopicElement({ t, props, dispatch }) {
               className="more-dropdown__element"
               onClick={copyTopicIdToClipboard}
             >
-              {t("Copy link")}
+              {t("Copy topic ID")}
             </div>
           </div>
         )}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 // importing language resource file
 import { withNamespaces } from "react-i18next";
@@ -19,7 +19,9 @@ function TopicSideMenus({ t }) {
 
   return (
     <div className="topic__side-menu">
-      <div className="side-menu__title">{t("Feedback app")}</div>
+      <Link to="/" className="side-menu__title">
+        {t("Feedback app")}
+      </Link>
       <div className="side-menu__elements" id="side-menu__elements">
         <a
           className={`side-menu__item ${

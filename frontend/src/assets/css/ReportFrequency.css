@@ -15,6 +15,15 @@
   border-radius: 20px;
 }
 
+.frequency-chart__holder {
+  margin: 30px;
+  text-align: center;
+}
+
+.frequency-chart {
+  fill: var(--font-color);
+}
+
 .report-freq__no-reports {
   font-size: 32px;
   font-weight: bold;

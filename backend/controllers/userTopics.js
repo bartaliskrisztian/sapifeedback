@@ -71,9 +71,11 @@ const getUserTopics = (req, res) => {
    // when there is a change between the user's topics, we send them again with the help of a websocket 
    ref.on("value", (snapshot) => {
      if(snapshot.val()) {
+      res.send({result: snapshot.val()});
       res.io.emit("getUserTopics", {result: snapshot.val()});
      }
      else {
+      res.send({result: []});
       res.io.emit("getUserTopics", {result: []});
      }
     });

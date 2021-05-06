@@ -160,8 +160,8 @@ function TopicDetails({ t, props, dispatch }) {
       {isLoading && <div className="topic-loader"></div>}
       {!isLoading && (
         <div className="topic-details">
-          <div>{`Created at: ${topicDate}`}</div>
-          <div>{`Number of reports: ${
+          <div>{`${t("Created at")} ${topicDate}`}</div>
+          <div>{`${t("Number of feedbacks")} ${
             props.topic.reportsUploaded ? props.topic.reportsUploaded : "0"
           }`}</div>
           <TopicLink />

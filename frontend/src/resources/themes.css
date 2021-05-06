@@ -15,8 +15,9 @@
   --reports-icon-source: url("../assets/images/dark/report_icon.svg");
   --wordcloud-icon-source: url("../assets/images/dark/word-cloud_icon.svg");
   --frequency-icon-source: url("../assets/images/dark/frequency_icon.svg");
-  --settings-icon-source: url("../assets/images/dark/settings.svg");
+  --settings-icon-source: url("../assets/images/settings.svg");
   --settings-theme-icon-source: url("../assets/images/dark/theme.svg");
+  --search-icon-source: url("../assets/images/search.svg");
 }
 
 .light {
@@ -36,6 +37,7 @@
   --reports-icon-source: url("../assets/images/light/report_icon.svg");
   --wordcloud-icon-source: url("../assets/images/light/word-cloud_icon.svg");
   --frequency-icon-source: url("../assets/images/light/frequency_icon.svg");
-  --settings-icon-source: url("../assets/images/dark/settings.svg");
+  --settings-icon-source: url("../assets/images/settings.svg");
   --settings-theme-icon-source: url("../assets/images/light/theme.svg");
+  --search-icon-source: url("../assets/images/search.svg");
 }

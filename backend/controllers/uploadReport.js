@@ -5,10 +5,10 @@ const admin = require('../firebase_db');
 // handlig POST request for uploading a report (the image is uploaded on the client side)
 const uploadReport = (req, res) => {
     // getting the parameters sent from the client side
-    const date = req.body.date;
     const text = req.body.text;
     const topicId = req.body.topicId;
     const imageUrl = req.body.imageUrl;
+    const date = new Date().toLocaleDateString();
 
     const data = {
         date: date,

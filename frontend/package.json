@@ -27,6 +27,7 @@
     "react-scripts": "4.0.1",
     "react-toastify": "^7.0.3",
     "reactstrap": "^8.9.0",
+    "reaviz": "^10.2.1",
     "redux": "^4.0.5",
     "socket.io-client": "^4.0.0",
     "styled-components": "^5.2.3",
