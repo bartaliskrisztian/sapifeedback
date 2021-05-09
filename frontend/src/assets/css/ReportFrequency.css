@@ -18,10 +18,12 @@
 .frequency-chart__holder {
   margin: 30px;
   text-align: center;
+  overflow: hidden;
 }
 
-.frequency-chart {
-  fill: var(--font-color);
+.frequency-chart title {
+  font-size: 22px;
+  color: var(--font-color);
 }
 
 .report-freq__no-reports {

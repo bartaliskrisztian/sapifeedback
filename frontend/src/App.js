@@ -15,7 +15,7 @@ import { connect } from "react-redux";
 
 import "./resources/themes.css";
 
-function App({theme}) {
+function App({t, theme}) {
 
   const HomePage = () => {
     return(
@@ -75,16 +75,21 @@ function App({theme}) {
   }
 
   return (
-    <div className={`App ${theme}`}>
-      <Layout>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/topic/:topicId/details" component={TopicDetailsPage} />
-          <Route exact path="/topic/:topicId/reports" component={TopicReportsPage} />
-          <Route exact path="/topic/:topicId/wordCloud" component={WordCloudPage} />
-          <Route exact path="/topic/:topicId/freq" component={ReportFrequencyPage } />
-          <Route exact path="/report/:topicId" component={ReportPage} />
-      </Layout>
+    <div className={`app-holder ${theme}`}>
+      <div className="small-device">
+        {t("Open this site on a bigger device.")}
+      </div>
+      <div className="App">
+        <Layout>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/topic/:topicId/details" component={TopicDetailsPage} />
+            <Route exact path="/topic/:topicId/reports" component={TopicReportsPage} />
+            <Route exact path="/topic/:topicId/wordCloud" component={WordCloudPage} />
+            <Route exact path="/topic/:topicId/freq" component={ReportFrequencyPage } />
+            <Route exact path="/report/:topicId" component={ReportPage} />
+        </Layout>
+      </div>
     </div>
   );
 }

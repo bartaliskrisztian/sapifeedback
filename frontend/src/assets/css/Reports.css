@@ -49,6 +49,7 @@
   height: 100%;
   word-wrap: anywhere;
   overflow: auto;
+  font-size: 16px;
 }
 
 .topic-reports__image {
@@ -64,6 +65,7 @@
   margin: auto;
   width: fit-content;
   padding: 20px;
+  font-size: 20px;
 }
 
 .topic-reports__pagination-element {

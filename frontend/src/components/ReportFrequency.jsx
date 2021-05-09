@@ -82,8 +82,8 @@ function ReportFrequency({ t, props }) {
   const FrequencyChart = () => (
     <div className="frequency-chart__holder">
       <BarChart
-        height={300}
-        width={500}
+        height={500}
+        width={900}
         data={data}
         className="frequency-chart"
         gridlines={false}
