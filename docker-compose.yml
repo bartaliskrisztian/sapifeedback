@@ -1,20 +1,31 @@
 version: "3"
+
+networks:
+  app-network:
+    driver: bridge
+
 services:
   frontend:
-    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./client
+      - ./frontend/:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - app-network
   backend:
-    container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
     volumes:
-      - ./backend
+      - ./backend/:/app
+      - /app/node_modules
+    networks:
+      - app-network

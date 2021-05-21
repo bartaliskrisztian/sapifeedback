@@ -5,9 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd ../frontend && npm start",
     "server": "node server.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "npm run server"
   },
   "repository": {
@@ -21,13 +19,11 @@
   },
   "homepage": "https://github.com/bartaliskrisztian/report-feedback#readme",
   "dependencies": {
-    "@google-cloud/storage": "^5.8.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase-admin": "^9.5.0",
     "http-proxy-middleware": "^1.0.6",
     "python-shell": "^2.0.3",
-    "serverless-http": "^2.7.0",
     "socket.io": "^4.0.0"
   },
   "devDependencies": {

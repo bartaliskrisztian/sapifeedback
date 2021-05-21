@@ -9,6 +9,6 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "concurrently": "^6.0.0"
+    "concurrently": "^6.1.0"
   }
 }
