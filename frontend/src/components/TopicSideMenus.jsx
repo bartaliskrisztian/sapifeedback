@@ -38,7 +38,7 @@ function TopicSideMenus({ t }) {
           className={`side-menu__item ${
             selectedMenu === "reports" ? "selected" : ""
           }`}
-          href={`/#/topic/${params.topicId}/reports`}
+          href={`/#/topic/${params.topicId}/feedbacks`}
         >
           <div className="side-menu__content">
             <div className="side-menu__icon report-icon"></div>

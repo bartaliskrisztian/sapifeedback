@@ -13,6 +13,7 @@ function SortedTopicElements({ props }) {
   useEffect(() => {
     const sortedTopics = getTopics();
     setTopics(sortedTopics);
+    console.log(props.sortOption);
     // eslint-disable-next-line
   }, [props.sortOption, props.topics]);
 

@@ -1,4 +1,4 @@
-const apiPath = `${window.location.protocol}//${window.location.hostname}:${process.env.REACT_APP_SERVER_PORT}/api`;
+const apiPath = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const apiGetRequest = (type, params) => {
      let endpoint = '';

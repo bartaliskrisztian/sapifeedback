@@ -6,7 +6,7 @@ const http = require("http");
 const server = http.createServer(app); // creating backend server
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.REACT_APP_FRONTEND_URL,
     methods: ["GET", "POST"]
   }
 }); // creating websocket for realtime fetching of data

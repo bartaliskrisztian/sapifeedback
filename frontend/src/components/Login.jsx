@@ -54,7 +54,7 @@ function Login({ t, isLoggedIn, dispatch }) {
 
   const goToReport = () => {
     if (topidId !== "") {
-      history.push(`/report/${topidId}`);
+      history.push(`/giveFeedback/${topidId}`);
     }
   };
 

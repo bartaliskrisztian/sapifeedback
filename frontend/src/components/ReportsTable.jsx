@@ -86,20 +86,12 @@ function ReportsTable({ t, props }) {
                   <div className="topic-reports__text">{report.text}</div>
                 </td>
                 <td className="topic-reports__cell-image">
-                  <a
-                    href={
-                      !report.imageUrl ? window.location.href : report.imageUrl
-                    }
-                    target="blank"
-                    className="topic-reports__image-holder"
-                  >
-                    <img
-                      alt="report"
-                      src={report.imageUrl ? report.imageUrl : ImagePlaceholder}
-                      onError={onImageError}
-                      className="topic-reports__image"
-                    />
-                  </a>
+                  <img
+                    alt="report"
+                    src={report.imageUrl ? report.imageUrl : ImagePlaceholder}
+                    onError={onImageError}
+                    className="topic-reports__image"
+                  />
                 </td>
               </tr>
             ))}

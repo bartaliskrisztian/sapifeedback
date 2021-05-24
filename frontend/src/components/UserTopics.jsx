@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 // importing components
+import { useHistory } from "react-router-dom";
 import SortedTopicElements from "./SortedTopicElements";
 import TopicSort from "./TopicSort";
 import Modal from "react-modal";
@@ -16,6 +17,7 @@ import "../assets/css/UserTopics.css";
 import CancelIcon from "../assets/images/cancel.svg";
 
 function UserTopics({ t, props, dispatch }) {
+  const history = useHistory();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [topicName, setTopicName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +34,8 @@ function UserTopics({ t, props, dispatch }) {
 
     if (props.user != null) {
       getUserTopics();
+    } else {
+      history.push("/login");
     }
     // eslint-disable-next-line
   }, []);
