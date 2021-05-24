@@ -75,5 +75,7 @@
     "File format is invalid": "Érvénytelen fájlformátum",
     "Generating wordcloud": "Szófelhő generálása",
     "Page not found": "Az oldal nem található.",
-    "Go to Home" : "Ugrás a főoldalra"
+    "Go to Home" : "Ugrás a főoldalra",
+    "Name": "Név",
+    "Email": "Email"
 }

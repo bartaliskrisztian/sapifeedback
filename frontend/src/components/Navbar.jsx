@@ -63,14 +63,28 @@ function Navbar({ t, props, dispatch }) {
             }
             alt="Profile"
           />
-          <div className="profile-dropdown__name">{props.user.name}</div>
-          <div>{props.user.email}</div>
-          <GoogleLogout
-            clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-            buttonText={t("Logout")}
-            onLogoutSuccess={logout}
-            className="logout-button"
-          ></GoogleLogout>
+          <div className="profile-dropdown__content">
+            <div>
+              {`${t("Name")}: `}
+              <label className="profile-dropdown__label">
+                {props.user.name}
+              </label>
+            </div>
+            <div>
+              {`${t("Email")}: `}
+              <label className="profile-dropdown__label">
+                {props.user.email}
+              </label>
+            </div>
+          </div>
+          <div title={t("Logout")}>
+            <GoogleLogout
+              clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+              buttonText={t("Logout")}
+              onLogoutSuccess={logout}
+              className="logout-button"
+            ></GoogleLogout>
+          </div>
         </div>
       </div>
     );
@@ -89,7 +103,7 @@ function Navbar({ t, props, dispatch }) {
         <div className="elements-to-end">
           <UserTopicsMenu />
           <Settings page="" />
-          <ProfileMenu />
+          {props.user && <ProfileMenu />}
         </div>
       </div>
     );

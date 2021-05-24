@@ -75,5 +75,7 @@
     "File format is invalid": "File format is invalid",
     "Generating wordcloud": "Generating wordcloud",
     "Page not found": "Page not found",
-    "Go to Home" : "Go to Home"
+    "Go to Home" : "Go to Home",
+    "Name": "Name",
+    "Email": "Email"
 }

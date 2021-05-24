@@ -14,7 +14,6 @@ function TopicSort({ t, props }) {
 
   const onSortOptionChange = (option) => {
     props.onSortOptionChange(option);
-    console.log(option);
   };
 
   return (

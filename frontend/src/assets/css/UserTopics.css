@@ -138,7 +138,7 @@
 
 .create-topic__modal {
   height: 40%;
-  width: 50%;
+  width: 40%;
   border-radius: 8px;
   box-shadow: 2px 2px 7px #000;
   border: none;
@@ -149,11 +149,13 @@
   flex-direction: column;
   padding: 20px;
   color: var(--font-color);
+  align-items: center;
 }
 
 .modal__cancel-icon {
   height: 20px;
   width: 20px;
+  align-self: flex-end;
 }
 
 .modal__cancel-icon:hover {

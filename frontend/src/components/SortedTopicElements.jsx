@@ -11,11 +11,10 @@ function SortedTopicElements({ props }) {
 
   // set the sorted topics, based on the sorting option
   useEffect(() => {
-    const sortedTopics = getTopics();
-    setTopics(sortedTopics);
-    console.log(props.sortOption);
+    let sortedTopics = getTopics();
+    setTopics(sortedTopics.slice());
     // eslint-disable-next-line
-  }, [props.sortOption, props.topics]);
+  }, [props.sortOption]);
 
   // toast functions
   const notifySuccess = (message) => toast.success(message);
@@ -64,8 +63,6 @@ function SortedTopicElements({ props }) {
 
   const getTopics = () => {
     switch (props.sortOption) {
-      case "unsorted":
-        return props.topics;
       case "a-z":
         return sortByAbcAsc(props.topics);
       case "z-a":
