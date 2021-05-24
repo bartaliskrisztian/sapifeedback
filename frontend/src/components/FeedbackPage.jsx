@@ -12,10 +12,10 @@ import { storage } from "../firebase/Firebase";
 import { withNamespaces } from "react-i18next";
 
 // importing styles
-import "../assets/css/ReportPage.css";
+import "../assets/css/FeedbackPage.css";
 import "react-toastify/dist/ReactToastify.css";
 
-function ReportPage({ t }) {
+function FeedbackPage({ t }) {
   const history = useHistory(); // hook for getting the url
   const params = useParams(); // hook for getting the url's parameters
   const recaptchaRef = React.useRef(); // reference of the recaptcha
@@ -249,4 +249,4 @@ function ReportPage({ t }) {
   );
 }
 
-export default withNamespaces()(ReportPage);
+export default withNamespaces()(FeedbackPage);

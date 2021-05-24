@@ -7,8 +7,9 @@ import TopicDetails from "./components/TopicDetails";
 import TopicReports from "./components/TopicReports"
 import WordCloud from "./components/WordCloud";
 import ReportFrequency from "./components/ReportFrequency";
-import ReportPage from "./components/ReportPage";
+import FeedbackPage from "./components/FeedbackPage";
 import TopicSideMenus from "./components/TopicSideMenus";
+import NotFound from "./components/NotFound";
 
 import { withNamespaces } from 'react-i18next';
 import { connect } from "react-redux";
@@ -26,7 +27,7 @@ function App({t, theme}) {
     )
   }
 
-  const TopicReportsPage = () => {
+  const TopicFeedbacksPage = () => {
     return (
       <div className="page-holder">
         <TopicSideMenus />
@@ -84,10 +85,11 @@ function App({t, theme}) {
             <Route exact path="/login" component={Login} />
             <Route exact path="/" component={HomePage} />
             <Route exact path="/topic/:topicId/details" component={TopicDetailsPage} />
-            <Route exact path="/topic/:topicId/reports" component={TopicReportsPage} />
+            <Route exact path="/topic/:topicId/feedbacks" component={TopicFeedbacksPage} />
             <Route exact path="/topic/:topicId/wordCloud" component={WordCloudPage} />
             <Route exact path="/topic/:topicId/freq" component={ReportFrequencyPage } />
-            <Route exact path="/report/:topicId" component={ReportPage} />
+            <Route exact path="/giveFeedback/:topicId" component={FeedbackPage} />
+            <Route component={NotFound} />
         </Layout>
       </div>
     </div>

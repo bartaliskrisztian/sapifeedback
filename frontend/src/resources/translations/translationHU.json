@@ -73,5 +73,7 @@
     "Too many files": "Csak egy képet csatolhat",
     "File is too large": "A fájl túl nagy méretű",
     "File format is invalid": "Érvénytelen fájlformátum",
-    "Generating wordcloud": "Szófelhő generálása"
+    "Generating wordcloud": "Szófelhő generálása",
+    "Page not found": "Az oldal nem található.",
+    "Go to Home" : "Ugrás a főoldalra"
 }

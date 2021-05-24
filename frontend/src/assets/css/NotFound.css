@@ -1,0 +1,40 @@
+.not-found {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.error404__icon {
+  height: 300px;
+  width: 300px;
+}
+
+.error404__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.error404__text {
+  font-size: 32px;
+}
+
+.error404__button {
+  text-decoration: none;
+  width: fit-content;
+  height: fit-content;
+  font-size: 24px;
+  border-radius: 8px;
+  padding: 8px;
+  border: none;
+  background: var(--button-color-green);
+  color: #000;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.error404__button:hover {
+  background: var(--button-color-green-hover);
+}
