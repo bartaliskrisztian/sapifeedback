@@ -160,10 +160,16 @@ function TopicDetails({ t, props, dispatch }) {
       {isLoading && <div className="topic-loader"></div>}
       {!isLoading && (
         <div className="topic-details">
-          <div>{`${t("Created at")} ${topicDate}`}</div>
-          <div>{`${t("Number of feedbacks")} ${
-            props.topic.reportsUploaded ? props.topic.reportsUploaded : "0"
-          }`}</div>
+          <div>
+            {`${t("Created at")} `}
+            <label className="topic-details__label">{topicDate}</label>
+          </div>
+          <div>
+            {`${t("Number of feedbacks")} `}
+            <label className="topic-details__label">
+              {props.topic.reportsUploaded ? props.topic.reportsUploaded : "0"}
+            </label>
+          </div>
           <TopicLink />
           {/* <DeleteTopicButton /> */}
         </div>

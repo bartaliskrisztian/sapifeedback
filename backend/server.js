@@ -3,17 +3,25 @@ const cors = require('cors');
 const app = express();
 const http = require("http");
 
+
+
 const server = http.createServer(app); // creating backend server
 const io = require("socket.io")(server, {
   cors: {
-    origin: process.env.REACT_APP_FRONTEND_URL,
+    origin: '*',
     methods: ["GET", "POST"]
   }
 }); // creating websocket for realtime fetching of data
 
 /* using middleware functions */
 
-app.use(cors());
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
+}
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use((req, res, next) => {
   res.io = io;
