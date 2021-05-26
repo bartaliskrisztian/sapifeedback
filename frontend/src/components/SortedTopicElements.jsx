@@ -149,11 +149,7 @@ function SortedTopicElements({ props }) {
   return (
     <div className="topic-list">
       <div>
-        <TopicElement
-          type="add"
-          onClick={props.openModal}
-          onClose={props.closeModal}
-        />
+        <TopicElement type="add" onClick={props.openModal} />
       </div>
       {!props.showArchivedTopics && <SortedActiveTopicElements />}
       {props.showArchivedTopics && <SortedAllTopicElements />}
@@ -176,7 +172,6 @@ const mapStateToProps = (state, ownProps) => {
     topics: state.userTopics,
     sortOption: ownProps.sortOption,
     openModal: ownProps.openModal,
-    closeModal: ownProps.closeModal,
   };
   return { props };
 };

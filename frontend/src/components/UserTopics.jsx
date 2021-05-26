@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // importing components
 import { useHistory } from "react-router-dom";
@@ -18,8 +18,21 @@ import CancelIcon from "../assets/images/cancel.svg";
 
 function UserTopics({ t, props, dispatch }) {
   const history = useHistory();
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [topicName, setTopicName] = useState("");
+
+  const [modalIsOpen, _setIsOpen] = useState(false);
+  const modalIsOpenRef = useRef(modalIsOpen);
+  const setIsOpen = (data) => {
+    modalIsOpenRef.current = data;
+    _setIsOpen(data);
+  };
+
+  const [topicName, _setTopicName] = useState("");
+  const topicNameRef = useRef(topicName);
+  const setTopicName = (data) => {
+    topicNameRef.current = data;
+    _setTopicName(data);
+  };
+
   const [isLoading, setIsLoading] = useState(true);
   const [topicSortOption, setTopicSortOption] = useState([
     { label: t("By date descending"), value: "date-desc" },
@@ -37,11 +50,24 @@ function UserTopics({ t, props, dispatch }) {
     } else {
       history.push("/login");
     }
+
+    window.addEventListener("keydown", handleEnterPressed);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("keydown", handleEnterPressed);
+    };
     // eslint-disable-next-line
   }, []);
 
   const notifySuccess = (message) => toast.success(message);
   const notifyError = (message) => toast.error(message);
+
+  const handleEnterPressed = (e) => {
+    let key = e.keyCode || e.which;
+    if (key === 13 && modalIsOpenRef.current) {
+      createTopic();
+    }
+  };
 
   // getting all topics from a user
   const getUserTopics = () => {
@@ -93,6 +119,7 @@ function UserTopics({ t, props, dispatch }) {
 
   function closeModal() {
     setIsOpen(false);
+    setTopicName("");
   }
 
   const onTopicNameChange = (e) => {
@@ -100,14 +127,14 @@ function UserTopics({ t, props, dispatch }) {
   };
 
   const createTopic = () => {
-    if (topicName === "") {
+    if (topicNameRef.current === "") {
       notifyError(t("Enter your topic name"));
       return false;
     }
 
     let ok = true;
     props.userTopics.forEach((topic) => {
-      if (topic[1].topicName === topicName) {
+      if (topic[1].topicName === topicNameRef.current) {
         notifyError(t("You already have a topic with this name."));
         ok = false;
       }
@@ -116,7 +143,7 @@ function UserTopics({ t, props, dispatch }) {
     if (ok) {
       const body = JSON.stringify({
         date: Date.now(),
-        topicName: topicName,
+        topicName: topicNameRef.current,
         userId: props.user.googleId,
       });
       apiPostRequest("createTopic", body).then(
@@ -196,7 +223,6 @@ function UserTopics({ t, props, dispatch }) {
           <SortedTopicElements
             sortOption={topicSortOption[0].value}
             openModal={openModal}
-            closeModal={closeModal}
           />
         )}
       </div>
