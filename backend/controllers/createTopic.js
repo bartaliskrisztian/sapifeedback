@@ -13,7 +13,7 @@ const createTopic = (req, res) => {
     const ref2 = admin.db.ref(`users/${userId}/topics`);
 
     const uid = ref1.push().key;
-    const reportUrl = `report/${uid}`;
+    const reportUrl = `giveFeedback/${uid}`;
 
     const newTopic = {
         date: date,

@@ -36,7 +36,7 @@ function TopicSideMenus({ t }) {
         </a>
         <a
           className={`side-menu__item ${
-            selectedMenu === "reports" ? "selected" : ""
+            selectedMenu === "feedbacks" ? "selected" : ""
           }`}
           href={`/#/topic/${params.topicId}/feedbacks`}
         >
@@ -47,7 +47,7 @@ function TopicSideMenus({ t }) {
         </a>
         <a
           className={`side-menu__item ${
-            selectedMenu === "wordcloud" ? "selected" : ""
+            selectedMenu === "wordCloud" ? "selected" : ""
           }`}
           href={`/#/topic/${params.topicId}/wordCloud`}
         >

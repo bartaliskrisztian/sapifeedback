@@ -115,7 +115,9 @@
   overflow: hidden;
   position: absolute;
   background: var(--app_color);
-  right: 20px;
+  top: 30px;
+  left: 210px;
+  z-index: 1;
 }
 
 .topic-element__dropdown.open {

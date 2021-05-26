@@ -201,12 +201,10 @@ function FeedbackPage({ t }) {
             {`${t("SOURCE CODE")}: `}
             <a
               target="blank"
-              href={`${t(
-                "https://github.com/bartaliskrisztian/report-feedback"
-              )}`}
+              href={`${t("github-long")}`}
               className="source-code__link"
             >
-              {t("github.com/bartaliskrisztian/report-feedback")}
+              {t("github-short")}
             </a>
           </div>
         </div>

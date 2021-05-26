@@ -37,6 +37,7 @@
   text-decoration: none;
   font-size: 20px;
   transition: 300ms;
+  padding: 5px 0;
 }
 
 .side-menu__item:hover {
@@ -55,7 +56,7 @@
 .side-menu__icon {
   width: 25px;
   height: 25px;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 .side-menu__icon.details-icon {
