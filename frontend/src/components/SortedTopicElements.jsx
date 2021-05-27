@@ -159,6 +159,7 @@ function SortedTopicElements({ props }) {
         hideProgressBar={true}
         autoClose={3000}
         closeOnClick={false}
+        limit={1}
       />
     </div>
   );

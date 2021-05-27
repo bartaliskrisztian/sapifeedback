@@ -103,6 +103,7 @@ function Login({ t, isLoggedIn, dispatch }) {
         hideProgressBar={true}
         autoClose={1500}
         closeOnClick={false}
+        limit={1}
       />
     </div>
   );
