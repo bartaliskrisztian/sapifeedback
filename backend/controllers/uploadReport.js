@@ -14,7 +14,7 @@ const uploadReport = (req, res) => {
         date: date,
         text: text,
         topicId: topicId,
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
     }
 
     const reportRef = admin.db.ref(`reports/${topicId}`); // db reference for the actual topic

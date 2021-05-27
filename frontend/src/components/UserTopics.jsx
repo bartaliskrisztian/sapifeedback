@@ -162,12 +162,6 @@ function UserTopics({ t, props, dispatch }) {
     }
   };
 
-  const modalStyle = {
-    overlay: {
-      backgroundColor: props.theme === "dark" ? "#242526" : "#6b6d6f",
-    },
-  };
-
   Modal.setAppElement("#root");
 
   return (
@@ -177,7 +171,6 @@ function UserTopics({ t, props, dispatch }) {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         className={`create-topic__modal ${props.theme}`}
-        style={modalStyle}
       >
         <img
           src={CancelIcon}

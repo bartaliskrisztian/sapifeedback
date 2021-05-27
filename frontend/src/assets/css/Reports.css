@@ -53,11 +53,11 @@
 }
 
 .topic-reports__image {
-  object-fit: none;
-  object-position: center;
+  object-fit: scale-down;
   height: 100%;
   width: 100%;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .topic-reports__pagination-container {
@@ -85,4 +85,26 @@
 
 .topic-reports__pagination-element.counter:hover {
   color: var(--font-color);
+}
+
+.feedback-image__modal {
+  height: 80%;
+  width: 80%;
+  border-radius: 8px;
+  box-shadow: 2px 2px 7px #000;
+  border: none;
+  outline: none;
+  margin: auto;
+  margin-top: 50px;
+  color: var(--font-color);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.feedback-image__img {
+  object-fit: scale-down;
+  height: calc(100% - 30px);
+  width: 100%;
+  border-radius: 10px;
 }

@@ -1,3 +1,5 @@
+@import url("./index.css");
+
 .topic-details {
   display: flex;
   flex-direction: column;
@@ -36,7 +38,7 @@
 .delete-topic__button {
   border-radius: 4px;
   border: none;
-  padding: 5px;
+  padding: 8px;
   margin: 5px;
   font-size: 18px;
   transition: 300ms;
@@ -74,10 +76,10 @@
   box-shadow: 2px 2px 7px #000;
   border: none;
   outline: none;
-  background: var(--app_color);
   margin: auto;
-  margin-top: 30px;
+  margin-top: 100px;
   padding: 20px;
+  color: var(--font-color);
 }
 
 .delete-topic__title {

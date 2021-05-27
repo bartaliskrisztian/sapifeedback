@@ -89,7 +89,7 @@ function App({t, theme}) {
             <Route exact path="/topic/:topicId/wordCloud" component={WordCloudPage} />
             <Route exact path="/topic/:topicId/freq" component={ReportFrequencyPage } />
             <Route exact path="/giveFeedback/:topicId" component={FeedbackPage} />
-            <Route component={NotFound} />
+            <Route path="/404" component={NotFound} />
         </Layout>
       </div>
     </div>

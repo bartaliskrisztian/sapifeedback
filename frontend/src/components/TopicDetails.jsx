@@ -6,10 +6,10 @@ import { connect } from "react-redux";
 
 import { apiGetRequest } from "../api/utils";
 import { withNamespaces } from "react-i18next";
+import { storage } from "../firebase/Firebase";
 
 import "../assets/css/TopicDetails.css";
 import "react-toastify/dist/ReactToastify.css";
-import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
 
 function TopicDetails({ t, props, dispatch }) {
@@ -20,11 +20,13 @@ function TopicDetails({ t, props, dispatch }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [topicDate, setTopicDate] = useState("");
+  const [topicId, setTopicId] = useState("");
 
   // fetching the details of a topic before rendering
   useEffect(() => {
     // getting the url parameters
     const topicid = params.topicId;
+    setTopicId(topicid);
 
     if (topicid !== undefined) {
       dispatch({
@@ -37,7 +39,7 @@ function TopicDetails({ t, props, dispatch }) {
       setTopicDate(date);
       setIsLoading(false);
     } else {
-      history.push("/");
+      history.push("/404");
     }
 
     // eslint-disable-next-line
@@ -48,12 +50,16 @@ function TopicDetails({ t, props, dispatch }) {
   const getTopic = (topicid) => {
     apiGetRequest("topicDetails", { topicId: topicid }).then(
       (response) => {
-        dispatch({
-          type: "SET_CURRENT_TOPIC_DETAILS",
-          payload: response.result,
-        });
-        const date = new Date(response.result.date).toLocaleDateString();
-        setTopicDate(date);
+        if (response.result === null) {
+          history.push("/404");
+        } else {
+          dispatch({
+            type: "SET_CURRENT_TOPIC_DETAILS",
+            payload: response.result,
+          });
+          const date = new Date(response.result.date).toLocaleDateString();
+          setTopicDate(date);
+        }
       },
       (reject) => {
         notifyError(reject);
@@ -108,31 +114,22 @@ function TopicDetails({ t, props, dispatch }) {
     setIsOpen(false);
   }
 
-  const modalStyle = {
-    overlay: {
-      backgroundColor: "#3a3b3c",
-    },
-  };
-
   const DeleteTopicModal = () => {
     return (
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="delete-topic__modal"
-        style={modalStyle}
+        className={`delete-topic__modal ${props.theme}`}
       >
-        <img
-          src={CancelIcon}
-          alt="cancel"
-          className="modal__cancel-icon"
-          onClick={closeModal}
-        />
         <div className="delete-topic__title">
-          {t("Are you sure you want to delete this topic?")}
+          {`${t("Are you sure you want to delete this topic?")}: ${
+            props.topic.topicName
+          }? `}
         </div>
         <div className="delete-topic__button-holder">
-          <button className="delete-topic__button delete">{t("Delete")}</button>
+          <button className="delete-topic__button delete" onClick={deleteTopic}>
+            {t("Delete")}
+          </button>
           <button className="delete-topic__button cancel" onClick={closeModal}>
             {t("Cancel")}
           </button>
@@ -141,18 +138,40 @@ function TopicDetails({ t, props, dispatch }) {
     );
   };
 
-  // const DeleteTopicButton = () => {
-  //   return (
-  //     <button
-  //       type="submit"
-  //       className="delete-topic__button delete"
-  //       onClick={openModal}
-  //     >
-  //       <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
-  //       {t("Delete")}
-  //     </button>
-  //   );
-  // };
+  const DeleteTopicButton = () => {
+    return (
+      <button
+        type="submit"
+        className="delete-topic__button delete"
+        onClick={openModal}
+      >
+        <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
+        {t("Delete")}
+      </button>
+    );
+  };
+
+  const deleteTopic = () => {
+    props.reports.forEach((report) => {
+      const imageRef = storage.refFromURL(report.imageUrl);
+      imageRef.delete();
+    });
+    apiGetRequest("deleteTopic", {
+      userGoogleId: props.user.googleId,
+      topicId: topicId,
+    }).then(
+      (response) => {
+        if (response.result === "OK") {
+          history.push("/");
+        } else {
+          notifyError(response.result);
+        }
+      },
+      (reject) => {
+        notifyError(reject);
+      }
+    );
+  };
 
   return (
     <div className="topic-details__holder">
@@ -171,7 +190,7 @@ function TopicDetails({ t, props, dispatch }) {
             </label>
           </div>
           <TopicLink />
-          {/* <DeleteTopicButton /> */}
+          <DeleteTopicButton />
         </div>
       )}
       <ToastContainer
@@ -191,6 +210,9 @@ const mapStateToProps = (state) => {
   const props = {
     topic: state.currentTopicDetails,
     topicId: state.currentTopicId,
+    theme: state.appTheme,
+    user: state.user,
+    reports: state.currentTopicReports,
   };
   return { props };
 };

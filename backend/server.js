@@ -48,7 +48,8 @@ let createTopic = require("./controllers/createTopic");
 let getUserTopics = require("./controllers/userTopics");
 let uploadReport = require("./controllers/uploadReport");
 let createWordCloud = require("./controllers/wordCloud");
-let createReportFrequency = require("./controllers/reportFrequency.js");
+let createReportFrequency = require("./controllers/reportFrequency");
+let deleteTopic = require("./controllers/deleteTopic");
 
 
 app.use('/api/login', login);
@@ -58,6 +59,7 @@ app.use('/api/topic/report-frequency', createReportFrequency);
 app.use('/api/userTopics', getUserTopics);
 app.use('/api', createTopic);
 app.use('/api', uploadReport);
+app.use('/api/deleteTopic', deleteTopic);
 
 // console.log that your server is up and running
 const port = process.env.SERVER_PORT || 5000;

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-
+import Modal from "react-modal";
 import { withNamespaces } from "react-i18next";
 
 // importing styles
 import "../assets/css/Reports.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
+import CancelIcon from "../assets/images/cancel.svg";
 
 function ReportsTable({ t, props }) {
   // variables used for table pagination
@@ -14,6 +15,8 @@ function ReportsTable({ t, props }) {
   const [pages, setPages] = useState([]);
   const [showedReports, setShowedReports] = useState(0);
   const [allReportsCount, setAllReportCount] = useState(0);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalImageSource, setModalImageSource] = useState("");
 
   useEffect(() => {
     let reportsCopy = [...props.reports];
@@ -32,6 +35,20 @@ function ReportsTable({ t, props }) {
     setPages(p);
     // eslint-disable-next-line
   }, []);
+
+  // functions for modal
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const onFeedbackImageClicked = (e) => {
+    setModalImageSource(e.target.src);
+    openModal();
+  };
 
   // go on the first page in the table
   const firstPage = () => {
@@ -91,6 +108,7 @@ function ReportsTable({ t, props }) {
                     src={report.imageUrl ? report.imageUrl : ImagePlaceholder}
                     onError={onImageError}
                     className="topic-reports__image"
+                    onClick={onFeedbackImageClicked}
                   />
                 </td>
               </tr>
@@ -124,11 +142,36 @@ function ReportsTable({ t, props }) {
     );
   };
 
+  const modalStyle = {
+    overlay: {
+      backgroundColor: props.theme === "dark" ? "#242526" : "#6b6d6f",
+    },
+  };
+
   return (
     <div className="topic-reports__container">
       <TablePagination />
       <ReportTableRow />
       <TablePagination />
+      <Modal
+        closeTimeoutMS={500}
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        className={`feedback-image__modal ${props.theme}`}
+        style={modalStyle}
+      >
+        <img
+          src={CancelIcon}
+          alt="cancel"
+          className="modal__cancel-icon"
+          onClick={closeModal}
+        />
+        <img
+          alt="feedback_image"
+          src={modalImageSource}
+          className="feedback-image__img"
+        />
+      </Modal>
     </div>
   );
 }
@@ -137,6 +180,7 @@ function ReportsTable({ t, props }) {
 const mapStateToProps = (state) => {
   const props = {
     reports: state.currentTopicReports,
+    theme: state.appTheme,
   };
   return { props };
 };

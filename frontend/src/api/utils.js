@@ -21,6 +21,9 @@ const apiGetRequest = (type, params) => {
         case 'userTopics':
             endpoint = `${apiPath}/userTopics/${params.userGoogleId}`;
             break;
+        case 'deleteTopic':
+            endpoint = `${apiPath}/deleteTopic/${params.userGoogleId}/${params.topicId}`;
+            break;
         default: break;
      }
 
