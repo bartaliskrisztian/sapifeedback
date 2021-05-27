@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -11,7 +11,32 @@ import AddIcon from "../assets/images/plus.svg";
 
 function TopicElement({ t, props, dispatch }) {
   let history = useHistory();
-  const [showMoreDropdown, setShowMoreDropwdown] = useState(false);
+  const [showMoreDropdown, _setShowMoreDropdown] = useState(false);
+  const showMoreDropdownRef = useRef(showMoreDropdown);
+  const setShowMoreDropdown = (data) => {
+    showMoreDropdownRef.current = data;
+    _setShowMoreDropdown(data);
+  };
+  const moreDropdownRef = useRef();
+
+  // fetching the topics based on the user
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  const handleClick = (e) => {
+    if (
+      !moreDropdownRef.current?.contains(e.target) &&
+      e.target.className !== "topic__more-icon"
+    ) {
+      setShowMoreDropdown(false);
+    }
+  };
 
   const onTopicClicked = () => {
     // save the topic's name in the global state
@@ -31,10 +56,10 @@ function TopicElement({ t, props, dispatch }) {
       (response) => {
         if (response.error === "OK") {
           props.onArchive(t("Topic archived successfully."));
-          setShowMoreDropwdown(false);
+          setShowMoreDropdown(false);
         } else {
           props.notifyError(response.error);
-          setShowMoreDropwdown(false);
+          setShowMoreDropdown(false);
         }
       },
       (reject) => {
@@ -52,10 +77,10 @@ function TopicElement({ t, props, dispatch }) {
       (response) => {
         if (response.error === "OK") {
           props.onArchive(t("Archiving cancelled."));
-          setShowMoreDropwdown(false);
+          setShowMoreDropdown(false);
         } else {
           props.notifyError(response.error);
-          setShowMoreDropwdown(false);
+          setShowMoreDropdown(false);
         }
       },
       (reject) => {
@@ -67,13 +92,13 @@ function TopicElement({ t, props, dispatch }) {
   // copy topic's url to clipboard
   const copyUrlToClipboard = () => {
     getTopicUrl();
-    setShowMoreDropwdown(false);
+    setShowMoreDropdown(false);
     props.onCopyToClipboard(t("Link copied to clipboard."));
   };
 
   const copyTopicIdToClipboard = () => {
     navigator.clipboard.writeText(props.topicid);
-    setShowMoreDropwdown(false);
+    setShowMoreDropdown(false);
     props.onCopyToClipboard(t("Topic ID copied to clipboard."));
   };
   // getting the topic's url
@@ -104,11 +129,11 @@ function TopicElement({ t, props, dispatch }) {
 
   const TopicCard = () => {
     return (
-      <div className="topic-element__content">
+      <div className="topic-element__content" ref={moreDropdownRef}>
         <img
           alt="more"
           className="topic__more-icon"
-          onClick={() => setShowMoreDropwdown(!showMoreDropdown)}
+          onClick={() => setShowMoreDropdown(!showMoreDropdown)}
         />
         {!props.isArchived && (
           <div

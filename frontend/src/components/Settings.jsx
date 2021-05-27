@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // importing components
 import Switch from "react-input-switch";
@@ -11,7 +11,31 @@ import HungaryIcon from "../assets/images/country-icons/hungary.svg";
 import UnitedKingdomIcon from "../assets/images/country-icons/united-kingdom.svg";
 
 function Settings({ t, props, dispatch }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, _setDropdownOpen] = useState(false);
+  const dropDownOpenRef = useRef(dropdownOpen);
+  const setDropdownOpen = (data) => {
+    dropDownOpenRef.current = data;
+    _setDropdownOpen(data);
+  };
+  const settingsDropdownRef = useRef();
+
+  const handleClick = (e) => {
+    if (
+      !settingsDropdownRef.current?.contains(e.target) &&
+      e.target.className !== "settings-icon"
+    ) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+    // eslint-disable-next-line
+  }, []);
 
   const onThemeChange = () => {
     let t = "dark";
@@ -27,7 +51,7 @@ function Settings({ t, props, dispatch }) {
   };
 
   return (
-    <div className={`settings ${props.page}`}>
+    <div className={`settings ${props.page}`} ref={settingsDropdownRef}>
       <div
         alt="settings-icon"
         className={`settings-icon ${props.page}`}

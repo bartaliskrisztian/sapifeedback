@@ -115,8 +115,7 @@
   overflow: hidden;
   position: absolute;
   background: var(--app_color);
-  top: 30px;
-  left: 210px;
+  right: 20px;
   z-index: 1;
 }
 

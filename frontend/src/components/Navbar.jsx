@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory, Redirect, Link } from "react-router-dom";
 
 // importing components
@@ -16,7 +16,32 @@ import UserPlaceholder from "../assets/images/user.svg";
 function Navbar({ t, props, dispatch }) {
   const history = useHistory();
   // whether to show the profile menu or not
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showProfileMenu, _setShowProfileMenu] = useState(false);
+  const showProfileMenuRef = useRef(showProfileMenu);
+  const setShowProfileMenu = (data) => {
+    showProfileMenuRef.current = data;
+    _setShowProfileMenu(data);
+  };
+  const profileMenuRef = useRef();
+
+  // fetching the topics based on the user
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  const handleClick = (e) => {
+    if (
+      !profileMenuRef.current?.contains(e.target) &&
+      e.target.className !== "user-image"
+    ) {
+      setShowProfileMenu(false);
+    }
+  };
 
   const onSearch = (e) => {
     dispatch({ type: "SET_SEARCHTEXT", payload: e.target.value });
@@ -43,9 +68,10 @@ function Navbar({ t, props, dispatch }) {
   const onImageError = (image) => {
     image.target.src = UserPlaceholder;
   };
+
   const ProfileMenu = () => {
     return (
-      <div className="user-menu" title={t("Your profile")}>
+      <div className="user-menu" title={t("Your profile")} ref={profileMenuRef}>
         <img
           className="user-image"
           src={props.user.imageUrl}
