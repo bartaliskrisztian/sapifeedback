@@ -25,4 +25,4 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
           api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
           app_name: ${{ secrets.APP_NAME_FRONTEND }} # you aplication name
-          dockerfile_path: './frontend' # set the path to the folder wher the Dokerfile is located
+          dockerfile: './frontend' # set the path to the folder wher the Dokerfile is located
