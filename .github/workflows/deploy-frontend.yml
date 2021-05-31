@@ -15,10 +15,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: ./frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - working-directory: ./frontend
       - name: Build, Push and Deploy frontend to Heroku 
         id: heroku
         uses: cloutojp/heroku-deploy@v1.0.0  # use the latest version of the action
