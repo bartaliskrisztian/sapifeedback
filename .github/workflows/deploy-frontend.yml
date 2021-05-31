@@ -1,13 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI-frontend
+name: Deploy frontend to Heroku
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -20,6 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - working-directory: ./frontend
       - name: Build, Push and Deploy frontend to Heroku 
         id: heroku
         uses: cloutojp/heroku-deploy@v1.0.0  # use the latest version of the action
@@ -27,5 +26,4 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
           api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
           app_name: ${{ secrets.APP_NAME_FRONTEND }} # you aplication name
-          dockerfile_path: '../../frontend/Dockerfile' # set the path to the folder wher the Dokerfile is located
-          options: '' # Docker Build Options
+          dockerfile_path: ./Dockerfile # set the path to the folder wher the Dokerfile is located
