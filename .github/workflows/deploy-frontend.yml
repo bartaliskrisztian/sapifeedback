@@ -15,9 +15,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run: 
-        working-directory: ./frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,4 +25,4 @@ jobs:
           email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
           api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
           app_name: ${{ secrets.APP_NAME_FRONTEND }} # you aplication name
-          dockerfile_path: ./Dockerfile # set the path to the folder wher the Dokerfile is located
+          dockerfile_path: ./frontend # set the path to the folder wher the Dokerfile is located
