@@ -53,14 +53,10 @@ function FeedbackPage({ t }) {
         if (response.result) {
           setTopic(response.result); // save the response in state
           if (response.result.isArchived) {
-            toast.error(t("This topic is archived."), {
-              autoClose: 60000,
-            });
+            history.push("/404");
           }
         } else {
-          toast.error(t("There is no topic with this id"), {
-            autoClose: 60000,
-          });
+          history.push("/404");
         }
       },
       (reject) => {
