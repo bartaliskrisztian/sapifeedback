@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 // importing components
@@ -14,16 +14,9 @@ import "../assets/css/Login.css";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../assets/images/logo.svg";
 
-function Login({ t, isLoggedIn, dispatch }) {
+function Login({ t, dispatch }) {
   let history = useHistory();
   const [topidId, setTopicId] = useState("");
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      dispatch({ type: "SET_IS_LOGGED_IN", payload: false });
-    }
-    // eslint-disable-next-line
-  }, []);
 
   const notifyError = (message) => toast.error(message);
 
@@ -109,12 +102,6 @@ function Login({ t, isLoggedIn, dispatch }) {
   );
 }
 
-// getting the global state variables with redux
-const mapStateToProps = (state) => {
-  const isLoggedIn = state.isLoggedIn;
-  return { isLoggedIn };
-};
-
 // getting redux dispatch function for changing global state variables
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -122,7 +109,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withNamespaces()(Login));
+export default connect(mapDispatchToProps)(withNamespaces()(Login));

@@ -18,7 +18,6 @@ import CancelIcon from "../assets/images/cancel.svg";
 
 function UserTopics({ t, props, dispatch }) {
   const history = useHistory();
-
   const [modalIsOpen, _setIsOpen] = useState(false);
   const modalIsOpenRef = useRef(modalIsOpen);
   const setIsOpen = (data) => {
@@ -40,16 +39,16 @@ function UserTopics({ t, props, dispatch }) {
 
   // fetching the topics based on the user
   useEffect(() => {
-    dispatch({
-      type: "SET_CURRENT_TOPIC_ID",
-      payload: null,
-    });
-
     if (props.user != null) {
       getUserTopics();
     } else {
       history.push("/login");
     }
+
+    dispatch({
+      type: "SET_CURRENT_TOPIC_ID",
+      payload: null,
+    });
 
     window.addEventListener("keydown", handleEnterPressed);
     // cleanup this component

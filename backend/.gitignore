@@ -1,6 +1,5 @@
 node_modules
 .env
-python_scripts/env
 python_scripts/serviceAccountKey.json
 python_scripts/test.csv
 python_scripts/test_data_upload.py

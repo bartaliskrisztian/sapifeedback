@@ -21,7 +21,6 @@
   color: var(--font_color);
   transition: 300ms;
   padding: 0 10px;
-  cursor: pointer;
 }
 
 .searchbar-input:hover,

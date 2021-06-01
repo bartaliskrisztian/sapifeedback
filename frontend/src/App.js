@@ -100,7 +100,7 @@ function App({t, theme}) {
 // getting the global state variables with redux
 const mapStateToProps = (state) => {
   const theme = state.appTheme;
-  
+
   return { theme };
 };
 
