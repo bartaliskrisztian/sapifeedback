@@ -62,7 +62,8 @@ app.use('/api/deleteTopic', deleteTopic);
 
 // console.log that your server is up and running
 const port = process.env.PORT || 5000;
-server.listen(port, () => console.log(`Listening on port ${port}`));
+app.set("port", port);
+server.listen(app.get("port"), () => console.log(`Listening on port ${port}`));
 
 
 
