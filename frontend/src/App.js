@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Layout from "./components/Layout";
 import Login from "./components/Login";
 import Home from "./components/Home";
@@ -90,6 +90,7 @@ function App({t, theme}) {
             <Route exact path="/topic/:topicId/freq" component={ReportFrequencyPage } />
             <Route exact path="/giveFeedback/:topicId" component={FeedbackPage} />
             <Route path="/404" component={NotFound} />
+            <Redirect to="/404" />
         </Layout>
       </div>
     </div>
