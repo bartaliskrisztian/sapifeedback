@@ -1,13 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI-frontend
+name: Deploy frontend to Heroku
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -26,21 +24,5 @@ jobs:
         with:
           email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
           api_key: ${{ secrets.HEROKU_API_KEY }} # your  heroku api key
-          app_name: ${{ secrets.HEROKU_APP_NAME }} # you aplication name
-          dockerfile_path: './frontend/Dockerfile' # set the path to the folder wher the Dokerfile is located
-          options: '' # Docker Build Options
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          app_name: ${{ secrets.APP_NAME_FRONTEND }} # you aplication name
+          dockerfile: './frontend' # set the path to the folder wher the Dokerfile is located
