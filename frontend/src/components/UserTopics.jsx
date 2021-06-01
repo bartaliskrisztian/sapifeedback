@@ -79,7 +79,6 @@ function UserTopics({ t, props, dispatch }) {
               type: "SET_USER_TOPICS",
               payload: Object.entries(data.result),
             });
-            console.log("ut");
             setIsLoading(false);
           }
         },
@@ -101,7 +100,6 @@ function UserTopics({ t, props, dispatch }) {
           type: "SET_USER_TOPICS",
           payload: Object.entries(data.result),
         });
-        console.log("socket");
       }
       setIsLoading(false);
     });
