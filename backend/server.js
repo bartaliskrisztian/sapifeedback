@@ -65,7 +65,7 @@ const port = process.env.PORT || 5000;
 app.set("port", port);
 
 app.get('/', (request, response) =>{
-  response.send('SapiFeedbakc backend is running.');
+  response.send('SapiFeedback api is running.');
   }
 );
 
