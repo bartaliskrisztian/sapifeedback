@@ -62,8 +62,8 @@
     "Choose an image": "Choose an image",
     "Remove the image": "Remove the image",
     "SOURCE CODE": "SOURCE CODE",
-    "github-long": "https://github.com/bartaliskrisztian/feedback-app",
-    "github-short": "github.com/bartaliskrisztian/feedback-app",
+    "github-long": "https://github.com/bartaliskrisztian/sapifeedback",
+    "github-short": "github.com/bartaliskrisztian/sapifeedback",
     "SEND": "SEND",
     "There is no topic with this id": "There is no topic with this id.",
     "Prove that you are human.": "Prove that you are human.",
@@ -77,5 +77,6 @@
     "Page not found": "Page not found",
     "Go to Home" : "Go to Home",
     "Name": "Name",
-    "Email": "Email"
+    "Email": "Email",
+    "A problem has occured": "A problem has occured."
 }

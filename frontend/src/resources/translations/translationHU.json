@@ -62,8 +62,8 @@
     "Choose an image": "Kép kiválasztása",
     "Remove the image": "Kép eltávolítása",
     "SOURCE CODE": "FORRÁSKÓD",
-    "github-long": "https://github.com/bartaliskrisztian/feedback-app",
-    "github-short": "github.com/bartaliskrisztian/feedback-app",
+    "github-long": "https://github.com/bartaliskrisztian/sapifeedback",
+    "github-short": "github.com/bartaliskrisztian/sapifeedback",
     "SEND": "KÜLDÉS",
     "There is no topic with this id": "Nem létezik a megadott azonosítóval rendelkező téma.",
     "Prove that you are human.": "Igazolja, hogy Ön nem robot.",
@@ -77,5 +77,6 @@
     "Page not found": "Az oldal nem található.",
     "Go to Home" : "Ugrás a főoldalra",
     "Name": "Név",
-    "Email": "Email"
+    "Email": "Email",
+    "A problem has occured": "Hiba történt."
 }

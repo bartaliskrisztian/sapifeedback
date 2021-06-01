@@ -16,11 +16,11 @@ const createWordCloud = (req, res) => {
     const pyshell = new PythonShell("word_cloud.py", options);
   
     pyshell.on("message", (data) => {
-      res.send({result: data})
+      res.send({result: data});
     });
   
     pyshell.end((err) => {
-      if(err) throw err
+      res.send({result: "Error"});
     })
 }
 

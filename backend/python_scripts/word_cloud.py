@@ -12,6 +12,7 @@ import base64
 
 
 def main():
+    os.system("python3 -m pip install -r requirements.txt")
     text = sys.argv[1]
     tokens = nltk.word_tokenize(text)
     token_words = [w for w in tokens if w.isalpha()]

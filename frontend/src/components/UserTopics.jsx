@@ -18,6 +18,7 @@ import CancelIcon from "../assets/images/cancel.svg";
 
 function UserTopics({ t, props, dispatch }) {
   const history = useHistory();
+
   const [modalIsOpen, _setIsOpen] = useState(false);
   const modalIsOpenRef = useRef(modalIsOpen);
   const setIsOpen = (data) => {
@@ -78,6 +79,7 @@ function UserTopics({ t, props, dispatch }) {
               type: "SET_USER_TOPICS",
               payload: Object.entries(data.result),
             });
+            console.log("ut");
             setIsLoading(false);
           }
         },
@@ -99,8 +101,9 @@ function UserTopics({ t, props, dispatch }) {
           type: "SET_USER_TOPICS",
           payload: Object.entries(data.result),
         });
-        setIsLoading(false);
+        console.log("socket");
       }
+      setIsLoading(false);
     });
   };
 

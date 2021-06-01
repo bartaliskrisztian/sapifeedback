@@ -2,34 +2,34 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const http = require("http");
-const path = require('path');
-
 const server = http.createServer(app); // creating backend server
-const io = require("socket.io")(server, {
+
+const socketOptions = {
   cors: {
-    origin: '*',
+    origin: "*",
     methods: ["GET", "POST"]
-  }
-}); // creating websocket for realtime fetching of data
+  },
+}
+const io = require("socket.io")(server, socketOptions); // creating websocket for realtime fetching of data
 
 /* using middleware functions */
 
 const corsOptions = {
-  origin: '*',
+  origin: "*",
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204 
 }
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
-app.use((req, res, next) => {
+app.use((_, res, next) => {
   res.io = io;
   next();
 }); // adding socket
 
 app.use(express.json()); // parse request body as json
 
-app.use(function(req,res,next){
+app.use(function(_,res,next){
   var _send = res.send;
   var sent = false;
   res.send = function(data){
@@ -64,8 +64,8 @@ app.use('/api/deleteTopic', deleteTopic);
 const port = process.env.PORT || 5000;
 app.set("port", port);
 
-app.get('/', (request, response) =>{
-  response.send('SapiFeedback api is running.');
+app.get('/', (_, res) =>{
+  res.send('SapiFeedback api is running.');
   }
 );
 

@@ -14,7 +14,7 @@ function SortedTopicElements({ props }) {
     let sortedTopics = getTopics();
     setTopics(sortedTopics.slice());
     // eslint-disable-next-line
-  }, [props.sortOption]);
+  }, [props.sortOption, props.topics]);
 
   // toast functions
   const notifySuccess = (message) => toast.success(message);
