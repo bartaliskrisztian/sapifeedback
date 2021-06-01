@@ -5,18 +5,18 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bartaliskrisztian/report-feedback.git"
+    "url": "git+https://github.com/bartaliskrisztian/sapifeedback.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bartaliskrisztian/report-feedback/issues"
+    "url": "https://github.com/bartaliskrisztian/sapifeedback/issues"
   },
-  "homepage": "https://github.com/bartaliskrisztian/report-feedback#readme",
+  "homepage": "https://github.com/bartaliskrisztian/sapifeedback#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
