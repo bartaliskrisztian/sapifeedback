@@ -63,6 +63,12 @@ app.use('/api/deleteTopic', deleteTopic);
 // console.log that your server is up and running
 const port = process.env.PORT || 5000;
 app.set("port", port);
+
+app.get('/', (request, response) =>{
+  response.send('SapiFeedbakc backend is running.');
+  }
+);
+
 server.listen(app.get("port"), () => console.log(`Listening on port ${port}`));
 
 
