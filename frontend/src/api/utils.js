@@ -1,4 +1,4 @@
-const apiPath = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const apiPath = `${process.env.REACT_APP_BACKEND_URL}api`;
 
 const apiGetRequest = (type, params) => {
      let endpoint = '';
