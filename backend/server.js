@@ -60,14 +60,6 @@ app.use('/api', createTopic);
 app.use('/api', uploadReport);
 app.use('/api/deleteTopic', deleteTopic);
 
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../frontend/build')))
-
-// AFTER defining routes: Anything that doesn't match what's above, send back index.html; (the beginning slash ('/') in the string is important!)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../frontend/build/index.html'))
-})
-
 // console.log that your server is up and running
 const port = process.env.SERVER_PORT || 5000;
 server.listen(port, () => console.log(`Listening on port ${port}`));
