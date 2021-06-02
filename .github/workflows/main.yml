@@ -28,7 +28,7 @@ jobs:
           git remote add heroku-backend https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_BACKEND_APP_NAME }}.git
       - name: Pull api from Heroku
         run: |
-          git subtree pull --prefix=backend heroku-backend master
+          git subtree pull --prefix=backend heroku-backend master --allow-unrelated-histories
       - name: Deploy api to Heroku
         run: |
           git subtree push heroku-backend --prefix backend master
@@ -37,7 +37,7 @@ jobs:
           git remote add heroku-frontend https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_FRONTEND_APP_NAME }}.git
       - name: Pull frontend from Heroku
         run: |
-          git subtree pull --prefix=frontend heroku-frontend master
+          git subtree pull --prefix=frontend heroku-frontend master --allow-unrelated-histories
       - name: Deploy frontend to Heroku
         run: |
           git subtree push heroku-frontend --prefix frontend master
