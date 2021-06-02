@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import { BarChart } from "reaviz";
 import { withNamespaces } from "react-i18next";
-import { apiPostRequest } from "../api/utils";
+//import { apiPostRequest } from "../api/utils";
 
 import "../assets/css/ReportFrequency.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -77,7 +77,7 @@ function ReportFrequency({ t, props }) {
   //   <img alt="frequency" src={imageSource} className="report-freq__image"></img>
   // );
 
-  const notifyError = (message) => toast.error(message);
+  //const notifyError = (message) => toast.error(message);
 
   const FrequencyChart = () => (
     <div className="frequency-chart__holder">

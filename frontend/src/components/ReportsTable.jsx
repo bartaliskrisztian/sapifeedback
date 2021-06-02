@@ -97,8 +97,8 @@ function ReportsTable({ t, props }) {
           </tr>
           {props.reports &&
             pages.length > 0 &&
-            pages[currentPage].map((report) => (
-              <tr key={report.date} className="topic-reports__row">
+            pages[currentPage].map((report, i) => (
+              <tr key={i} className="topic-reports__row">
                 <td className="topic-reports__cell-text">
                   <div className="topic-reports__text">{report.text}</div>
                 </td>
