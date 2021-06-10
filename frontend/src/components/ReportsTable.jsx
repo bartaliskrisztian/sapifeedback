@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import Modal from "react-modal";
 import { withNamespaces } from "react-i18next";
@@ -9,6 +9,14 @@ import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 import CancelIcon from "../assets/images/cancel.svg";
 
 function ReportsTable({ t, props }) {
+  const [exportDropwDownOpen, _setExportDropdownOpen] = useState(false);
+  const exportDropwDownRef = useRef(exportDropwDownOpen);
+  const setExportDropdownOpen = (data) => {
+    exportDropwDownRef.current = data;
+    _setExportDropdownOpen(data);
+  };
+  const exportDivRef = useRef();
+
   // variables used for table pagination
   const reportsToShow = 5;
   const [currentPage, setCurrentPage] = useState(0);
@@ -19,7 +27,7 @@ function ReportsTable({ t, props }) {
   const [modalImageSource, setModalImageSource] = useState("");
 
   useEffect(() => {
-    let reportsCopy = [...props.reports];
+    let reportsCopy = [...props.reports.reverse()];
     setAllReportCount(reportsCopy.length);
 
     // creating smaller arrays from the array of reports,
@@ -35,6 +43,76 @@ function ReportsTable({ t, props }) {
     setPages(p);
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("click", handleClick);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  const handleClick = (e) => {
+    if (
+      !exportDivRef.current?.contains(e.target) &&
+      e.target.className !== "topic-reports__export-holder"
+    ) {
+      setExportDropdownOpen(false);
+    }
+  };
+
+  const exportJson = (dataStr) => {
+    let dataUri =
+      "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+
+    let exportFileDefaultName = `${props.topicName}_feedbacks.json`;
+
+    let linkElement = document.createElement("a");
+    linkElement.setAttribute("href", dataUri);
+    linkElement.setAttribute("download", exportFileDefaultName);
+    linkElement.click();
+    setExportDropdownOpen(false);
+  };
+
+  const parseJSONToCSVStr = (jsonData) => {
+    if (jsonData.length === 0) {
+      return "";
+    }
+
+    let keys = Object.keys(jsonData[0]);
+
+    let columnDelimiter = ",";
+    let lineDelimiter = "\n";
+
+    let csvColumnHeader = keys.join(columnDelimiter);
+    let csvStr = csvColumnHeader + lineDelimiter;
+
+    jsonData.forEach((item) => {
+      keys.forEach((key, index) => {
+        if (index > 0 && index < keys.length) {
+          csvStr += columnDelimiter;
+        }
+        csvStr += item[key];
+      });
+      csvStr += lineDelimiter;
+    });
+
+    return encodeURIComponent(csvStr);
+  };
+
+  const exportCSV = (jsonData) => {
+    let csvStr = parseJSONToCSVStr(jsonData);
+    let dataUri = "data:text/csv;charset=utf-8," + csvStr;
+
+    let exportFileDefaultName = `${props.topicName}_feedbacks.csv`;
+
+    let linkElement = document.createElement("a");
+    linkElement.setAttribute("href", dataUri);
+    linkElement.setAttribute("download", exportFileDefaultName);
+    linkElement.click();
+    setExportDropdownOpen(false);
+  };
 
   // functions for modal
   function openModal() {
@@ -150,7 +228,39 @@ function ReportsTable({ t, props }) {
 
   return (
     <div className="topic-reports__container">
-      <TablePagination />
+      <div className="topic-reports__top-bar">
+        <TablePagination />
+        <div className="topic-reports__export-holder" ref={exportDivRef}>
+          <div
+            className="topic-reports__export"
+            onClick={() => setExportDropdownOpen(!exportDropwDownOpen)}
+          >
+            EXPORT
+          </div>
+          <div
+            className={`topic-reports__export-dropdown${
+              exportDropwDownOpen ? " open" : ""
+            }`}
+          >
+            <div
+              className="export__dropwdown-element"
+              onClick={() => {
+                exportJson(JSON.stringify(props.reports));
+              }}
+            >
+              JSON
+            </div>
+            <div
+              className="export__dropwdown-element"
+              onClick={() => {
+                exportCSV(props.reports);
+              }}
+            >
+              CSV
+            </div>
+          </div>
+        </div>
+      </div>
       <ReportTableRow />
       <TablePagination />
       <Modal
@@ -181,6 +291,7 @@ const mapStateToProps = (state) => {
   const props = {
     reports: state.currentTopicReports,
     theme: state.appTheme,
+    topicName: state.currentTopicName,
   };
   return { props };
 };

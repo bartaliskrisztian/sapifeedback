@@ -24,7 +24,6 @@ function Navbar({ t, props, dispatch }) {
   };
   const profileMenuRef = useRef();
 
-  // fetching the topics based on the user
   useEffect(() => {
     window.addEventListener("click", handleClick);
     // cleanup this component
