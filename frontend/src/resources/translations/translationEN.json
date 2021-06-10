@@ -1,5 +1,5 @@
 {
-    "Feedback app": "Feedback app",
+    "Feedback app": "SapiFeedback",
     "Log in, then create topics for getting feedbacks": "Log in, then create topics for getting feedbacks",
     "Enter a topic ID and give a feedback anonymously": "Enter a topic ID and give a feedback anonymously",
     "Topic ID": "Topic ID",
@@ -78,5 +78,6 @@
     "Go to Home" : "Go to Home",
     "Name": "Name",
     "Email": "Email",
-    "A problem has occured": "A problem has occured."
+    "A problem has occured": "A problem has occured.",
+    "You can log in on a bigger device": "You can log in on a bigger device"
 }

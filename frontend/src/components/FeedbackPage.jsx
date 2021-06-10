@@ -233,7 +233,7 @@ function FeedbackPage({ t }) {
         </div>
       </div>
       <ToastContainer
-        position="bottom-right"
+        position="top-center"
         pauseOnHover={false}
         hideProgressBar={true}
         autoClose={3000}

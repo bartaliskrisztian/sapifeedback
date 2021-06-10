@@ -1,5 +1,5 @@
 {
-    "Feedback": "Feedback",
+    "Feedback app": "SapiFeedback",
     "Log in, then create topics for getting feedbacks": "Jelentkezzen be, majd hozzon létre témákat, melyekre visszajelzéseket vár",
     "Enter a topic ID and give a feedback anonymously": "Írja be egy téma azonosítóját és jelezzen vissza rá névtelenül",
     "Topic ID": "Téma azonosító",
@@ -78,5 +78,6 @@
     "Go to Home" : "Ugrás a főoldalra",
     "Name": "Név",
     "Email": "Email",
-    "A problem has occured": "Hiba történt."
+    "A problem has occured": "Hiba történt.",
+    "You can log in on a bigger device": "Az eszköz mérete túl kicsi a bejelentkezéshez."
 }

@@ -20,7 +20,7 @@ function App({t, theme}) {
 
   const HomePage = () => {
     return(
-      <div>
+      <div className="homepage-holder">
         <Navbar page="home"/>
         <Home />
       </div>

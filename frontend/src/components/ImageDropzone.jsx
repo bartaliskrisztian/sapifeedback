@@ -27,7 +27,7 @@ function ImageDropzone({ t, props }) {
     transition: "border .24s ease-in-out",
     width: "100%",
     height: "100%",
-    padding: "10px",
+    padding: "5px",
   };
 
   const activeStyle = {

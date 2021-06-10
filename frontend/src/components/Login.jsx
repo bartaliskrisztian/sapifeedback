@@ -89,6 +89,9 @@ function Login({ t, dispatch }) {
             </button>
           </div>
         </div>
+        <div className="login-page__small-device">
+          {t("You can log in on a bigger device")}
+        </div>
       </div>
       <ToastContainer
         position="top-center"
