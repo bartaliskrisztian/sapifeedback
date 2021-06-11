@@ -138,7 +138,7 @@
 }
 
 .create-topic__modal {
-  height: 40%;
+  height: fit-content;
   width: 40%;
   border-radius: 8px;
   box-shadow: 2px 2px 7px #000;
@@ -148,7 +148,7 @@
   margin-top: 100px;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 20px 50px 20px;
   color: var(--font-color);
   align-items: center;
 }
@@ -179,7 +179,7 @@
   color: var(--font-color);
   margin-top: 40px;
   padding: 10px;
-  border-radius: 20px;
+  border-radius: 8px;
 }
 
 .create-topic__input:hover {

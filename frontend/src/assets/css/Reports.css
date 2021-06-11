@@ -62,7 +62,7 @@
 
 .topic-reports__pagination-container {
   display: flex;
-  margin: auto;
+  margin: 0 auto;
   width: fit-content;
   padding: 20px;
   font-size: 20px;
@@ -111,10 +111,7 @@
 
 .topic-reports__top-bar {
   display: flex;
-}
-
-.topic-reports__export-holder {
-  align-self: center;
+  align-items: center;
 }
 
 .topic-reports__export {
@@ -145,7 +142,7 @@
   align-items: center;
   justify-content: space-evenly;
   overflow: hidden;
-  background: var(--app_color_light);
+  background: var(--app_color);
   z-index: 1;
 
   box-shadow: 2px 2px 7px #000;
@@ -165,5 +162,5 @@
 
 .export__dropwdown-element:hover {
   cursor: pointer;
-  background: var(--app_color_light_hover);
+  background: var(--app_color_light);
 }

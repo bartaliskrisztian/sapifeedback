@@ -21,10 +21,10 @@
 }
 
 .light {
-  --app_color: #fffbf3;
+  --app_color: #f3f2ef;
   --app_color_light: #bec0c2;
-  --app_color_light_hover: #868686;
-  --navbar_color: #606263;
+  --app_color_light_hover: #999696;
+  --navbar_color: #fff;
   --card_color: #d1d1d1;
   --font-color: #000;
   --link-color: #444d7c;
