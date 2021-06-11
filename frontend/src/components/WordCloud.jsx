@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
 import { withNamespaces } from "react-i18next";
+import i18n from "../language";
 import { apiPostRequest } from "../api/utils";
 
 import "../assets/css/WordCloud.css";
@@ -31,6 +32,7 @@ function WordCloud({ t, props }) {
       "topicWordCloud",
       JSON.stringify({
         text: text,
+        language: i18n.language,
       })
     ).then(
       (response) => {

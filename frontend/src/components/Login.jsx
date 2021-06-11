@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 
 // importing components
@@ -16,7 +16,28 @@ import Logo from "../assets/images/logo.svg";
 
 function Login({ t, dispatch }) {
   let history = useHistory();
-  const [topidId, setTopicId] = useState("");
+  const [topicId, _setTopicId] = useState("");
+  const topicIdRef = useRef(topicId);
+  const setTopicId = (data) => {
+    topicIdRef.current = data;
+    _setTopicId(data);
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleEnterPressed);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("keydown", handleEnterPressed);
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  const handleEnterPressed = (e) => {
+    let key = e.keyCode || e.which;
+    if (key === 13) {
+      goToReport();
+    }
+  };
 
   const notifyError = (message) => toast.error(message);
 
@@ -46,8 +67,8 @@ function Login({ t, dispatch }) {
   };
 
   const goToReport = () => {
-    if (topidId !== "") {
-      history.push(`/giveFeedback/${topidId}`);
+    if (topicIdRef.current !== "") {
+      history.push(`/giveFeedback/${topicIdRef.current}`);
     }
   };
 

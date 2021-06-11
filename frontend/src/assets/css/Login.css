@@ -237,4 +237,8 @@
   .login-page__small-device {
     text-align: center;
   }
+
+  .small-device {
+    display: none !important;
+  }
 }

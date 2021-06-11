@@ -12,13 +12,14 @@ import base64
 
 
 def main():
-    os.system("python3 -m pip install -r requirements.txt")
-    text = sys.argv[1]
+    language = sys.argv[1]
+    text = sys.argv[2]
     tokens = nltk.word_tokenize(text)
     token_words = [w for w in tokens if w.isalpha()]
+    token_words = [w.lower() for w in token_words]
 
     # removing empty strings and stop words
-    stop_words = set(stopwords.words('english'))
+    stop_words = set(stopwords.words(language))
     meaningful_words = [w for w in token_words if not w in stop_words]
 
     d = list(dict.fromkeys(meaningful_words))

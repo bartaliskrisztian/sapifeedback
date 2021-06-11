@@ -6,11 +6,21 @@ const {PythonShell} = require('python-shell');  // Import PythonShell module
 const createWordCloud = (req, res) => {
 
     const reportsText = req.body.text;
+    const languageShort = req.body.language;
+    let language = '';
+
+    switch(languageShort){
+      case 'en': language = 'english';break;
+      case 'hu': language = 'hungarian';break;
+      default: language = 'hungarian';
+      break;
+    }
+
     const options = { 
       mode: 'text', 
       pythonOptions: ['-u'], // get print results in real-time 
       scriptPath: './python_scripts', //If you are having python_test.py script in same folder, then it's optional. 
-      args: [reportsText] //An argument which can be accessed in the script using sys.argv[1] 
+      args: [language, reportsText] //An argument which can be accessed in the script using sys.argv[1] 
     }
 
     const pyshell = new PythonShell("word_cloud.py", options);
