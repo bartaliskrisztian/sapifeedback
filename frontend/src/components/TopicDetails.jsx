@@ -39,7 +39,7 @@ function TopicDetails({ t, props, dispatch }) {
     }
 
     // eslint-disable-next-line
-  }, [params]);
+  }, []);
 
   const notifyError = (message) => toast.error(message);
 
