@@ -1,5 +1,6 @@
 import { Route, Redirect } from "react-router-dom";
 import Layout from "./components/Layout";
+import PrivateRoute from "./components/PrivateRoute";
 import Login from "./components/Login";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
@@ -81,16 +82,16 @@ function App({t, theme}) {
         {t("Open this site on a bigger device.")}
       </div>
       <div className="App">
-        <Layout>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/topic/:topicId/details" component={TopicDetailsPage} />
-            <Route exact path="/topic/:topicId/feedbacks" component={TopicFeedbacksPage} />
-            <Route exact path="/topic/:topicId/wordCloud" component={WordCloudPage} />
-            <Route exact path="/topic/:topicId/freq" component={ReportFrequencyPage } />
-            <Route exact path="/giveFeedback/:topicId" component={FeedbackPage} />
-            <Route path="/404" component={NotFound} />
-            <Redirect to="/404" />
+          <Layout>
+          <Route exact path="/login" component={Login} />
+          <Route path="/404" component={NotFound} />
+          <PrivateRoute exact={true} path="/" component={HomePage} />
+          <PrivateRoute exact={true} path="/topic/:topicId/details" component={TopicDetailsPage} />
+          <PrivateRoute exact={true} path="/topic/:topicId/feedbacks" component={TopicFeedbacksPage} />
+          <PrivateRoute exact={true} path="/topic/:topicId/wordCloud" component={WordCloudPage} />
+          <PrivateRoute exact={true} path="/topic/:topicId/freq" component={ReportFrequencyPage } />
+          <Route exact={true} path="/giveFeedback/:topicId" component={FeedbackPage} />
+          <Redirect to="/404" />
         </Layout>
       </div>
     </div>

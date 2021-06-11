@@ -48,6 +48,7 @@ function Navbar({ t, props, dispatch }) {
 
   // on logout we set the user to null and redirect the page
   const logout = () => {
+    dispatch({ type: "SET_USER", payload: null });
     history.push("/login");
   };
 
@@ -108,6 +109,7 @@ function Navbar({ t, props, dispatch }) {
               buttonText={t("Logout")}
               onLogoutSuccess={logout}
               className="logout-button"
+              theme={props.theme === "light" ? "dark" : "light"}
             ></GoogleLogout>
           </div>
         </div>

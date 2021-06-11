@@ -14,7 +14,7 @@ import "../assets/css/Login.css";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../assets/images/logo.svg";
 
-function Login({ t, dispatch }) {
+function Login({ t, props, dispatch }) {
   let history = useHistory();
   const [topicId, _setTopicId] = useState("");
   const topicIdRef = useRef(topicId);
@@ -90,7 +90,8 @@ function Login({ t, dispatch }) {
             onSuccess={responseGoogleSuccess}
             onFailure={responseGoogleFailure}
             cookiePolicy={"single_host_origin"}
-            isSignedIn={true}
+            isSignedIn={false}
+            theme={props.theme === "light" ? "dark" : "light"}
             className="login-button"
           />
         </div>
@@ -126,6 +127,14 @@ function Login({ t, dispatch }) {
   );
 }
 
+// getting the global state variables with redux
+const mapStateToProps = (state) => {
+  const props = {
+    theme: state.appTheme,
+  };
+  return { props };
+};
+
 // getting redux dispatch function for changing global state variables
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -133,4 +142,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapDispatchToProps)(withNamespaces()(Login));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNamespaces()(Login));
