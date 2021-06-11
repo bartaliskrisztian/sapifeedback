@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect } from "react";
 import { useDropzone } from "react-dropzone"; // importing components
 import Compress from "client-compress";
 import { withNamespaces } from "react-i18next";
