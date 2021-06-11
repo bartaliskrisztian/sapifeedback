@@ -29,10 +29,6 @@ function TopicDetails({ t, props, dispatch }) {
     setTopicId(topicid);
 
     if (topicid !== undefined) {
-      dispatch({
-        type: "SET_CURRENT_TOPIC_ID",
-        payload: topicid,
-      });
       getTopic(topicid);
       getReports(topicid);
       const date = new Date(props.topic.date).toLocaleDateString();
@@ -209,7 +205,6 @@ function TopicDetails({ t, props, dispatch }) {
 const mapStateToProps = (state) => {
   const props = {
     topic: state.currentTopicDetails,
-    topicId: state.currentTopicId,
     theme: state.appTheme,
     user: state.user,
     reports: state.currentTopicReports,

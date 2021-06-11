@@ -7,7 +7,6 @@ const initialState = {
     currentTopicName: "",
     showArchivedTopics: false,
     userTopics: [],
-    currentTopicId: null,
     currentTopicDetails: {},
     currentTopicReports: [],
 }
@@ -43,11 +42,6 @@ const reducer = (state = initialState, action) => {
             userTopics: action.payload
         })
     }
-    if(action.type === "SET_CURRENT_TOPIC_ID") {
-        return Object.assign({}, state, {
-            currentTopicId: action.payload
-        })
-    }
     if(action.type === "SET_CURRENT_TOPIC_DETAILS") {
         return Object.assign({}, state, {
             currentTopicDetails: action.payload
@@ -56,18 +50,6 @@ const reducer = (state = initialState, action) => {
     if(action.type === "SET_CURRENT_TOPIC_REPORTS") {
         return Object.assign({}, state, {
             currentTopicReports: action.payload
-        })
-    }
-    if(action.type === "RESET_STATE") {
-        return Object.assign({}, state, {
-            user: null,
-            searchText: "",
-            currentTopicName: "",
-            showArchivedTopics: false,
-            userTopics: [],
-            currentTopicId: null,
-            currentTopicDetails: {},
-            currentTopicReports: []
         })
     }
     return state
