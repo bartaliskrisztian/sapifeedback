@@ -64,8 +64,8 @@
 }
 
 .thumb-image__holder {
-  width: 200px;
-  height: 200px;
+  width: 50%;
+  height: 70%;
   display: flex;
   flex-direction: column;
 }
@@ -73,6 +73,7 @@
 .thumb-image {
   height: 100%;
   width: 100%;
+  object-fit: scale-down;
 }
 
 .drop-arrow {
