@@ -210,7 +210,11 @@ function FeedbackPage({ t }) {
               {t("YOU CAN ATTACH AN IMAGE OPTIONALLY")}
             </div>
           </div>
-          <ImageDropzone setUploadedImages={setFiles} files={files} />
+          <ImageDropzone
+            setUploadedImages={setFiles}
+            files={files}
+            notifyError={notifyError}
+          />
         </div>
       </div>
       <div className="bottom-submit__container">

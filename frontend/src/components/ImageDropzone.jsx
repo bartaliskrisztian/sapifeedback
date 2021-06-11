@@ -42,8 +42,6 @@ function ImageDropzone({ t, props }) {
     borderColor: "#ff1744",
   };
 
-  const [errors, setErrors] = useState(""); // variable to store error messages
-
   // get properties for dropzone
   const {
     getRootProps,
@@ -72,7 +70,6 @@ function ImageDropzone({ t, props }) {
             type: photo.type,
             path: photo.name,
           });
-          setErrors("");
           props.setUploadedImages([
             Object.assign(file, { preview: URL.createObjectURL(file) }),
           ]);
@@ -83,15 +80,15 @@ function ImageDropzone({ t, props }) {
         file.errors.forEach((err) => {
           // when the file is too large
           if (err.code === "file-too-large") {
-            setErrors(t("File is too large"));
+            props.notifyError(t("File is too large"));
           }
           // when the file's type is not acccepted
           if (err.code === "file-invalid-type") {
-            setErrors(t("File format is invalid"));
+            props.notifyError(t("File format is invalid"));
           }
           // when he user drops chooses more than one image
           if (err.code === "too-many-files") {
-            setErrors(t("Too many files"));
+            props.notifyError(t("Too many files"));
           }
         });
       });
@@ -100,7 +97,6 @@ function ImageDropzone({ t, props }) {
 
   // removes all images from the dropzone and from the state
   const removeImages = () => {
-    setErrors("");
     props.setUploadedImages([]);
   };
 
@@ -147,7 +143,6 @@ function ImageDropzone({ t, props }) {
           <div className="images">{thumbs}</div>
         )}
         <div className="upload-buttons">
-          <div className="image-errors">{errors}</div>
           <button className="upload-image__button" type="button" onClick={open}>
             {t("Choose an image")}
           </button>
@@ -169,6 +164,7 @@ const mapStateToProps = (state, ownProps) => {
   const props = {
     files: ownProps.files,
     setUploadedImages: ownProps.setUploadedImages,
+    notifyError: ownProps.notifyError,
   };
   return { props };
 };

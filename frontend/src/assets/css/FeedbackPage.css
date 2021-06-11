@@ -206,10 +206,6 @@
     outline: none;
   }
 
-  .dropzone-container__content {
-    height: 150px !important;
-  }
-
   .upload-image__button,
   .clear-images__button {
     width: 40%;
