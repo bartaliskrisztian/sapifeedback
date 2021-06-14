@@ -3,7 +3,7 @@ var router = express.Router()
 const {PythonShell} = require('python-shell');  // Import PythonShell module
 
 
-const createReportFrequencyFigure = (req, res) => {
+const createFeedbackFrequencyFigure = (req, res) => {
 
     const dates_timestamp = req.body.dates;
     const options = { 
@@ -13,7 +13,7 @@ const createReportFrequencyFigure = (req, res) => {
       args: [dates_timestamp] //An argument which can be accessed in the script using sys.argv[1] 
     }
 
-    const pyshell = new PythonShell("report_frequency.py", options);
+    const pyshell = new PythonShell("feedback_frequency.py", options);
   
     pyshell.on("message", (data) => {
       res.send({result: data})
@@ -24,6 +24,6 @@ const createReportFrequencyFigure = (req, res) => {
     })
 }
 
-router.post("/", createReportFrequencyFigure)
+router.post("/", createFeedbackFrequencyFigure)
 
 module.exports = router

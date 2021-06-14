@@ -16,15 +16,15 @@ function WordCloud({ t, props }) {
 
   // fetching the details of a topic before rendering
   useEffect(() => {
-    createWordcloud(props.reports);
+    createWordcloud(props.feedbacks);
     // eslint-disable-next-line
   }, []);
 
-  const createWordcloud = (reports) => {
-    const textArray = reports.map((report) => report.text);
+  const createWordcloud = (feedbacks) => {
+    const textArray = feedbacks.map((feedback) => feedback.text);
     const text = textArray.join("");
     if (!text.length) {
-      setNoWordCloudText(t("There are no reports yet."));
+      setNoWordCloudText(t("There are no feedbacks yet."));
       setWordCloudLoaded(true);
       return;
     }
@@ -63,7 +63,7 @@ function WordCloud({ t, props }) {
 
   return (
     <div className="word-cloud">
-      <div className="word-cloud__no-reports">{noWordCloudText}</div>
+      <div className="word-cloud__no-feedbacks">{noWordCloudText}</div>
       {!wordCloudLoaded && (
         <div>
           <div className="wordcloud-loader"></div>
@@ -86,7 +86,7 @@ function WordCloud({ t, props }) {
 // getting the global state variables with redux
 const mapStateToProps = (state) => {
   const props = {
-    reports: state.currentTopicReports,
+    feedbacks: state.currentTopicFeedbacks,
     topic: state.currentTopicDetails,
   };
   return { props };

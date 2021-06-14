@@ -6,11 +6,11 @@ import { BarChart } from "reaviz";
 import { withNamespaces } from "react-i18next";
 //import { apiPostRequest } from "../api/utils";
 
-import "../assets/css/ReportFrequency.css";
+import "../assets/css/FeedbackFrequency.css";
 import "react-toastify/dist/ReactToastify.css";
 
-function ReportFrequency({ t, props }) {
-  const [noReportsText, setNoReportsText] = useState("");
+function FeedbackFrequency({ t, props }) {
+  const [noFeedbacksText, setNoFeedbacksText] = useState("");
   const [data, setData] = useState([]);
 
   // const [imageLoaded, setImageLoaded] = useState(false);
@@ -18,13 +18,13 @@ function ReportFrequency({ t, props }) {
 
   // fetching the details of a topic before rendering
   useEffect(() => {
-    if (!props.reports.length) {
-      setNoReportsText(t("There are no reports yet."));
+    if (!props.feedbacks.length) {
+      setNoFeedbacksText(t("There are no feedbacks yet."));
       return;
     }
 
     const dataTemp = [];
-    const dates = props.reports.map((report) => report.date);
+    const dates = props.feedbacks.map((feedback) => feedback.date);
 
     let frequency = {};
     for (let i = 0; i < dates.length; i++) {
@@ -47,15 +47,15 @@ function ReportFrequency({ t, props }) {
     // eslint-disable-next-line
   }, []);
 
-  // const createReportFrequency = (reports) => {
-  //   const dates = reports.map((report) => report.date);
+  // const createFeedbackFrequency = (feedbacks) => {
+  //   const dates = feedbacks.map((feedback) => feedback.date);
   //   if (!dates.length) {
-  //     setNoReportsText(t("There are no reports yet."));
+  //     setNoFeedbacksText(t("There are no feedbacks yet."));
   //     setImageLoaded(true);
   //     return;
   //   }
   //   apiPostRequest(
-  //     "reportFrequency",
+  //     "feedbackFrequency",
   //     JSON.stringify({
   //       dates: dates,
   //     })
@@ -74,7 +74,7 @@ function ReportFrequency({ t, props }) {
   // };
 
   // const FrequencyFigure = () => (
-  //   <img alt="frequency" src={imageSource} className="report-freq__image"></img>
+  //   <img alt="frequency" src={imageSource} className="feedback-freq__image"></img>
   // );
 
   //const notifyError = (message) => toast.error(message);
@@ -92,15 +92,15 @@ function ReportFrequency({ t, props }) {
   );
 
   return (
-    <div className="report-freq">
-      <div className="report-freq__no-reports">{noReportsText}</div>
+    <div className="feedback-freq">
+      <div className="feedback-freq__no-feedbacks">{noFeedbacksText}</div>
       {/* {!imageLoaded && (
         <div>
           <div className="freq-loader"></div>
         </div>
       )}
-      {imageLoaded && !noReportsText && <FrequencyFigure />} */}
-      {!noReportsText && <FrequencyChart />}
+      {imageLoaded && !noFeedbacksText && <FrequencyFigure />} */}
+      {!noFeedbacksText && <FrequencyChart />}
       <ToastContainer
         position="top-center"
         pauseOnHover={false}
@@ -116,10 +116,10 @@ function ReportFrequency({ t, props }) {
 // getting the global state variables with redux
 const mapStateToProps = (state) => {
   const props = {
-    reports: state.currentTopicReports,
+    feedbacks: state.currentTopicFeedbacks,
     topic: state.currentTopicDetails,
   };
   return { props };
 };
 
-export default connect(mapStateToProps)(withNamespaces()(ReportFrequency));
+export default connect(mapStateToProps)(withNamespaces()(FeedbackFrequency));

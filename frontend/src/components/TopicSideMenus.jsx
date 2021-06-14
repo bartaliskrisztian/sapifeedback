@@ -41,8 +41,8 @@ function TopicSideMenus({ t }) {
           href={`/#/topic/${params.topicId}/feedbacks`}
         >
           <div className="side-menu__content">
-            <div className="side-menu__icon report-icon"></div>
-            {t("Reports")}
+            <div className="side-menu__icon feedback-icon"></div>
+            {t("Feedbacks")}
           </div>
         </a>
         <a
@@ -64,7 +64,7 @@ function TopicSideMenus({ t }) {
         >
           <div className="side-menu__content">
             <div className="side-menu__icon frequency-icon"></div>
-            {t("Report frequency")}
+            {t("Feedback frequency")}
           </div>
         </a>
       </div>

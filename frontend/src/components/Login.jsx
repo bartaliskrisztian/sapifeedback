@@ -35,7 +35,7 @@ function Login({ t, props, dispatch }) {
   const handleEnterPressed = (e) => {
     let key = e.keyCode || e.which;
     if (key === 13) {
-      goToReport();
+      goToFeedbackPage();
     }
   };
 
@@ -66,7 +66,7 @@ function Login({ t, props, dispatch }) {
     setTopicId(e.target.value);
   };
 
-  const goToReport = () => {
+  const goToFeedbackPage = () => {
     if (topicIdRef.current !== "") {
       history.push(`/giveFeedback/${topicIdRef.current}`);
     }
@@ -95,18 +95,21 @@ function Login({ t, props, dispatch }) {
             className="login-button"
           />
         </div>
-        <div className="login-page__report">
-          <div className="login-page__report-title">
+        <div className="login-page__feedback">
+          <div className="login-page__feedback-title">
             {t("Enter a topic ID and give a feedback anonymously")}
           </div>
-          <div className="login-page__report-inputs">
+          <div className="login-page__feedback-inputs">
             <input
               type="text"
               onChange={onSearch}
               className="login-page__input"
               placeholder={t("Topic ID")}
             />
-            <button className="login-page__submit-button" onClick={goToReport}>
+            <button
+              className="login-page__submit-button"
+              onClick={goToFeedbackPage}
+            >
               {t("Go")}
             </button>
           </div>

@@ -64,8 +64,8 @@
   background-repeat: no-repeat;
 }
 
-.side-menu__icon.report-icon {
-  background: var(--reports-icon-source);
+.side-menu__icon.feedback-icon {
+  background: var(--feedbacks-icon-source);
   background-size: cover;
   background-repeat: no-repeat;
 }

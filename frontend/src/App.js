@@ -5,9 +5,9 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import TopicDetails from "./components/TopicDetails";
-import TopicReports from "./components/TopicReports"
+import TopicFeedbacks from "./components/TopicFeedbacks"
 import WordCloud from "./components/WordCloud";
-import ReportFrequency from "./components/ReportFrequency";
+import FeedbackFrequency from "./components/FeedbackFrequency";
 import FeedbackPage from "./components/FeedbackPage";
 import TopicSideMenus from "./components/TopicSideMenus";
 import NotFound from "./components/NotFound";
@@ -34,7 +34,7 @@ function App({t, theme}) {
         <TopicSideMenus />
         <div className="topic-page__content">
           <Navbar page="topic" />
-          <TopicReports />
+          <TopicFeedbacks />
         </div>
       </div>
     )
@@ -52,13 +52,13 @@ function App({t, theme}) {
     )
   }
 
-  const ReportFrequencyPage = () => {
+  const FeedbackFrequencyPage = () => {
     return (
       <div className="page-holder">
         <TopicSideMenus />
         <div className="topic-page__content">
           <Navbar page="topic" />
-          <ReportFrequency />
+          <FeedbackFrequency />
         </div>
       </div>
     )
@@ -89,7 +89,7 @@ function App({t, theme}) {
           <PrivateRoute exact={true} path="/topic/:topicId/details" component={TopicDetailsPage} />
           <PrivateRoute exact={true} path="/topic/:topicId/feedbacks" component={TopicFeedbacksPage} />
           <PrivateRoute exact={true} path="/topic/:topicId/wordCloud" component={WordCloudPage} />
-          <PrivateRoute exact={true} path="/topic/:topicId/freq" component={ReportFrequencyPage } />
+          <PrivateRoute exact={true} path="/topic/:topicId/freq" component={FeedbackFrequencyPage } />
           <Route exact={true} path="/giveFeedback/:topicId" component={FeedbackPage} />
           <Redirect to="/404" />
         </Layout>

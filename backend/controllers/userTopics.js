@@ -6,7 +6,7 @@ const getTopicUrl = (req, res) => {
   // getting the parameters sent from the client side
   const topicId = req.params.topicId;
 
-  const ref = admin.db.ref(`topics/${topicId}/reportUrl`)
+  const ref = admin.db.ref(`topics/${topicId}/feedbackUrl`)
   
   let url = null;
   ref.on(

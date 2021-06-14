@@ -8,7 +8,7 @@ const initialState = {
     showArchivedTopics: false,
     userTopics: [],
     currentTopicDetails: {},
-    currentTopicReports: [],
+    currentTopicFeedbacks: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -47,9 +47,9 @@ const reducer = (state = initialState, action) => {
             currentTopicDetails: action.payload
         })
     }
-    if(action.type === "SET_CURRENT_TOPIC_REPORTS") {
+    if(action.type === "SET_CURRENT_TOPIC_FEEDBACKS") {
         return Object.assign({}, state, {
-            currentTopicReports: action.payload
+            currentTopicFeedbacks: action.payload
         })
     }
     return state

@@ -7,12 +7,12 @@ import { ToastContainer, toast } from "react-toastify";
 import { apiGetRequest } from "../api/utils";
 
 // importing styles
-import "../assets/css/Reports.css";
+import "../assets/css/FeedbackTable.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 import CancelIcon from "../assets/images/cancel.svg";
 import DeleteIcon from "../assets/images/trash.svg";
 
-function ReportsTable({ t, props }) {
+function FeedbackTable({ t, props }) {
   const params = useParams();
   const [exportDropwDownOpen, _setExportDropdownOpen] = useState(false);
   const exportDropwDownRef = useRef(exportDropwDownOpen);
@@ -23,11 +23,11 @@ function ReportsTable({ t, props }) {
   const exportDivRef = useRef();
 
   // variables used for table pagination
-  const reportsToShow = 5;
+  const feedbacksToShow = 5;
   const [currentPage, setCurrentPage] = useState(0);
   const [pages, setPages] = useState([]);
-  const [showedReports, setShowedReports] = useState(0);
-  const [allReportsCount, setAllReportCount] = useState(0);
+  const [showedFeedbacks, setShowedFeedbacks] = useState(0);
+  const [allFeedbackCount, setAllFeedbackCount] = useState(0);
   const [imageModalIsOpen, setImageModalIsOpen] = useState(false);
   const [deleteFeedbackModalIsOpen, setDeleteFeedbackModalIsOpen] =
     useState(false);
@@ -37,18 +37,18 @@ function ReportsTable({ t, props }) {
 
   useEffect(() => {
     setTopicId(params.topicId);
-    let reportsCopy = [...props.reports.reverse()];
-    setAllReportCount(reportsCopy.length);
+    let feedbacksCopy = [...props.feedbacks.reverse()];
+    setAllFeedbackCount(feedbacksCopy.length);
 
-    // creating smaller arrays from the array of reports,
+    // creating smaller arrays from the array of feedbacks,
     // each represents a page in the table
     let p = [];
-    while (reportsCopy.length > 0) {
-      let chunk = reportsCopy.splice(0, reportsToShow);
+    while (feedbacksCopy.length > 0) {
+      let chunk = feedbacksCopy.splice(0, feedbacksToShow);
       p.push(chunk);
     }
     if (p[0] !== undefined) {
-      setShowedReports(p[0].length);
+      setShowedFeedbacks(p[0].length);
     }
     setPages(p);
     // eslint-disable-next-line
@@ -69,7 +69,7 @@ function ReportsTable({ t, props }) {
   const handleClick = (e) => {
     if (
       !exportDivRef.current?.contains(e.target) &&
-      e.target.className !== "topic-reports__export-holder"
+      e.target.className !== "topic-feedbacks__export-holder"
     ) {
       setExportDropdownOpen(false);
     }
@@ -152,13 +152,13 @@ function ReportsTable({ t, props }) {
   // go on the first page in the table
   const firstPage = () => {
     setCurrentPage(0);
-    setShowedReports(pages[0].length);
+    setShowedFeedbacks(pages[0].length);
   };
 
   // go on the last page in the table
   const lastPage = () => {
     setCurrentPage(pages.length - 1);
-    setShowedReports(allReportsCount);
+    setShowedFeedbacks(allFeedbackCount);
   };
 
   // go on the next page in the table
@@ -166,7 +166,7 @@ function ReportsTable({ t, props }) {
     if (currentPage < pages.length - 1) {
       let newIndex = currentPage + 1;
       setCurrentPage(newIndex);
-      setShowedReports(showedReports + pages[newIndex].length);
+      setShowedFeedbacks(showedFeedbacks + pages[newIndex].length);
     }
   };
 
@@ -174,7 +174,7 @@ function ReportsTable({ t, props }) {
   const prevPage = () => {
     if (currentPage > 0) {
       let newIndex = currentPage - 1;
-      setShowedReports(showedReports - pages[currentPage].length);
+      setShowedFeedbacks(showedFeedbacks - pages[currentPage].length);
       setCurrentPage(newIndex);
     }
   };
@@ -219,30 +219,32 @@ function ReportsTable({ t, props }) {
     );
   };
 
-  const ReportTableRow = () => {
+  const FeedbackTableRow = () => {
     return (
-      <table className="topic-reports">
+      <table className="topic-feedbacks">
         <tbody>
-          <tr className="topic-reports__row-header">
-            <th className="topic-reports__header text">{t("Text")}</th>
-            <th className="topic-reports__header image">
+          <tr className="topic-feedbacks__row-header">
+            <th className="topic-feedbacks__header text">{t("Text")}</th>
+            <th className="topic-feedbacks__header image">
               {t("Attached image")}
             </th>
           </tr>
-          {props.reports &&
+          {props.feedbacks &&
             pages.length > 0 &&
-            pages[currentPage].map((report, i) => (
-              <tr key={i} className="topic-reports__row">
-                <td className="topic-reports__cell-text">
-                  <div className="topic-reports__text">{report.text}</div>
-                  <DeleteFeedbackButton feedbackId={report.feedbackId} />
+            pages[currentPage].map((feedback, i) => (
+              <tr key={i} className="topic-feedbacks__row">
+                <td className="topic-feedbacks__cell-text">
+                  <div className="topic-feedbacks__text">{feedback.text}</div>
+                  <DeleteFeedbackButton feedbackId={feedback.feedbackId} />
                 </td>
-                <td className="topic-reports__cell-image">
+                <td className="topic-feedbacks__cell-image">
                   <img
-                    alt="report"
-                    src={report.imageUrl ? report.imageUrl : ImagePlaceholder}
+                    alt="feedbacks"
+                    src={
+                      feedback.imageUrl ? feedback.imageUrl : ImagePlaceholder
+                    }
                     onError={onImageError}
-                    className="topic-reports__image"
+                    className="topic-feedbacks__image"
                     onClick={onFeedbackImageClicked}
                   />
                 </td>
@@ -255,22 +257,25 @@ function ReportsTable({ t, props }) {
 
   const TablePagination = () => {
     return (
-      <div className="topic-reports__pagination-container">
-        <div className="topic-reports__pagination-element" onClick={firstPage}>
+      <div className="topic-feedbacks__pagination-container">
+        <div
+          className="topic-feedbacks__pagination-element"
+          onClick={firstPage}
+        >
           {t("First")}
         </div>
-        <div className="topic-reports__pagination-element" onClick={prevPage}>
+        <div className="topic-feedbacks__pagination-element" onClick={prevPage}>
           {t("Previous")}
         </div>
-        <div className="topic-reports__pagination-element" onClick={nextPage}>
+        <div className="topic-feedbacks__pagination-element" onClick={nextPage}>
           {t("Next")}
         </div>
-        <div className="topic-reports__pagination-element" onClick={lastPage}>
+        <div className="topic-feedbacks__pagination-element" onClick={lastPage}>
           {t("Last")}
         </div>
-        {props.reports && pages.length > 0 && (
-          <div className="topic-reports__pagination-element counter">
-            {showedReports}/{allReportsCount}
+        {props.feedbacks && pages.length > 0 && (
+          <div className="topic-feedbacks__pagination-element counter">
+            {showedFeedbacks}/{allFeedbackCount}
           </div>
         )}
       </div>
@@ -336,25 +341,25 @@ function ReportsTable({ t, props }) {
   };
 
   return (
-    <div className="topic-reports__container">
-      <div className="topic-reports__top-bar">
+    <div className="topic-feedbacks__container">
+      <div className="topic-feedbacks__top-bar">
         <TablePagination />
-        <div className="topic-reports__export-holder" ref={exportDivRef}>
+        <div className="topic-feedbacks__export-holder" ref={exportDivRef}>
           <div
-            className="topic-reports__export"
+            className="topic-feedbacks__export"
             onClick={() => setExportDropdownOpen(!exportDropwDownOpen)}
           >
             EXPORT
           </div>
           <div
-            className={`topic-reports__export-dropdown${
+            className={`topic-feedbacks__export-dropdown${
               exportDropwDownOpen ? " open" : ""
             }`}
           >
             <div
               className="export__dropwdown-element"
               onClick={() => {
-                exportJson(JSON.stringify(props.reports));
+                exportJson(JSON.stringify(props.feedbacks));
               }}
             >
               JSON
@@ -362,7 +367,7 @@ function ReportsTable({ t, props }) {
             <div
               className="export__dropwdown-element"
               onClick={() => {
-                exportCSV(props.reports);
+                exportCSV(props.feedbacks);
               }}
             >
               CSV
@@ -370,7 +375,7 @@ function ReportsTable({ t, props }) {
           </div>
         </div>
       </div>
-      <ReportTableRow />
+      <FeedbackTableRow />
       <TablePagination />
       <FeedbackImageModal />
       <DeleteFeedbackModal />
@@ -389,11 +394,11 @@ function ReportsTable({ t, props }) {
 // getting the global state variables with redux
 const mapStateToProps = (state) => {
   const props = {
-    reports: state.currentTopicReports,
+    feedbacks: state.currentTopicFeedbacks,
     theme: state.appTheme,
     topicName: state.currentTopicName,
   };
   return { props };
 };
 
-export default connect(mapStateToProps)(withNamespaces()(ReportsTable));
+export default connect(mapStateToProps)(withNamespaces()(FeedbackTable));

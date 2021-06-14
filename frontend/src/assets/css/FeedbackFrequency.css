@@ -2,13 +2,13 @@
   padding-top: 60px;
 }
 
-.report-freq {
+.feedback-freq {
   display: flex;
   justify-content: center;
   height: calc(100% - 60px);
 }
 
-.report-freq__image {
+.feedback-freq__image {
   width: 80%;
   height: 80%;
   margin-top: 40px;
@@ -26,7 +26,7 @@
   color: var(--font-color);
 }
 
-.report-freq__no-reports {
+.feedback-freq__no-feedbacks {
   font-size: 32px;
   font-weight: bold;
   padding: 20px;

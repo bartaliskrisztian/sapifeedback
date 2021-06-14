@@ -2,22 +2,22 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 // importing components
-import ReportsTable from "./ReportsTable";
+import FeedbackTable from "./FeedbackTable";
 import { ToastContainer, toast } from "react-toastify";
 import { connect } from "react-redux";
 
 import { withNamespaces } from "react-i18next";
 
 // importing styles
-import "../assets/css/TopicReports.css";
+import "../assets/css/TopicFeedbacks.css";
 import "react-toastify/dist/ReactToastify.css";
 
-function TopicReports({ t, props, dispatch }) {
+function TopicFeedbacks({ t, props }) {
   const params = useParams();
 
   // fetching the details of a topic before rendering
   useEffect(() => {
-    if (!props.topicReports) {
+    if (!props.topicFeedbacks) {
       notifyError("Error");
     }
     // eslint-disable-next-line
@@ -25,21 +25,21 @@ function TopicReports({ t, props, dispatch }) {
 
   const notifyError = (message) => toast.error(message);
 
-  const TopicReportsTable = () => {
-    if (props.topicReports.length > 0) {
-      return <ReportsTable />;
+  const TopicFeedbacksTable = () => {
+    if (props.topicFeedbacks.length > 0) {
+      return <FeedbackTable />;
     } else {
       return (
-        <div className="topic__no-reports">
-          {t("There are no reports yet.")}
+        <div className="topic__no-feedbacks">
+          {t("There are no feedbacks yet.")}
         </div>
       );
     }
   };
 
   return (
-    <div className="topic-reports__holder">
-      <TopicReportsTable />
+    <div className="topic-feedbacks__holder">
+      <TopicFeedbacksTable />
       <ToastContainer
         position="top-center"
         pauseOnHover={false}
@@ -55,7 +55,7 @@ function TopicReports({ t, props, dispatch }) {
 // getting the global state variables with redux
 const mapStateToProps = (state) => {
   const props = {
-    topicReports: state.currentTopicReports,
+    topicFeedbacks: state.currentTopicFeedbacks,
   };
   return { props };
 };
@@ -70,4 +70,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withNamespaces()(TopicReports));
+)(withNamespaces()(TopicFeedbacks));

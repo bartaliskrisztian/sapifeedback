@@ -8,13 +8,13 @@
   font-weight: bold;
 }
 
-.topic-detail__reportUrl,
+.topic-detail__feedbackUrl,
 .topic-details__label {
   font-size: 22px;
   font-weight: normal;
 }
 
-.topic-detail__reportUrl {
+.topic-detail__feedbackUrl {
   color: var(--link-color);
   padding-left: 10px;
 }

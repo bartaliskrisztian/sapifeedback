@@ -12,7 +12,7 @@
   /* icon sources */
   --more-icon-source: url("../assets/images/dark/more.svg");
   --details-icon-source: url("../assets/images/dark/details_icon.svg");
-  --reports-icon-source: url("../assets/images/dark/report_icon.svg");
+  --feedbacks-icon-source: url("../assets/images/dark/feedback_icon.svg");
   --wordcloud-icon-source: url("../assets/images/dark/word-cloud_icon.svg");
   --frequency-icon-source: url("../assets/images/dark/frequency_icon.svg");
   --settings-icon-source: url("../assets/images/settings.svg");
@@ -34,7 +34,7 @@
   /* icon sources */
   --more-icon-source: url("../assets/images/light/more.svg");
   --details-icon-source: url("../assets/images/light/details_icon.svg");
-  --reports-icon-source: url("../assets/images/light/report_icon.svg");
+  --feedbacks-icon-source: url("../assets/images/light/feedback_icon.svg");
   --wordcloud-icon-source: url("../assets/images/light/word-cloud_icon.svg");
   --frequency-icon-source: url("../assets/images/light/frequency_icon.svg");
   --settings-icon-source: url("../assets/images/settings.svg");

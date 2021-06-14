@@ -30,7 +30,7 @@ function TopicDetails({ t, props, dispatch }) {
 
     if (topicid !== undefined) {
       getTopic(topicid);
-      getReports(topicid);
+      getFeedbacks(topicid);
       const date = new Date(props.topic.date).toLocaleDateString();
       setTopicDate(date);
       setIsLoading(false);
@@ -81,17 +81,17 @@ function TopicDetails({ t, props, dispatch }) {
     });
   };
 
-  const getReports = (topicid) => {
-    apiGetRequest("topicReports", { topicId: topicid }).then(
+  const getFeedbacks = (topicid) => {
+    apiGetRequest("topicFeedbacks", { topicId: topicid }).then(
       (response) => {
         if (response.result) {
           dispatch({
-            type: "SET_CURRENT_TOPIC_REPORTS",
+            type: "SET_CURRENT_TOPIC_FEEDBACKS",
             payload: Object.values(response.result),
           });
         } else {
           dispatch({
-            type: "SET_CURRENT_TOPIC_REPORTS",
+            type: "SET_CURRENT_TOPIC_FEEDBACKS",
             payload: [],
           });
         }
@@ -108,12 +108,12 @@ function TopicDetails({ t, props, dispatch }) {
       // saving the result in the global state
       if (data.result) {
         dispatch({
-          type: "SET_CURRENT_TOPIC_REPORTS",
+          type: "SET_CURRENT_TOPIC_FEEDBACKS",
           payload: Object.values(data.result),
         });
       } else {
         dispatch({
-          type: "SET_CURRENT_TOPIC_REPORTS",
+          type: "SET_CURRENT_TOPIC_FEEDBACKS",
           payload: [],
         });
       }
@@ -123,13 +123,13 @@ function TopicDetails({ t, props, dispatch }) {
   const TopicLink = () => {
     return (
       <div>
-        {t("Link for reporting")}:
+        {t("Link for giving feedback")}:
         <a
-          href={`${window.location.origin}/#/${props.topic.reportUrl}`}
+          href={`${window.location.origin}/#/${props.topic.feedbackUrl}`}
           target="blank"
-          className="topic-detail__reportUrl"
+          className="topic-detail__feedbackUrl"
         >
-          {`${window.location.origin}/#/${props.topic.reportUrl}`}
+          {`${window.location.origin}/#/${props.topic.feedbackUrl}`}
         </a>
       </div>
     );
@@ -181,8 +181,8 @@ function TopicDetails({ t, props, dispatch }) {
   };
 
   const deleteTopic = () => {
-    props.reports.forEach((report) => {
-      const imageRef = storage.refFromURL(report.imageUrl);
+    props.feedbacks.forEach((feedback) => {
+      const imageRef = storage.refFromURL(feedback.imageUrl);
       imageRef.delete();
     });
     apiGetRequest("deleteTopic", {
@@ -215,7 +215,9 @@ function TopicDetails({ t, props, dispatch }) {
           <div>
             {`${t("Number of feedbacks")} `}
             <label className="topic-details__label">
-              {props.topic.reportsUploaded ? props.topic.reportsUploaded : "0"}
+              {props.topic.uploadedFeedbacks
+                ? props.topic.uploadedFeedbacks
+                : "0"}
             </label>
           </div>
           {!props.topic.isArchived && <TopicLink />}
@@ -240,7 +242,7 @@ const mapStateToProps = (state) => {
     topic: state.currentTopicDetails,
     theme: state.appTheme,
     user: state.user,
-    reports: state.currentTopicReports,
+    feedbacks: state.currentTopicFeedbacks,
   };
   return { props };
 };

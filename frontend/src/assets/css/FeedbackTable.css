@@ -1,50 +1,50 @@
-.topic-reports__container {
+.topic-feedbacks__container {
   margin: auto;
   height: 100%;
   overflow: auto;
 }
 
-.topic-reports {
+.topic-feedbacks {
   box-shadow: 2px 2px 4px #000;
   background: var(--app_color_light_hover);
   width: 100%;
   margin: auto;
 }
 
-.topic-reports__row-header {
+.topic-feedbacks__row-header {
   box-shadow: 0 2px var(--font-color);
   height: 50px;
   background: var(--app_color_light);
 }
 
-.topic-reports__header {
+.topic-feedbacks__header {
   font-size: 24px;
   font-weight: normal;
 }
 
-.topic-reports__header.text {
+.topic-feedbacks__header.text {
   box-shadow: 2px 0 var(--font-color);
 }
 
-.topic-reports__row {
+.topic-feedbacks__row {
   box-shadow: 0 1px var(--font-color);
   width: 100%;
 }
 
-.topic-reports__cell-text {
+.topic-feedbacks__cell-text {
   width: 75%;
   height: 230px;
   padding: 20px;
   box-shadow: 1px 0 var(--font-color);
 }
 
-.topic-reports__cell-image {
+.topic-feedbacks__cell-image {
   width: 25%;
   height: 230px;
   padding: 20px;
 }
 
-.topic-reports__text {
+.topic-feedbacks__text {
   width: 100%;
   height: 80%;
   word-wrap: anywhere;
@@ -52,7 +52,7 @@
   font-size: 16px;
 }
 
-.topic-reports__image {
+.topic-feedbacks__image {
   object-fit: scale-down;
   height: 100%;
   width: 100%;
@@ -60,7 +60,7 @@
   cursor: pointer;
 }
 
-.topic-reports__pagination-container {
+.topic-feedbacks__pagination-container {
   display: flex;
   margin: 0 auto;
   width: fit-content;
@@ -68,22 +68,22 @@
   font-size: 20px;
 }
 
-.topic-reports__pagination-element {
+.topic-feedbacks__pagination-element {
   cursor: pointer;
   color: var(--font-color);
   padding: 10px;
 }
 
-.topic-reports__pagination-element:hover {
+.topic-feedbacks__pagination-element:hover {
   color: var(--app_color_light_hover);
 }
 
-.topic-reports__pagination-element.counter {
+.topic-feedbacks__pagination-element.counter {
   cursor: auto;
   border-left: 1px solid #fff;
 }
 
-.topic-reports__pagination-element.counter:hover {
+.topic-feedbacks__pagination-element.counter:hover {
   color: var(--font-color);
 }
 
@@ -109,12 +109,12 @@
   border-radius: 10px;
 }
 
-.topic-reports__top-bar {
+.topic-feedbacks__top-bar {
   display: flex;
   align-items: center;
 }
 
-.topic-reports__export {
+.topic-feedbacks__export {
   height: fit-content;
   border-radius: 4px;
   border: none;
@@ -126,12 +126,12 @@
   position: relative;
 }
 
-.topic-reports__export:hover {
+.topic-feedbacks__export:hover {
   cursor: pointer;
   background: var(--app_color_light);
 }
 
-.topic-reports__export-dropdown {
+.topic-feedbacks__export-dropdown {
   height: 0;
   width: 100px;
   position: absolute;
@@ -149,7 +149,7 @@
   border-radius: 8px;
 }
 
-.topic-reports__export-dropdown.open {
+.topic-feedbacks__export-dropdown.open {
   height: fit-content;
   width: 150px;
 }

@@ -45,19 +45,19 @@ let login = require("./controllers/login");
 let topicDetails = require("./controllers/topicDetails");
 let createTopic = require("./controllers/createTopic");
 let getUserTopics = require("./controllers/userTopics");
-let uploadReport = require("./controllers/uploadReport");
+let uploadFeedback = require("./controllers/uploadFeedback");
 let createWordCloud = require("./controllers/wordCloud");
-let createReportFrequency = require("./controllers/reportFrequency");
+let createFeedbackFrequency = require("./controllers/feedbackFrequency");
 let deleteTopic = require("./controllers/deleteTopic");
 
 
 app.use('/api/login', login);
 app.use('/api/topic', topicDetails);
 app.use('/api/topic/wordCloud', createWordCloud);
-app.use('/api/topic/report-frequency', createReportFrequency);
+app.use('/api/topic/feedback-frequency', createFeedbackFrequency);
 app.use('/api/userTopics', getUserTopics);
 app.use('/api', createTopic);
-app.use('/api', uploadReport);
+app.use('/api', uploadFeedback);
 app.use('/api/deleteTopic', deleteTopic);
 
 // console.log that your server is up and running

@@ -8,7 +8,7 @@ import base64
 
 
 def main():
-    # getting the array of report dates
+    # getting the array of feedback dates
     argv_tmp = eval(sys.argv[1])
     if type(argv_tmp) == int:
         dates_ts = [argv_tmp]
@@ -33,12 +33,12 @@ def main():
             frequency.append(0)
         date += timedelta(days=1)
 
-    # plotting the report frequency
+    # plotting the feedback frequency
     figure = plt.figure(figsize=(9, 5))
     plt.plot(dates, frequency, 'b-o')
 
     plt.xlabel("Date")
-    plt.ylabel("Number of reports")
+    plt.ylabel("Number of feedbacks")
 
     # make the y ticks integers, not floats
     yint = []
@@ -46,7 +46,7 @@ def main():
     for each in locs:
         yint.append(int(each))
     plt.yticks(yint)
-    plt.title('Report frequency')
+    plt.title('Feedback frequency')
 
     file_name = "freq.jpg"
     figure.savefig(file_name)

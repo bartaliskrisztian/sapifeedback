@@ -7,11 +7,11 @@ const deleteTopicFromDB = (req, res) => {
     const userId = req.params.userId;
     const topicId = req.params.topicId;
 
-    const reportsRef = admin.db.ref(`reports/${topicId}`); 
+    const feedbacksRef = admin.db.ref(`feedbacks/${topicId}`); 
     const topicRef = admin.db.ref(`topics/${topicId}`);
     const userTopicsRef = admin.db.ref(`users/${userId}/topics/${topicId}`);
 
-    reportsRef.set(null);
+    feedbacksRef.set(null);
     topicRef.set(null);
     userTopicsRef.set(null);
 

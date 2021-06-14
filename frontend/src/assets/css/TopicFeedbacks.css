@@ -1,4 +1,4 @@
-.topic-reports__holder {
+.topic-feedbacks__holder {
   height: calc(100% - 60px);
 }
 
@@ -16,14 +16,14 @@
   padding: 20px;
 }
 
-.topic__no-reports {
+.topic__no-feedbacks {
   text-align: center;
   font-size: 32px;
   font-weight: bold;
   padding: 20px;
 }
 
-.reports-loader {
+.feedbacks-loader {
   border: 4px solid var(--font-color);
   border-top: 4px solid var(--app_color);
   border-radius: 50%;

@@ -1,5 +1,5 @@
 .settings.login,
-.settings.report {
+.settings.feedback {
   padding: 10px 0;
   right: 5px;
   position: absolute;
@@ -32,7 +32,7 @@
 }
 
 .settings-dropdown.login,
-.settings-dropdown.report {
+.settings-dropdown.feedback {
   margin-top: 10px;
 }
 

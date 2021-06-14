@@ -6,8 +6,8 @@ const apiGetRequest = (type, params) => {
          case 'topicDetails':
             endpoint = `${apiPath}/topic/${params.topicId}/details`;
             break;
-        case 'topicReports':
-            endpoint = `${apiPath}/topic/${params.topicId}/reports`;
+        case 'topicFeedbacks':
+            endpoint = `${apiPath}/topic/${params.topicId}/feedbacks`;
             break;
         case 'deleteFeedback':
         endpoint = `${apiPath}/topic/${params.topicId}/deleteFeedback/${params.feedbackId}`;
@@ -52,14 +52,14 @@ const apiPostRequest = (type, body) => {
         case 'createTopic':
            endpoint = `${apiPath}/createTopic`;
            break;
-        case 'uploadReport':
-           endpoint = `${apiPath}/uploadReport`;
+        case 'uploadFeedback':
+           endpoint = `${apiPath}/uploadFeedback`;
            break;
         case 'topicWordCloud':
            endpoint = `${apiPath}/topic/wordCloud`;
            break;
-        case 'reportFrequency':
-            endpoint = `${apiPath}/topic/report-frequency`;
+        case 'feedbackFrequency':
+            endpoint = `${apiPath}/topic/feedback-frequency`;
             break;
        default: break;
     }

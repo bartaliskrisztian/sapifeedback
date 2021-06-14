@@ -2,12 +2,12 @@ var express = require('express')
 var router = express.Router()
 const admin = require('../firebase_db');
 
-const getTopicReports = (req, res) => {
+const getTopicFeedbacks = (req, res) => {
   // getting the parameters sent from the client side
     const topicId = req.params.topicId;
-    const ref = admin.db.ref(`reports/${topicId}`);
+    const ref = admin.db.ref(`feedbacks/${topicId}`);
     
-    // when there is a change between these reports, we send them to the client with the help of a websocket 
+    // when there is a change between these feedbacks, we send them to the client with the help of a websocket 
     ref.on("value", (snapshot) => {
       res.io.emit("getTopicFeedbacks", {result: snapshot.val()}) 
       res.send({result: snapshot.val()});
@@ -19,7 +19,7 @@ const getTopicDetails = (req, res) => {
     const topicId = req.params.topicId;
 
     const ref = admin.db.ref(`topics/${topicId}`);
-    const feedbackRef = admin.db.ref(`topics/${topicId}/reportsUploaded`);
+    const feedbackRef = admin.db.ref(`topics/${topicId}/uploadedFeedbacks`);
 
     feedbackRef.on("value", (snapshot) => {
       ref.once("value", (snapshot) => {
@@ -37,8 +37,8 @@ const deleteFeedback = (req, res) => {
   const topicId = req.params.topicId;
   const feedbackId = req.params.feedbackId;
 
-  const topicRef = admin.db.ref(`topics/${topicId}/reportsUploaded`);
-  const ref = admin.db.ref(`reports/${topicId}/${feedbackId}`);
+  const topicRef = admin.db.ref(`topics/${topicId}/uploadedFeedbacks`);
+  const ref = admin.db.ref(`feedbacks/${topicId}/${feedbackId}`);
   ref.remove();
 
   topicRef.transaction((current_value) => {
@@ -53,7 +53,7 @@ const deleteFeedback = (req, res) => {
   res.send({result: "OK"});
 }
 
-router.get("/:topicId/reports", getTopicReports)
+router.get("/:topicId/feedbacks", getTopicFeedbacks)
 router.get("/:topicId/details", getTopicDetails)
 router.get("/:topicId/deleteFeedback/:feedbackId", deleteFeedback)
 

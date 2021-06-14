@@ -21,7 +21,7 @@ function FeedbackPage({ t }) {
   const recaptchaRef = React.useRef(); // reference of the recaptcha
 
   const [files, setFiles] = useState([]); // for storing image(s) uploaded by user
-  const [reportText, setReportText] = useState(""); // text reported by user
+  const [feedbackText, setFeedbackText] = useState(""); // text given by user
   const [isUploading, setIsUploading] = useState(false);
 
   const [topicId, setTopicId] = useState(null);
@@ -70,25 +70,25 @@ function FeedbackPage({ t }) {
   const notifyError = (message) => toast.error(message);
 
   const handleTextChange = (e) => {
-    setReportText(e.target.value);
+    setFeedbackText(e.target.value);
   };
 
   const onCaptchaChange = (token) => {};
 
   // resets state values and reCaptcha
   const resetPage = () => {
-    setReportText("");
+    setFeedbackText("");
     setFiles([]);
     recaptchaRef.current.props.grecaptcha.reset();
   };
 
-  // uploading the report image on client side
+  // uploading the feedback image on client side
   const uploadImage = async ({ image, imageName }) => {
     try {
       const blob = await fetch(image).then((r) => r.blob());
 
       const snapshot = await storage
-        .ref("report_images")
+        .ref("feedback_images")
         .child(imageName)
         .put(blob);
 
@@ -99,14 +99,14 @@ function FeedbackPage({ t }) {
     }
   };
 
-  const uploadReport = async () => {
+  const uploadFeedback = async () => {
     if (files.length) {
       const image = files.length ? URL.createObjectURL(files[0]) : null;
       const imageName = files.length ? files[0].name : "";
 
       uploadImage({ image, imageName }).then((url) => {
         const data = {
-          text: reportText,
+          text: feedbackText,
           topicId: topicId,
           imageUrl: url,
         };
@@ -114,7 +114,7 @@ function FeedbackPage({ t }) {
       });
     } else {
       const data = {
-        text: reportText,
+        text: feedbackText,
         topicId: topicId,
         imageUrl: null,
       };
@@ -122,12 +122,12 @@ function FeedbackPage({ t }) {
     }
   };
 
-  // POST request for uploading a report
+  // POST request for uploading a Feedback
   const sendRequest = (data) => {
-    apiPostRequest("uploadReport", JSON.stringify(data)).then(
+    apiPostRequest("uploadFeedback", JSON.stringify(data)).then(
       (response) => {
         if (response.error === "OK") {
-          notifySuccess(t("Successful report"));
+          notifySuccess(t("Successful feedback"));
         } else {
           notifyError(response.error);
         }
@@ -141,7 +141,7 @@ function FeedbackPage({ t }) {
   // when the user presses the submit button
   const onSubmitWithReCAPTCHA = async () => {
     if (topic.isArchived) {
-      notifyError(t("You can't report to his topic at the moment."));
+      notifyError(t("You can't feedback to his topic at the moment."));
       return;
     }
 
@@ -153,34 +153,34 @@ function FeedbackPage({ t }) {
       return;
     }
 
-    // if the given text for report is too short
-    if (reportText.length < 20) {
+    // if the given text for feedback is too short
+    if (feedbackText.length < 20) {
       notifyError(
         t(
-          "The given report text is too short (should be at least 20 character)."
+          "The given feedback text is too short (should be at least 20 character)."
         )
       );
       return;
     }
     setIsUploading(true); // setting up loader
-    uploadReport(); // try to upload the image and report
+    uploadFeedback(); // try to upload the image and feedback
     setIsUploading(false);
 
     // providing success message for 2 secs
-    notifySuccess(t("Successful report"));
+    notifySuccess(t("Successful feedback"));
 
     resetPage();
   };
 
   return (
-    <div className="report-container">
-      <Settings page="report" />
-      <div className="report-container__content">
-        <div className="report-text">
+    <div className="feedback-container">
+      <Settings page="feedback" />
+      <div className="feedback-container__content">
+        <div className="feedback-text">
           <div className="info">
             <div className="info-text">
               {t(
-                "YOU CAN REPORT ANONYMOUSLY YOUR PROBLEM/COMMENT ABOUT THE TOPIC"
+                "YOU CAN SEND FEEDBACK ANONYMOUSLY YOUR PROBLEM/COMMENT ABOUT THE TOPIC"
               )}
               {topic && (
                 <span className="info-text__topic-name">{topic.topicName}</span>
@@ -189,7 +189,7 @@ function FeedbackPage({ t }) {
           </div>
           <textarea
             className="text-input"
-            value={reportText}
+            value={feedbackText}
             placeholder={t("Your comments about the topic")}
             onChange={handleTextChange}
           />
@@ -204,7 +204,7 @@ function FeedbackPage({ t }) {
             </a>
           </div>
         </div>
-        <div className="report-image">
+        <div className="feedback-image">
           <div className="info">
             <div className="info-text">
               {t("YOU CAN ATTACH AN IMAGE OPTIONALLY")}
