@@ -349,7 +349,7 @@ function FeedbackTable({ t, props }) {
             className="topic-feedbacks__export"
             onClick={() => setExportDropdownOpen(!exportDropwDownOpen)}
           >
-            EXPORT
+            {t("Export")}
           </div>
           <div
             className={`topic-feedbacks__export-dropdown${
@@ -383,7 +383,7 @@ function FeedbackTable({ t, props }) {
         position="top-center"
         pauseOnHover={false}
         hideProgressBar={true}
-        autoClose={3000}
+        autoClose={2000}
         closeOnClick={false}
         limit={1}
       />

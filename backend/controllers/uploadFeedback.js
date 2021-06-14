@@ -31,7 +31,7 @@ const uploadFeedback = (req, res) => {
         return (current_value || 0) + 1;
     });
 
-    res.send({error: "OK"}); // sending response to client
+    res.send({result: "OK"}); // sending response to client
 }
 
 router.post("/uploadFeedback", uploadFeedback);

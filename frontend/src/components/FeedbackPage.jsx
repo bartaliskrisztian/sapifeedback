@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // importing components
 import ReCAPTCHA from "react-google-recaptcha";
@@ -66,7 +66,12 @@ function FeedbackPage({ t }) {
   };
 
   // toast notify functions
-  const notifySuccess = (message) => toast.success(message);
+  const toastId = useRef(null);
+  const notifySuccess = (message) => {
+    if (!toast.isActive(toastId.current)) {
+      toastId.current = toast.success(message);
+    }
+  };
   const notifyError = (message) => toast.error(message);
 
   const handleTextChange = (e) => {
@@ -126,10 +131,11 @@ function FeedbackPage({ t }) {
   const sendRequest = (data) => {
     apiPostRequest("uploadFeedback", JSON.stringify(data)).then(
       (response) => {
-        if (response.error === "OK") {
+        if (response.result === "OK") {
+          console.log("ok");
           notifySuccess(t("Successful feedback"));
         } else {
-          notifyError(response.error);
+          notifyError(response.result);
         }
       },
       (reject) => {
@@ -140,11 +146,6 @@ function FeedbackPage({ t }) {
 
   // when the user presses the submit button
   const onSubmitWithReCAPTCHA = async () => {
-    if (topic.isArchived) {
-      notifyError(t("You can't feedback to his topic at the moment."));
-      return;
-    }
-
     const token = await recaptchaRef.current.props.grecaptcha.getResponse();
     // if the reCaptcha's token is empty string or null, means that the user did not solve the captcha
 

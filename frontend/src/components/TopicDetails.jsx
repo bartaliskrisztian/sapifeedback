@@ -109,7 +109,7 @@ function TopicDetails({ t, props, dispatch }) {
       if (data.result) {
         dispatch({
           type: "SET_CURRENT_TOPIC_FEEDBACKS",
-          payload: Object.values(data.result),
+          payload: Object.values(data.result).reverse(),
         });
       } else {
         dispatch({
@@ -182,8 +182,11 @@ function TopicDetails({ t, props, dispatch }) {
 
   const deleteTopic = () => {
     props.feedbacks.forEach((feedback) => {
-      const imageRef = storage.refFromURL(feedback.imageUrl);
-      imageRef.delete();
+      if (feedback.imageUrl !== null) {
+        console.log(feedback.imageUrl);
+        const imageRef = storage.refFromURL(feedback.imageUrl);
+        imageRef.delete();
+      }
     });
     apiGetRequest("deleteTopic", {
       userGoogleId: props.user.googleId,
@@ -206,7 +209,7 @@ function TopicDetails({ t, props, dispatch }) {
     <div className="topic-details__holder">
       <DeleteTopicModal />
       {isLoading && <div className="topic-loader"></div>}
-      {!isLoading && (
+      {!isLoading && props.topic && (
         <div className="topic-details">
           <div>
             {`${t("Created at")} `}

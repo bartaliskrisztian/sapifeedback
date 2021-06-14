@@ -79,5 +79,8 @@
     "Name": "Név",
     "Email": "Email",
     "A problem has occured": "Hiba történt.",
-    "You can log in on a bigger device": "Az eszköz mérete túl kicsi a bejelentkezéshez."
+    "You can log in on a bigger device": "Az eszköz mérete túl kicsi a bejelentkezéshez.",
+    "Are you sure you want to delete this feedback?": "Biztosan szeretné törölni ezt a visszajelzést?",
+    "Export": "Exportálás",
+    "Feedback deleted successfully": "Sikeresen törölte a visszajelzést."
 }
