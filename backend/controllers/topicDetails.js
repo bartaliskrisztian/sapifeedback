@@ -9,7 +9,8 @@ const getTopicReports = (req, res) => {
     
     // when there is a change between these reports, we send them to the client with the help of a websocket 
     ref.on("value", (snapshot) => {
-        res.send({result: snapshot.val()});
+      res.io.emit("getTopicFeedbacks", {result: snapshot.val()}) 
+      res.send({result: snapshot.val()});
     });
 }
 
@@ -18,10 +19,17 @@ const getTopicDetails = (req, res) => {
     const topicId = req.params.topicId;
 
     const ref = admin.db.ref(`topics/${topicId}`);
+    const feedbackRef = admin.db.ref(`topics/${topicId}/reportsUploaded`);
+
+    feedbackRef.on("value", (snapshot) => {
+      ref.once("value", (snapshot) => {
+        res.io.emit("getTopicDetails", {result: snapshot.val()}) 
+      });
+    });
 
     ref.on("value", (snapshot) => {
-        // res.io.emit("getTopicDetails", {result: snapshot.val()}) // sending response to client
-        res.send({result: snapshot.val()});
+      // sending response to client
+      res.send({result: snapshot.val()});
     });
 }
 

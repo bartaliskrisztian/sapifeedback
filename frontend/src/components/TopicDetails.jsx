@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Modal from "react-modal";
 import { connect } from "react-redux";
-
+import socket from "../socketConfig";
 import { apiGetRequest } from "../api/utils";
 import { withNamespaces } from "react-i18next";
 import { storage } from "../firebase/Firebase";
@@ -62,6 +62,23 @@ function TopicDetails({ t, props, dispatch }) {
         setIsLoading(false);
       }
     );
+
+    // websocket listening on change
+    socket.on("getTopicDetails", (data) => {
+      // saving the result in the global state
+      if (data) {
+        if (data === null) {
+          history.push("/404");
+        } else {
+          dispatch({
+            type: "SET_CURRENT_TOPIC_DETAILS",
+            payload: data.result,
+          });
+          const date = new Date(data.result.date).toLocaleDateString();
+          setTopicDate(date);
+        }
+      }
+    });
   };
 
   const getReports = (topicid) => {
@@ -85,6 +102,22 @@ function TopicDetails({ t, props, dispatch }) {
         setIsLoading(false);
       }
     );
+
+    // websocket listening on change
+    socket.on("getTopicFeedbacks", (data) => {
+      // saving the result in the global state
+      if (data.result) {
+        dispatch({
+          type: "SET_CURRENT_TOPIC_REPORTS",
+          payload: Object.values(data.result),
+        });
+      } else {
+        dispatch({
+          type: "SET_CURRENT_TOPIC_REPORTS",
+          payload: [],
+        });
+      }
+    });
   };
 
   const TopicLink = () => {
