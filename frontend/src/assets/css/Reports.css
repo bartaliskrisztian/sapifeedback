@@ -46,7 +46,7 @@
 
 .topic-reports__text {
   width: 100%;
-  height: 100%;
+  height: 80%;
   word-wrap: anywhere;
   overflow: auto;
   font-size: 16px;
@@ -163,4 +163,73 @@
 .export__dropwdown-element:hover {
   cursor: pointer;
   background: var(--app_color_light);
+}
+
+.delete-feedback__button-holder {
+  padding: 10px;
+  width: max-content;
+  margin: auto;
+}
+
+.delete-feedback__button {
+  border-radius: 4px;
+  border: none;
+  padding: 4px;
+  margin: 5px;
+  font-size: 14px;
+  transition: 300ms;
+  width: fit-content;
+  background: red;
+  display: flex;
+  align-items: center;
+}
+
+.delete-feedback__button:focus {
+  outline: none;
+}
+
+.delete-feedback__button:hover,
+.delete-feedback__button.delete:hover {
+  cursor: pointer;
+  background: rgb(190, 3, 3);
+}
+.delete-feedback__button.cancel {
+  background: #fff;
+}
+
+.delete-feedback__button.cancel:hover {
+  cursor: pointer;
+  background: var(--app_color_light_hover);
+}
+
+.delete-feedback__button.delete,
+.delete-feedback__button.cancel {
+  padding: 10px 18px;
+  font-size: 20px;
+  display: inline;
+}
+
+.trash-icon {
+  width: 20px;
+  height: 20px;
+  padding-right: 10px;
+}
+
+.delete-feedback__modal {
+  height: fit-content;
+  width: fit-content;
+  border-radius: 8px;
+  box-shadow: 2px 2px 7px #000;
+  border: none;
+  outline: none;
+  margin: auto;
+  margin-top: 100px;
+  padding: 20px;
+  color: var(--font-color);
+}
+
+.delete-feedback__title {
+  text-align: center;
+  font-size: 30px;
+  padding: 10px;
 }

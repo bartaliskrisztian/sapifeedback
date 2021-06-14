@@ -125,6 +125,9 @@ function Navbar({ t, props, dispatch }) {
         {props.page === "topic" && (
           <div className="navbar__topic-details">
             <div className="navbar__topic-name">{props.topic.topicName}</div>
+            {props.topic.isArchived && (
+              <div className="navbar__archived-topic">({t("Archived")})</div>
+            )}
           </div>
         )}
         <div className="elements-to-end">

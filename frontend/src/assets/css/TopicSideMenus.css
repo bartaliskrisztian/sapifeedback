@@ -6,8 +6,8 @@
 }
 
 .side-menu__title {
-  height: 50px;
-  font-size: 30px;
+  height: 15%;
+  font-size: 6vmin;
   font-weight: bold;
   text-decoration: none;
   color: var(--font-color);
@@ -27,7 +27,7 @@
 }
 
 .side-menu__item {
-  height: 70px;
+  height: 10%;
   width: 100%;
   display: flex;
   align-items: center;

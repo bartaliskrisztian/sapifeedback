@@ -10,17 +10,20 @@ const uploadReport = (req, res) => {
     const imageUrl = req.body.imageUrl;
     const date = new Date().toLocaleDateString();
 
-    const data = {
-        date: date,
-        text: text,
-        topicId: topicId,
-        imageUrl: imageUrl,
-    }
+    
 
     const reportRef = admin.db.ref(`reports/${topicId}`); // db reference for the actual topic
     const topicRef = admin.db.ref(`topics/${topicId}/reportsUploaded`);
 
     const uid = reportRef.push().key; // getting new unique key
+
+    const data = {
+        date: date,
+        text: text,
+        topicId: topicId,
+        imageUrl: imageUrl,
+        feedbackId: uid
+    }
 
     reportRef.child(uid).set(data).catch(e => {if(e) throw e}); // uploading
 

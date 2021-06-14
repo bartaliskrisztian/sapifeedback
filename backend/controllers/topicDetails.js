@@ -23,10 +23,30 @@ const getTopicDetails = (req, res) => {
         // res.io.emit("getTopicDetails", {result: snapshot.val()}) // sending response to client
         res.send({result: snapshot.val()});
     });
+}
 
+const deleteFeedback = (req, res) => {
+  const topicId = req.params.topicId;
+  const feedbackId = req.params.feedbackId;
+
+  const topicRef = admin.db.ref(`topics/${topicId}/reportsUploaded`);
+  const ref = admin.db.ref(`reports/${topicId}/${feedbackId}`);
+  ref.remove();
+
+  topicRef.transaction((current_value) => {
+    if (current_value) {
+      if (current_value >= 1) {
+          return current_value - 1;
+      }
+    }
+    return current_value;
+  });
+
+  res.send({result: "OK"});
 }
 
 router.get("/:topicId/reports", getTopicReports)
 router.get("/:topicId/details", getTopicDetails)
+router.get("/:topicId/deleteFeedback/:feedbackId", deleteFeedback)
 
 module.exports = router

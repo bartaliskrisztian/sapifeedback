@@ -1,14 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import Modal from "react-modal";
 import { withNamespaces } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
+import { apiGetRequest } from "../api/utils";
 
 // importing styles
 import "../assets/css/Reports.css";
 import ImagePlaceholder from "../assets/images/image-placeholder.svg";
 import CancelIcon from "../assets/images/cancel.svg";
+import DeleteIcon from "../assets/images/trash.svg";
 
 function ReportsTable({ t, props }) {
+  const params = useParams();
   const [exportDropwDownOpen, _setExportDropdownOpen] = useState(false);
   const exportDropwDownRef = useRef(exportDropwDownOpen);
   const setExportDropdownOpen = (data) => {
@@ -23,10 +28,15 @@ function ReportsTable({ t, props }) {
   const [pages, setPages] = useState([]);
   const [showedReports, setShowedReports] = useState(0);
   const [allReportsCount, setAllReportCount] = useState(0);
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [imageModalIsOpen, setImageModalIsOpen] = useState(false);
+  const [deleteFeedbackModalIsOpen, setDeleteFeedbackModalIsOpen] =
+    useState(false);
   const [modalImageSource, setModalImageSource] = useState("");
+  const [feedbackIdToDelete, setFeedbackIdToDelete] = useState(null);
+  const [topicId, setTopicId] = useState(null);
 
   useEffect(() => {
+    setTopicId(params.topicId);
     let reportsCopy = [...props.reports.reverse()];
     setAllReportCount(reportsCopy.length);
 
@@ -52,6 +62,9 @@ function ReportsTable({ t, props }) {
     };
     // eslint-disable-next-line
   }, []);
+
+  const notifySuccess = (message) => toast.success(message);
+  const notifyError = (message) => toast.error(message);
 
   const handleClick = (e) => {
     if (
@@ -114,18 +127,26 @@ function ReportsTable({ t, props }) {
     setExportDropdownOpen(false);
   };
 
-  // functions for modal
-  function openModal() {
-    setIsOpen(true);
+  // functions for modals
+  function openImageModal() {
+    setImageModalIsOpen(true);
   }
 
-  function closeModal() {
-    setIsOpen(false);
+  function closeImageModal() {
+    setImageModalIsOpen(false);
+  }
+
+  function openDeleteFeedbackModal() {
+    setDeleteFeedbackModalIsOpen(true);
+  }
+
+  function closeDeleteFeedbackModal() {
+    setDeleteFeedbackModalIsOpen(false);
   }
 
   const onFeedbackImageClicked = (e) => {
     setModalImageSource(e.target.src);
-    openModal();
+    openImageModal();
   };
 
   // go on the first page in the table
@@ -163,6 +184,41 @@ function ReportsTable({ t, props }) {
     image.target.src = ImagePlaceholder;
   };
 
+  const DeleteFeedbackButton = (props) => {
+    return (
+      <button
+        type="submit"
+        className="delete-feedback__button"
+        onClick={() => {
+          openDeleteFeedbackModal();
+          setFeedbackIdToDelete(props.feedbackId);
+        }}
+      >
+        <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
+        {t("Delete")}
+      </button>
+    );
+  };
+
+  const deleteFeedback = () => {
+    apiGetRequest("deleteFeedback", {
+      topicId: topicId,
+      feedbackId: feedbackIdToDelete,
+    }).then(
+      (response) => {
+        if (response.result === "OK") {
+          closeDeleteFeedbackModal();
+          notifySuccess(t("Feedback deleted successfully"));
+        } else {
+          notifyError(response.result);
+        }
+      },
+      (reject) => {
+        notifyError(reject);
+      }
+    );
+  };
+
   const ReportTableRow = () => {
     return (
       <table className="topic-reports">
@@ -179,6 +235,7 @@ function ReportsTable({ t, props }) {
               <tr key={i} className="topic-reports__row">
                 <td className="topic-reports__cell-text">
                   <div className="topic-reports__text">{report.text}</div>
+                  <DeleteFeedbackButton feedbackId={report.feedbackId} />
                 </td>
                 <td className="topic-reports__cell-image">
                   <img
@@ -217,6 +274,58 @@ function ReportsTable({ t, props }) {
           </div>
         )}
       </div>
+    );
+  };
+
+  const DeleteFeedbackModal = () => {
+    return (
+      <Modal
+        isOpen={deleteFeedbackModalIsOpen}
+        onRequestClose={closeDeleteFeedbackModal}
+        className={`delete-feedback__modal ${props.theme}`}
+      >
+        <div className="delete-feedback__title">
+          {t("Are you sure you want to delete this feedback?")}
+        </div>
+        <div className="delete-feedback__button-holder">
+          <button
+            className="delete-feedback__button delete"
+            onClick={deleteFeedback}
+          >
+            {t("Delete")}
+          </button>
+          <button
+            className="delete-feedback__button cancel"
+            onClick={closeDeleteFeedbackModal}
+          >
+            {t("Cancel")}
+          </button>
+        </div>
+      </Modal>
+    );
+  };
+
+  const FeedbackImageModal = () => {
+    return (
+      <Modal
+        closeTimeoutMS={500}
+        isOpen={imageModalIsOpen}
+        onRequestClose={closeImageModal}
+        className={`feedback-image__modal ${props.theme}`}
+        style={modalStyle}
+      >
+        <img
+          src={CancelIcon}
+          alt="cancel"
+          className="modal__cancel-icon"
+          onClick={closeImageModal}
+        />
+        <img
+          alt="feedback_image"
+          src={modalImageSource}
+          className="feedback-image__img"
+        />
+      </Modal>
     );
   };
 
@@ -263,25 +372,16 @@ function ReportsTable({ t, props }) {
       </div>
       <ReportTableRow />
       <TablePagination />
-      <Modal
-        closeTimeoutMS={500}
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        className={`feedback-image__modal ${props.theme}`}
-        style={modalStyle}
-      >
-        <img
-          src={CancelIcon}
-          alt="cancel"
-          className="modal__cancel-icon"
-          onClick={closeModal}
-        />
-        <img
-          alt="feedback_image"
-          src={modalImageSource}
-          className="feedback-image__img"
-        />
-      </Modal>
+      <FeedbackImageModal />
+      <DeleteFeedbackModal />
+      <ToastContainer
+        position="top-center"
+        pauseOnHover={false}
+        hideProgressBar={true}
+        autoClose={3000}
+        closeOnClick={false}
+        limit={1}
+      />
     </div>
   );
 }

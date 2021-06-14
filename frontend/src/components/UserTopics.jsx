@@ -200,6 +200,7 @@ function UserTopics({ t, props, dispatch }) {
             value="check"
             className="topic-checkbox"
             onClick={showArchivedTopics}
+            defaultChecked={props.showArchivedTopics}
           />
           <label>{t("Show archived topics")}</label>
         </div>

@@ -107,9 +107,10 @@
   align-self: center;
   color: var(--button_grey);
   font-size: 30px;
-  padding-left: 30px;
+  padding: 0px 10px 0 30px;
 }
 
-.navbar__topic-archived {
+.navbar__archived-topic {
   color: red;
+  align-self: center;
 }

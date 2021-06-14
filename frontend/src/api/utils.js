@@ -9,6 +9,9 @@ const apiGetRequest = (type, params) => {
         case 'topicReports':
             endpoint = `${apiPath}/topic/${params.topicId}/reports`;
             break;
+        case 'deleteFeedback':
+        endpoint = `${apiPath}/topic/${params.topicId}/deleteFeedback/${params.feedbackId}`;
+        break;
         case 'topicUrl':
             endpoint = `${apiPath}/userTopics/getTopicUrl/${params.topicId}`;
             break;

@@ -185,7 +185,7 @@ function TopicDetails({ t, props, dispatch }) {
               {props.topic.reportsUploaded ? props.topic.reportsUploaded : "0"}
             </label>
           </div>
-          <TopicLink />
+          {!props.topic.isArchived && <TopicLink />}
           <DeleteTopicButton />
         </div>
       )}
