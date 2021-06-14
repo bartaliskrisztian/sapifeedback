@@ -188,8 +188,7 @@ function TopicDetails({ t, props, dispatch }) {
 
   const deleteTopic = () => {
     props.feedbacks.forEach((feedback) => {
-      if (feedback.imageUrl !== null) {
-        console.log(feedback.imageUrl);
+      if (feedback.imageUrl) {
         const imageRef = storage.refFromURL(feedback.imageUrl);
         imageRef.delete();
       }
