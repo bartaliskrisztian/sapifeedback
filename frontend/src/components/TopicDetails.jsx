@@ -87,7 +87,9 @@ function TopicDetails({ t, props, dispatch }) {
         if (response.result) {
           dispatch({
             type: "SET_CURRENT_TOPIC_FEEDBACKS",
-            payload: Object.values(response.result),
+            payload: Object.values(response.result).sort((a, b) => {
+              return a.date < b.date ? -1 : b.date < a.date ? 1 : 0;
+            }),
           });
         } else {
           dispatch({
@@ -109,7 +111,11 @@ function TopicDetails({ t, props, dispatch }) {
       if (data.result) {
         dispatch({
           type: "SET_CURRENT_TOPIC_FEEDBACKS",
-          payload: Object.values(data.result).reverse(),
+          payload: Object.values(data.result)
+            .sort((a, b) => {
+              return a.date < b.date ? -1 : b.date < a.date ? 1 : 0;
+            })
+            .reverse(),
         });
       } else {
         dispatch({

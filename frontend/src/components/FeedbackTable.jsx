@@ -63,7 +63,12 @@ function FeedbackTable({ t, props }) {
     // eslint-disable-next-line
   }, []);
 
-  const notifySuccess = (message) => toast.success(message);
+  const toastId = useRef(null);
+  const notifySuccess = (message) => {
+    if (!toast.isActive(toastId.current)) {
+      toastId.current = toast.success(message);
+    }
+  };
   const notifyError = (message) => toast.error(message);
 
   const handleClick = (e) => {
