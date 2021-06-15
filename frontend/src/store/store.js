@@ -4,7 +4,6 @@ const initialState = {
     appTheme: 'dark',
     user: null,
     searchText: "",
-    currentTopicName: "",
     showArchivedTopics: false,
     userTopics: [],
     currentTopicDetails: {},
@@ -25,11 +24,6 @@ const reducer = (state = initialState, action) => {
     if(action.type === "SET_SEARCHTEXT") {
         return Object.assign({}, state, {
             searchText: action.payload
-        })
-    }
-    if(action.type === "SET_CURRENT_TOPIC_NAME") {
-        return Object.assign({}, state, {
-            currentTopicName: action.payload
         })
     }
     if(action.type === "SET_SHOW_ARCHIVED_TOPICS") {

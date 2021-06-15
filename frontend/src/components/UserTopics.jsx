@@ -184,6 +184,7 @@ function UserTopics({ t, props, dispatch }) {
           type="text"
           placeholder={t("Enter your topic name")}
           onChange={onTopicNameChange}
+          ref={(ref) => ref && ref.focus()}
         />
         <button
           className="create-topic__button"

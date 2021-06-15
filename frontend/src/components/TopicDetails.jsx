@@ -228,7 +228,7 @@ function TopicDetails({ t, props, dispatch }) {
                 : "0"}
             </label>
           </div>
-          {!props.topic.isArchived && <TopicLink />}
+          {props.topic && !props.topic.isArchived && <TopicLink />}
           <DeleteTopicButton />
         </div>
       )}

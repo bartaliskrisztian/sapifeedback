@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useHistory, Redirect, Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 // importing components
 import { GoogleLogout } from "react-google-login";
@@ -49,7 +49,7 @@ function Navbar({ t, props, dispatch }) {
   // on logout we set the user to null and redirect the page
   const logout = () => {
     dispatch({ type: "SET_USER", payload: null });
-    history.push("/login");
+    history.replace("/login");
   };
 
   const UserTopicsMenu = () => {
@@ -117,30 +117,25 @@ function Navbar({ t, props, dispatch }) {
     );
   };
 
-  if (props.user) {
-    return (
-      <div className="navbar">
-        {/* we only see the searchbar if we are at the homepage */}
-        {props.page === "home" && <SearchBar onSearch={onSearch} />}
-        {props.page === "topic" && (
-          <div className="navbar__topic-details">
-            <div className="navbar__topic-name">{props.topic.topicName}</div>
-            {props.topic.isArchived && (
-              <div className="navbar__archived-topic">({t("Archived")})</div>
-            )}
-          </div>
-        )}
-        <div className="elements-to-end">
-          <UserTopicsMenu />
-          <Settings page="" />
-          {props.user && <ProfileMenu />}
+  return (
+    <div className="navbar">
+      {/* we only see the searchbar if we are at the homepage */}
+      {props.page === "home" && <SearchBar onSearch={onSearch} />}
+      {props.page === "topic" && props.topic && (
+        <div className="navbar__topic-details">
+          <div className="navbar__topic-name">{props.topic.topicName}</div>
+          {props.topic.isArchived && (
+            <div className="navbar__archived-topic">({t("Archived")})</div>
+          )}
         </div>
+      )}
+      <div className="elements-to-end">
+        <UserTopicsMenu />
+        <Settings page="" />
+        {props.user && <ProfileMenu />}
       </div>
-    );
-  } else {
-    // if the user is null, redirect to login page
-    return <Redirect to="/login" />;
-  }
+    </div>
+  );
 }
 
 // getting the global state variables with redux

@@ -401,7 +401,7 @@ const mapStateToProps = (state) => {
   const props = {
     feedbacks: state.currentTopicFeedbacks,
     theme: state.appTheme,
-    topicName: state.currentTopicName,
+    topicName: state.currentTopicDetails.topicName,
   };
   return { props };
 };
