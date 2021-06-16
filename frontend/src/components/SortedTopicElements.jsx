@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import TopicElement from "./TopicElement";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,7 +18,13 @@ function SortedTopicElements({ props }) {
 
   // toast functions
   const notifySuccess = (message) => toast.success(message);
-  const notifyInfo = (message) => toast.info(message);
+  // toast notify functions
+  const infoToastId = useRef(null);
+  const notifyInfo = (message) => {
+    if (!toast.isActive(infoToastId.current)) {
+      infoToastId.current = toast.info(message);
+    }
+  };
   const notifyError = (message) => toast.error(message);
 
   // sort topics by name, ascending order
@@ -157,7 +163,7 @@ function SortedTopicElements({ props }) {
         position="top-center"
         pauseOnHover={false}
         hideProgressBar={true}
-        autoClose={3000}
+        autoClose={1500}
         closeOnClick={false}
         limit={1}
       />

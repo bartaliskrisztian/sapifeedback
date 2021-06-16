@@ -393,7 +393,7 @@ function FeedbackTable({ t, props }) {
         position="top-center"
         pauseOnHover={false}
         hideProgressBar={true}
-        autoClose={2000}
+        autoClose={1500}
         closeOnClick={false}
         limit={1}
       />

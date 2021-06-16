@@ -89,6 +89,30 @@ function TopicElement({ t, props, dispatch }) {
     );
   };
 
+  const copyToClipboard = (text) => {
+    // navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+      // navigator clipboard api method'
+      return navigator.clipboard.writeText(text);
+    } else {
+      // text area method
+      let textArea = document.createElement("textarea");
+      textArea.value = text;
+      // make the textarea out of viewport
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      return new Promise((res, rej) => {
+        // here the magic happens
+        document.execCommand("copy") ? res() : rej();
+        textArea.remove();
+      });
+    }
+  };
+
   // copy topic's url to clipboard
   const copyUrlToClipboard = () => {
     getTopicUrl();
@@ -97,10 +121,11 @@ function TopicElement({ t, props, dispatch }) {
   };
 
   const copyTopicIdToClipboard = () => {
-    navigator.clipboard.writeText(props.topicid);
+    copyToClipboard(props.topicid);
     setShowMoreDropdown(false);
     props.onCopyToClipboard(t("Topic ID copied to clipboard."));
   };
+
   // getting the topic's url
   const getTopicUrl = () => {
     apiGetRequest("topicUrl", {
@@ -110,7 +135,7 @@ function TopicElement({ t, props, dispatch }) {
       (response) => {
         const endpoint = response.result;
         const url = `${window.location.href}${endpoint}`;
-        navigator.clipboard.writeText(url);
+        copyToClipboard(url);
       },
       (reject) => {
         props.notifyError(reject);
