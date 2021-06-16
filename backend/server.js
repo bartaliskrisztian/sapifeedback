@@ -40,6 +40,15 @@ app.use(function(_,res,next){
   next();
 }); // in order to not set headers after a response is sent
 
+if(process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+      next()
+  })
+}
+
 // importing controllers
 let login = require("./controllers/login");
 let topicDetails = require("./controllers/topicDetails");
