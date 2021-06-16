@@ -43,7 +43,6 @@ function Login({ t, props, dispatch }) {
 
   // if the login is successful, set the user and go to homepage
   const responseGoogleSuccess = (response) => {
-    console.log(response);
     dispatch({ type: "SET_USER", payload: response.profileObj });
     apiPostRequest("login", JSON.stringify(response.profileObj)).then(
       (response) => {
