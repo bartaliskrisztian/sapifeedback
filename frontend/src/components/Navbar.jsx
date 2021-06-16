@@ -6,6 +6,7 @@ import { GoogleLogout } from "react-google-login";
 import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
 import Settings from "./Settings";
+import TopicMenus from "./TopicMenus";
 
 import { withNamespaces } from "react-i18next";
 
@@ -121,6 +122,7 @@ function Navbar({ t, props, dispatch }) {
     <div className="navbar">
       {/* we only see the searchbar if we are at the homepage */}
       {props.page === "home" && <SearchBar onSearch={onSearch} />}
+      {props.page === "topic" && <TopicMenus place="top" />}
       {props.page === "topic" && props.topic && (
         <div className="navbar__topic-details">
           <div className="navbar__topic-name">{props.topic.topicName}</div>

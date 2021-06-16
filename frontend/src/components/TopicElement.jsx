@@ -122,7 +122,7 @@ function TopicElement({ t, props, dispatch }) {
     return (
       <div className="topic-add" onClick={props.onClick}>
         <img src={AddIcon} alt="add topic" className="add-icon" />
-        <div>{t("Create topic")}</div>
+        <div className="topic-add__title">{t("Create topic")}</div>
       </div>
     );
   };

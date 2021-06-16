@@ -136,10 +136,10 @@
 
   .login-page__content {
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    flex-wrap: wrap;
   }
 
   .login-page__header {
@@ -149,10 +149,6 @@
     justify-content: center;
     width: 100%;
     padding-top: 20px;
-  }
-
-  .login-page__login {
-    display: none;
   }
 
   .login-page__feedback-inputs {
@@ -165,8 +161,10 @@
   .login-button {
     border-radius: 10px !important;
     padding: 8px !important;
-    font-size: 4vmin !important;
+    font-size: 5vmin !important;
     width: 80% !important;
+    margin: 10px auto !important;
+    display: flex !important;
   }
 
   .login-button div {
@@ -176,7 +174,7 @@
   .login-page__login-title {
     font-size: 7vmin;
     text-align: center;
-    padding: 50px 0;
+    padding: 50px 0px 20px 0;
     word-wrap: break-word;
   }
 
@@ -232,13 +230,5 @@
     text-align: center;
     padding: 20px 10px;
     word-wrap: break-word;
-  }
-
-  .login-page__small-device {
-    text-align: center;
-  }
-
-  .small-device {
-    display: none !important;
   }
 }

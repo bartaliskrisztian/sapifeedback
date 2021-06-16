@@ -18,6 +18,7 @@
   --settings-icon-source: url("../assets/images/settings.svg");
   --settings-theme-icon-source: url("../assets/images/dark/theme.svg");
   --search-icon-source: url("../assets/images/search.svg");
+  --menu-icon-source: url("../assets/images/dark/menu_icon.svg");
 }
 
 .light {
@@ -40,4 +41,5 @@
   --settings-icon-source: url("../assets/images/settings.svg");
   --settings-theme-icon-source: url("../assets/images/light/theme.svg");
   --search-icon-source: url("../assets/images/search.svg");
+  --menu-icon-source: url("../assets/images/light/menu_icon.svg");
 }

@@ -229,9 +229,14 @@ function FeedbackTable({ t, props }) {
       <table className="topic-feedbacks">
         <tbody>
           <tr className="topic-feedbacks__row-header">
-            <th className="topic-feedbacks__header text">{t("Text")}</th>
-            <th className="topic-feedbacks__header image">
+            <th className="topic-feedbacks__header text desktop">
+              {t("Text")}
+            </th>
+            <th className="topic-feedbacks__header image desktop">
               {t("Attached image")}
+            </th>
+            <th className="topic-feedbacks__header text mobile">
+              {t("Feedbacks")}
             </th>
           </tr>
           {props.feedbacks &&

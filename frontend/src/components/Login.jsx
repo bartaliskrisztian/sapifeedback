@@ -43,6 +43,7 @@ function Login({ t, props, dispatch }) {
 
   // if the login is successful, set the user and go to homepage
   const responseGoogleSuccess = (response) => {
+    console.log(response);
     dispatch({ type: "SET_USER", payload: response.profileObj });
     apiPostRequest("login", JSON.stringify(response.profileObj)).then(
       (response) => {
@@ -93,6 +94,7 @@ function Login({ t, props, dispatch }) {
             isSignedIn={false}
             theme={props.theme === "light" ? "dark" : "light"}
             className="login-button"
+            redirectUri={`${process.env.REACT_APP_FRONTEND_URL}/#/`}
           />
         </div>
         <div className="login-page__feedback">
@@ -113,9 +115,6 @@ function Login({ t, props, dispatch }) {
               {t("Go")}
             </button>
           </div>
-        </div>
-        <div className="login-page__small-device">
-          {t("You can log in on a bigger device")}
         </div>
       </div>
       <ToastContainer

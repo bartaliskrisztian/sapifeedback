@@ -1,28 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 
 // importing language resource file
 import { withNamespaces } from "react-i18next";
+import { connect } from "react-redux";
 
-import "../assets/css/TopicSideMenus.css";
+import "../assets/css/TopicMenus.css";
 
-function TopicSideMenus({ t }) {
+function TopicMenus({ t, props }) {
   const params = useParams();
   const [selectedMenu, setSelectedMenu] = useState("details");
+  const [menuDropdownOpen, _setMenuDropdownOpen] = useState(false);
+  const menuDropdownOpenRef = useRef(menuDropdownOpen);
+  const setMenuDropdownOpen = (data) => {
+    menuDropdownOpenRef.current = data;
+    _setMenuDropdownOpen(data);
+  };
+  const sideMenuRef = useRef();
 
   useEffect(() => {
     const temp = window.location.hash.split("/");
     const pageType = temp[temp.length - 1];
     setSelectedMenu(pageType);
+
+    window.addEventListener("click", handleClick);
+    // cleanup this component
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
     // eslint-disable-next-line
   }, [window.location.hash]);
 
+  const handleClick = (e) => {
+    if (
+      !sideMenuRef.current?.contains(e.target) &&
+      e.target.className !== "topic__side-menu-icon"
+    ) {
+      setMenuDropdownOpen(false);
+    }
+  };
+
   return (
-    <div className="topic__side-menu">
+    <div className={`topic__side-menu ${props.place}`} ref={sideMenuRef}>
       <Link to="/" className="side-menu__title">
         {t("Feedback app")}
       </Link>
-      <div className="side-menu__elements" id="side-menu__elements">
+      <div
+        className="topic__side-menu-icon"
+        onClick={() => setMenuDropdownOpen(!menuDropdownOpen)}
+      ></div>
+      <div
+        className={`side-menu__elements${menuDropdownOpen ? " open" : ""}`}
+        id="side-menu__elements"
+      >
         <a
           className={`side-menu__item ${
             selectedMenu === "details" ? "selected" : ""
@@ -72,4 +102,12 @@ function TopicSideMenus({ t }) {
   );
 }
 
-export default withNamespaces()(TopicSideMenus);
+// getting the global state variables with redux
+const mapStateToProps = (state, ownProps) => {
+  const props = {
+    place: ownProps.place,
+  };
+  return { props };
+};
+
+export default connect(mapStateToProps)(withNamespaces()(TopicMenus));

@@ -16,10 +16,6 @@
     color: var(--font-color);
   }
 
-  .small-device {
-    display: none;
-  }
-
   .page-holder {
     width: 100%;
     height: 100%;
@@ -48,20 +44,6 @@
     background: var(--app_color);
     color: var(--font-color);
     min-height: 100vh;
-  }
-
-  .small-device {
-    height: fit-content;
-    width: fit-content;
-    margin: auto;
-    padding-top: 30px;
-    font-size: 18px;
-    display: block;
-  }
-
-  .homepage-holder,
-  .page-holder {
-    display: none;
   }
 }
 

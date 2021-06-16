@@ -9,7 +9,7 @@ import TopicFeedbacks from "./components/TopicFeedbacks"
 import WordCloud from "./components/WordCloud";
 import FeedbackFrequency from "./components/FeedbackFrequency";
 import FeedbackPage from "./components/FeedbackPage";
-import TopicSideMenus from "./components/TopicSideMenus";
+import TopicMenus from "./components/TopicMenus";
 import NotFound from "./components/NotFound";
 
 import { withNamespaces } from 'react-i18next';
@@ -31,7 +31,7 @@ function App({t, theme}) {
   const TopicFeedbacksPage = () => {
     return (
       <div className="page-holder">
-        <TopicSideMenus />
+        <TopicMenus place="pageside" />
         <div className="topic-page__content">
           <Navbar page="topic" />
           <TopicFeedbacks />
@@ -43,7 +43,7 @@ function App({t, theme}) {
   const WordCloudPage = () => {
     return (
       <div className="page-holder">
-        <TopicSideMenus />
+        <TopicMenus place="pageside" />
         <div className="topic-page__content">
           <Navbar page="topic" />
           <WordCloud />
@@ -55,7 +55,7 @@ function App({t, theme}) {
   const FeedbackFrequencyPage = () => {
     return (
       <div className="page-holder">
-        <TopicSideMenus />
+        <TopicMenus place="pageside" />
         <div className="topic-page__content">
           <Navbar page="topic" />
           <FeedbackFrequency />
@@ -67,7 +67,7 @@ function App({t, theme}) {
   const TopicDetailsPage = () => {
     return (
       <div className="page-holder">
-        <TopicSideMenus />
+        <TopicMenus place="pageside" />
         <div className="topic-page__content">
           <Navbar page="topic" />
           <TopicDetails />
@@ -78,9 +78,6 @@ function App({t, theme}) {
 
   return (
     <div className={`app-holder ${theme}`}>
-      <div className="small-device">
-        {t("Open this site on a bigger device.")}
-      </div>
       <div className="App">
           <Layout>
           <Route exact path="/login" component={Login} />
