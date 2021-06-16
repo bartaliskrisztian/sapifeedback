@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const http = require("http");
-const server = http.createServer(app); // creating backend server
+const https = require("https");
+const server = https.createServer(app); // creating backend server
 
 const socketOptions = {
   cors: {
@@ -39,6 +39,15 @@ app.use(function(_,res,next){
   };
   next();
 }); // in order to not set headers after a response is sent
+
+app.enable('trust proxy');
+app.use(function (req, res, next) {
+  if (req.secure) {
+    next();
+  } else {
+    res.redirect('https://' + req.headers.host + req.url);
+  }
+});
 
 // importing controllers
 let login = require("./controllers/login");
