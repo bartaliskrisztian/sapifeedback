@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const https = require("https");
-const server = https.createServer(app); // creating backend server
+const http = require("http");
+const server = http.createServer(app); // creating backend server
 
 const socketOptions = {
   cors: {
