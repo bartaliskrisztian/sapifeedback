@@ -179,7 +179,7 @@
 
   .profile-dropdown {
     height: 0px;
-    width: 90%;
+    width: fit-content;
     overflow: hidden;
     position: absolute;
     right: 10px;

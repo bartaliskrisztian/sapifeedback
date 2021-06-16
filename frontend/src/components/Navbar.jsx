@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // importing components
 import { GoogleLogout } from "react-google-login";
@@ -51,19 +51,6 @@ function Navbar({ t, props, dispatch }) {
   const logout = () => {
     dispatch({ type: "SET_USER", payload: null });
     history.replace("/login");
-  };
-
-  const UserTopicsMenu = () => {
-    return (
-      <div className="navbar-menus">
-        {/* if we are the user topics page, this button is unnecessary */}
-        {window.location.hash !== "#/" && (
-          <Link className="navbar-menus__element" to="/">
-            {t("My topics")}
-          </Link>
-        )}
-      </div>
-    );
   };
 
   const onImageError = (image) => {
@@ -132,7 +119,6 @@ function Navbar({ t, props, dispatch }) {
         </div>
       )}
       <div className="elements-to-end">
-        <UserTopicsMenu />
         <Settings page="" />
         {props.user && <ProfileMenu />}
       </div>

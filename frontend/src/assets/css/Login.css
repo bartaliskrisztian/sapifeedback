@@ -132,6 +132,7 @@
   .login-page__title {
     font-size: 10vmin;
     font-weight: bold;
+    padding: 10px;
   }
 
   .login-page__content {
@@ -163,7 +164,7 @@
     padding: 8px !important;
     font-size: 5vmin !important;
     width: 80% !important;
-    margin: 10px auto !important;
+    margin: 10px auto 30px auto !important;
     display: flex !important;
   }
 

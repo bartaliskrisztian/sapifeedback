@@ -97,6 +97,12 @@ function TopicMenus({ t, props }) {
             {t("Feedback frequency")}
           </div>
         </a>
+        <a className="side-menu__item" href={`/#/`}>
+          <div className="side-menu__content">
+            <div className="side-menu__icon back-icon"></div>
+            {t("Back to homepage")}
+          </div>
+        </a>
       </div>
     </div>
   );

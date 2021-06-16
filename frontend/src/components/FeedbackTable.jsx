@@ -200,7 +200,7 @@ function FeedbackTable({ t, props }) {
         }}
       >
         <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
-        {t("Delete")}
+        {t("Delete feedback")}
       </button>
     );
   };

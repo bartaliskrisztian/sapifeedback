@@ -177,11 +177,11 @@ function TopicDetails({ t, props, dispatch }) {
     return (
       <button
         type="submit"
-        className="delete-topic__button delete"
+        className="delete-topic__button delete main"
         onClick={openModal}
       >
         <img className="trash-icon" alt="trash-icon" src={DeleteIcon} />
-        {t("Delete")}
+        {t("Delete topic")}
       </button>
     );
   };
