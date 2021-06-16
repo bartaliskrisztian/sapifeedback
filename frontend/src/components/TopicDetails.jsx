@@ -49,12 +49,14 @@ function TopicDetails({ t, props, dispatch }) {
         if (response.result === null) {
           history.push("/404");
         } else {
-          dispatch({
-            type: "SET_CURRENT_TOPIC_DETAILS",
-            payload: response.result,
-          });
-          const date = new Date(response.result.date).toLocaleDateString();
-          setTopicDate(date);
+          if (data.result) {
+            dispatch({
+              type: "SET_CURRENT_TOPIC_DETAILS",
+              payload: response.result,
+            });
+            const date = new Date(response.result.date).toLocaleDateString();
+            setTopicDate(date);
+          }
         }
       },
       (reject) => {
@@ -70,12 +72,14 @@ function TopicDetails({ t, props, dispatch }) {
         if (data === null) {
           history.push("/404");
         } else {
-          dispatch({
-            type: "SET_CURRENT_TOPIC_DETAILS",
-            payload: data.result,
-          });
-          const date = new Date(data.result.date).toLocaleDateString();
-          setTopicDate(date);
+          if (data.result) {
+            dispatch({
+              type: "SET_CURRENT_TOPIC_DETAILS",
+              payload: data.result,
+            });
+            const date = new Date(data.result.date).toLocaleDateString();
+            setTopicDate(date);
+          }
         }
       }
     });
