@@ -49,7 +49,7 @@ function TopicDetails({ t, props, dispatch }) {
         if (response.result === null) {
           history.push("/404");
         } else {
-          if (data.result) {
+          if (response.result) {
             dispatch({
               type: "SET_CURRENT_TOPIC_DETAILS",
               payload: response.result,

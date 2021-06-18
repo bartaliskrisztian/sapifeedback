@@ -90,7 +90,7 @@ function Login({ t, props, dispatch }) {
             onSuccess={responseGoogleSuccess}
             onFailure={responseGoogleFailure}
             cookiePolicy={"single_host_origin"}
-            isSignedIn={false}
+            isSignedIn={true}
             theme={props.theme === "light" ? "dark" : "light"}
             className="login-button"
             redirectUri={`${process.env.REACT_APP_FRONTEND_URL}/#/`}
