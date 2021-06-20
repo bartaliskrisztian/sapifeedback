@@ -102,6 +102,8 @@ Here the user can log in with Google Account or can enter a topic's ID to give f
   </tr>
  </table>
  
+ At the topic card's options, the user can archive/activate the topic, and also can copy the topic's id and feedback page url to clipboard.
+ 
  <table align="center" >
   <tr>
      <td>Topic cards</td>
@@ -121,5 +123,21 @@ At the navbar there is a settings option, where the user can change the theme (d
   </tr>
   <tr>
     <td><img src="readme_images/settings.png" alt="settings" height="300" width="270"/></td>
+  </tr>
+ </table>
+ 
+### Topic's details page
+
+Here the user can see the details of the topic and can delete the topic with its feedbacks.
+
+
+ <table align="center" >
+  <tr>
+     <td>Desktop</td>
+     <td>Mobile</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/topic_details.png" alt="desktop topic details" height="400" width="750"/></td>
+   <td><img src="readme_images/topic_details_mobile.png" alt="mobile topic details" height="500" width="2200"/></td>
   </tr>
  </table>
