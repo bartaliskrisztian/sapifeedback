@@ -34,7 +34,7 @@ Demo: https://sapifeedback.herokuapp.com/
   * Google reCAPTCHA v2
   * Redux            
   
-*  Backend:
+* Backend:
   * nodeJS
   * express
   * python (NLTK)
@@ -63,13 +63,30 @@ Demo: https://sapifeedback.herokuapp.com/
 
 ## Pages of the website
 
+### Homepage
+
+Here th user can log in with Google Account or can enter a topic's ID to give feedbacks to a given topic at he Feedbacks page.
+
 <table align="center" >
   <tr>
     <td>Desktop</td>
      <td>Mobile</td>
   </tr>
   <tr>
-    <td><img src="readme_images/login.png" alt="entries page of admin" height="450" width="750"/></td>
-    <td><img src="readme_images/login_mobile.png" alt="entries page of client" height="500" width="220"/></td>
+    <td><img src="readme_images/login.png" alt="desktop homepage" height="400" width="750"/></td>
+    <td><img src="readme_images/login_mobile.png" alt="mobile homepage" height="450" width="220"/></td>
+  </tr>
+ </table>
+ 
+ ### User's topics
+ 
+ <table align="center" >
+  <tr>
+    <td>Desktop</td>
+     <td>Mobile</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/user_topics.png" alt="desktop user's topics page" height="450" width="750"/></td>
+    <td><img src="readme_images/user_topics_mobile.png" alt="mobile user's topics page" height="450" width="220"/></td>
   </tr>
  </table>
