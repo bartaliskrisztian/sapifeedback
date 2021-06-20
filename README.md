@@ -92,3 +92,5 @@ Here the user can log in with Google Account or can enter a topic's ID to give f
     <td><img src="readme_images/user_topics_mobile.png" alt="mobile user's topics page" height="400" width="220"/></td>
   </tr>
  </table>
+
+<img src="readme_images/user_topics_elements.png" alt="user's topics elements" height="300" width="800"/>
