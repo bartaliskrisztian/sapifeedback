@@ -138,6 +138,6 @@ Here the user can see the details of the topic and can delete the topic with its
   </tr>
   <tr>
     <td><img src="readme_images/topic_details.png" alt="desktop topic details" height="400" width="750"/></td>
-   <td><img src="readme_images/topic_details_mobile.png" alt="mobile topic details" height="500" width="2200"/></td>
+   <td><img src="readme_images/topic_details_mobile.png" alt="mobile topic details" height="500" width="220"/></td>
   </tr>
  </table>
