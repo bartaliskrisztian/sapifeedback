@@ -261,8 +261,8 @@ With the help of popup modals, the user can delete a feedback and also see the f
   </tr>
   <tr>
     <td><img src="readme_images/feedback_toast.png" alt="success toast" height="80" width="300"/></td>
-    <td><img src="readme_images/file_format_toast.png" alt="info toast" height="80" width="300"/></td>
     <td><img src="readme_images/copy_id_toast.png" alt="error toast" height="80" width="300"/></td>
+    <td><img src="readme_images/file_format_toast.png" alt="info toast" height="80" width="300"/></td>
   </tr>
  </table>
  
