@@ -93,4 +93,24 @@ Here the user can log in with Google Account or can enter a topic's ID to give f
   </tr>
  </table>
 
-<img src="readme_images/user_topics_elements.png" alt="user's topics elements" height="300" width="800"/>
+<table align="center" >
+  <tr>
+     <td>User's topics</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/user_topics_elements.png" alt="user's topics elements" height="250" width="800"/></td>
+  </tr>
+ </table>
+ 
+ <table align="center" >
+  <tr>
+     <td>Topic cards</td>
+     <td>Topic card options</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/topic_elements.png" alt="topic elements" height="200" width="450"/></td>
+   <td><img src="readme_images/topic_elements_options.png" alt="topic elements options" height="200" width="450"/></td>
+  </tr>
+ </table>
+
+
