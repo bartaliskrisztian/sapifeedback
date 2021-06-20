@@ -21,21 +21,21 @@ Demo: https://sapifeedback.herokuapp.com/
 
 ### Technologies used:
 
-Markup : * Frontend:
-         * reactJS, CSS, HTML5
-         * Google OAuth 2.0
-         * Google reCAPTCHA v2
-         * Redux
-         * Some important node packages:
-             * socket.io-client
-             * react-router-dom
-             * react-toastify
-             * react-google-login
-             * react-google-recaptcha
-             * i18next
-             * client-compress
+* Frontend:
+        * reactJS, CSS, HTML5
+        * Google OAuth 2.0
+        * Google reCAPTCHA v2
+        * Redux
+        * Some important node packages:
+                * socket.io-client
+                * react-router-dom
+                * react-toastify
+                * react-google-login
+                * react-google-recaptcha
+                * i18next
+                * client-compress
   
-Markup : * Backend:
+  * Backend:
          * nodeJS
          * express
          * python
