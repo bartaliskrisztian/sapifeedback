@@ -86,7 +86,7 @@ Here th user can log in with Google Account or can enter a topic's ID to give fe
      <td>Mobile</td>
   </tr>
   <tr>
-    <td><img src="readme_images/user_topics.png" alt="desktop user's topics page" height="450" width="750"/></td>
-    <td><img src="readme_images/user_topics_mobile.png" alt="mobile user's topics page" height="450" width="220"/></td>
+    <td><img src="readme_images/user_topics.png" alt="desktop user's topics page" height="400" width="750"/></td>
+    <td><img src="readme_images/user_topics_mobile.png" alt="mobile user's topics page" height="400" width="220"/></td>
   </tr>
  </table>
