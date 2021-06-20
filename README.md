@@ -99,7 +99,7 @@ Here the user can log in with Google Account or can enter a topic's ID to give f
     <td>Navbar</td>
   </tr>
   <tr>
-    <td><img src="readme_images/navbar.png" alt="navigation bar" height="100" width="900"/></td>
+    <td><img src="readme_images/navbar.png" alt="navigation bar" height="80" width="900"/></td>
   </tr>
  </table>
 
@@ -260,8 +260,23 @@ With the help of popup modals, the user can delete a feedback and also see the f
      <td>Error</td>
   </tr>
   <tr>
-    <td><img src="readme_images/feedback_toast.png" alt="success toast" height="100" width="300"/></td>
-    <td><img src="readme_images/file_format_toast.png" alt="info toast" height="100" width="300"/></td>
-    <td><img src="readme_images/copy_id_toast.png" alt="error toast" height="100" width="300"/></td>
+    <td><img src="readme_images/feedback_toast.png" alt="success toast" height="80" width="300"/></td>
+    <td><img src="readme_images/file_format_toast.png" alt="info toast" height="80" width="300"/></td>
+    <td><img src="readme_images/copy_id_toast.png" alt="error toast" height="80" width="300"/></td>
+  </tr>
+ </table>
+ 
+ ### Application themes
+ 
+ The application has two themes to display: light/dark.
+ 
+  <table align="center" >
+  <tr>
+     <td>Light themed homepage</td>
+     <td>Light themed user's topics page</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/login_light.png" alt="light login page" height="300" width="450"/></td>
+   <td><img src="readme_images/user_topics_light.png" alt="light user topics page" height="300" width="450"/></td>
   </tr>
  </table>
