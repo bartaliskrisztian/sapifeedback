@@ -46,6 +46,7 @@ Demo: https://sapifeedback.herokuapp.com/
 ### Some important node packages:
 
 * Frontend:
+  * _reaviz_ (for generating figures)
   * _socket.io-client_ (websocket for realtime changes)
   * _react-router-dom_ (for creating routes)
   * _react-toastify_ (for notifications)
@@ -198,7 +199,7 @@ Here the user can see the details of the topic and can delete the topic with its
   </tr>
  </table>
 
-With the help of popap modals, the user can delete a feedback and also see the feedback's image.
+With the help of popup modals, the user can delete a feedback and also see the feedback's image.
 
  <table align="center" >
   <tr>
@@ -208,5 +209,33 @@ With the help of popap modals, the user can delete a feedback and also see the f
   <tr>
     <td><img src="readme_images/delete_feedback_modal.png" alt="delete feedback moda" height="300" width="450"/></td>
    <td><img src="readme_images/feedback_image_modal.png" alt="feedback image modal" height="300" width="450"/></td>
+  </tr>
+ </table>
+
+ ### Feedbacks's wordcloud page
+ 
+ With the help of a python script a wordcloud is generated about the feedback texts, which is displayed in this page.
+ 
+ <table align="center" >
+  <tr>
+     <td>Wordcloud</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/wordcloud.png" alt="wordcloud" height="400" width="900"/></td>
+  </tr>
+ </table>
+ 
+  ### Feedbacks's frequency page
+  
+  Here is displayed a figure about how frequent are the feedbacks uploaded.
+  
+  <table align="center" >
+  <tr>
+     <td>Desktop</td>
+     <td>Mobile</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/feedback_freq.png" alt="desktop feedback frequency" height="400" width="750"/></td>
+   <td><img src="readme_images/feedback_freq_mobile.png" alt="mobile feedback frequency" height="480" width="220"/></td>
   </tr>
  </table>
