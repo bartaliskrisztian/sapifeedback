@@ -63,13 +63,13 @@ Demo: https://sapifeedback.herokuapp.com/
 
 ## Pages of the website
 
-<table>
+<table align="center" >
   <tr>
     <td>Desktop</td>
      <td>Mobile</td>
   </tr>
   <tr>
-    <td><img src="readme_images/login.png" alt="entries page of admin" height="400" width="650"/></td>
+    <td><img src="readme_images/login.png" alt="entries page of admin" height="400" width="700"/></td>
     <td><img src="readme_images/login_mobile.png" alt="entries page of client" height="400" width="220"/></td>
   </tr>
  </table>
