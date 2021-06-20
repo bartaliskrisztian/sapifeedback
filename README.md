@@ -27,24 +27,24 @@ Demo: https://sapifeedback.herokuapp.com/
   * Google reCAPTCHA v2
   * Redux
   * Some important node packages:
-   * socket.io-client
-   * react-router-dom
-   * react-toastify
-   * react-google-login
-   * react-google-recaptcha
-   * i18next
-   * client-compress
+        * socket.io-client
+        * react-router-dom
+        * react-toastify
+        * react-google-login
+        * react-google-recaptcha
+        * i18next
+        * client-compress
   
 * Backend:
   * nodeJS
   * express
   * python
   * Some important node packages:
-   * express
-   * firebase-admin
-   * http-proxy-middleware
-   * python-shell
-   * socket.io
+        * express
+        * firebase-admin
+        * http-proxy-middleware
+        * python-shell
+        * socket.io
   
 * Database: 
   * Firebase Realtime Database
