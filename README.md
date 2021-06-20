@@ -113,4 +113,13 @@ Here the user can log in with Google Account or can enter a topic's ID to give f
   </tr>
  </table>
 
+At the navbar there is a settings option, where the user can change the theme (dark/light) and the language of the application (english, hungarian).
 
+<table align="center" >
+  <tr>
+     <td>Settings</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/settings.png" alt="settings" height="300" width="270"/></td>
+  </tr>
+ </table>
