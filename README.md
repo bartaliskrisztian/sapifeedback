@@ -22,5 +22,31 @@ Demo: https://sapifeedback.herokuapp.com/
 ### Technologies used:
 
 * Frontend:
-  * reactJS
+  * reactJS, CSS, HTML5
+  * Google OAuth 2.0
+  * Google reCAPTCHA v2
+  * Redux
+  * Some important node packages:
+   * socket.io-client
+   * react-router-dom
+   * react-toastify
+   * react-google-login
+   * react-google-recaptcha
+   * i18next
+   * client-compress
+  
+* Backend:
+  * nodeJS
+  * express
+  * python
+  * Some important node packages:
+   * express
+   * firebase-admin
+   * http-proxy-middleware
+   * python-shell
+   * socket.io
+  
+* Database: 
+  * Firebase Realtime Database
+  * Firebase Storage 
 
