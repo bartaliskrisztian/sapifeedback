@@ -29,43 +29,43 @@ Demo: https://sapifeedback.herokuapp.com/
 ### Technologies used:
 
 * Frontend:
-  * reactJS, CSS, HTML5
-  * Google OAuth 2.0
-  * Google reCAPTCHA v2
-  * Redux            
+  * _reactJS, CSS, HTML5_
+  * _Google OAuth 2.0_
+  * _Google reCAPTCHA v2_
+  * _Redux_          
   
 * Backend:
-  * nodeJS
-  * express
-  * python (NLTK)
+  * _nodeJS_
+  * _express_
+  * _python (NLTK)_
 
 * Database: 
-  * Firebase Realtime Database
-  * Firebase Storage 
+  * _Firebase Realtime Database_
+  * _Firebase Storage_ 
 
 ### Some important node packages:
 
 * Frontend:
-  * socket.io-client (websocket for realtime changes)
-  * react-router-dom (for creating routes)
-  * react-toastify (for notifications)
-  * react-google-login (for login)
-  * react-google-recaptcha (for preventing bot attacks)
-  * i18next (for internationalization)
-  * client-compress (for compressing feedback images)
+  * _socket.io-client_ (websocket for realtime changes)
+  * _react-router-dom_ (for creating routes)
+  * _react-toastify_ (for notifications)
+  * _react-google-login_ (for login)
+  * _react-google-recaptcha_ (for preventing bot attacks)
+  * _i18next_ (for internationalization)
+  * _client-compress_ (for compressing feedback images)
 
 * Backend:
-  * express (for handling http requests)
-  * firebase-admin (for communicating with cloud database)
-  * http-proxy-middleware (for creating proxy)
-  * python-shell (for executing python scripts)
-  * socket.io (websocket for realtime changes)
+  * _express_ (for handling http requests)
+  * _firebase-admin_ (for communicating with cloud database)
+  * _http-proxy-middleware_ (for creating proxy)
+  * _python-shell_ (for executing python scripts)
+  * _socket.io_ (websocket for realtime changes)
 
 ## Pages of the website
 
 ### Homepage
 
-Here th user can log in with Google Account or can enter a topic's ID to give feedbacks to a given topic at he Feedbacks page.
+Here the user can log in with Google Account or can enter a topic's ID to give feedbacks to a given topic at the **Feedbacks page**.
 
 <table align="center" >
   <tr>
@@ -78,7 +78,9 @@ Here th user can log in with Google Account or can enter a topic's ID to give fe
   </tr>
  </table>
  
- ### User's topics
+ ### User's topics page
+ 
+ At this page the user can create topics and see, sort and filter the created topics. At the top of the page there is a navigation bar, where the user can see the profile information and can log out, and there is also a search bar for searching between the topics.
  
  <table align="center" >
   <tr>
