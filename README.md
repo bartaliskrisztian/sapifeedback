@@ -111,7 +111,7 @@ Here the user can log in with Google Account or can enter a topic's ID to give f
   </tr>
   <tr>
     <td><img src="readme_images/create_topic.png" alt="desktop create topic modal" height="400" width="750"/></td>
-    <td><img src="readme_images/user_topics_mobile.png" alt="mobile create topic modal" height="400" width="220"/></td>
+    <td><img src="readme_images/create_topic_mobile.png" alt="mobile create topic modal" height="400" width="220"/></td>
   </tr>
  </table>
  
@@ -162,8 +162,8 @@ Here the user can give feedback to a given topic. The feedback must contain a te
      <td>Mobile</td>
   </tr>
   <tr>
-    <td><img src="readme_images/menu_options.png" alt="desktop menu options" height="400" width="750"/></td>
-    <td><img src="readme_images/menu_options_mobile.png" alt="mobile menu options" height="400" width="220"/></td>
+    <td><img src="readme_images/menu_options.png" alt="desktop menu options" height="400" width="200"/></td>
+    <td><img src="readme_images/menu_options_mobile.png" alt="mobile menu options" height="400" width="300"/></td>
   </tr>
  </table>
  
@@ -184,3 +184,29 @@ Here the user can see the details of the topic and can delete the topic with its
  </table>
  
  ### Topic's feedbacks page
+ 
+ Here the user can see all the feedbacks paginated, can delete them, see the uploaded pictures and export the feedbacks. If there is no image attached, a placeholder image is dsplayed.
+ 
+ <table align="center" >
+  <tr>
+     <td>Desktop</td>
+     <td>Mobile</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/topic_feedbacks.png" alt="desktop topic feedbacks" height="400" width="750"/></td>
+   <td><img src="readme_images/topic_feedbacks_mobile.png" alt="mobile topic feedbacks" height="480" width="220"/></td>
+  </tr>
+ </table>
+
+With the help of popap modals, the user can delete a feedback and also see the feedback's image.
+
+ <table align="center" >
+  <tr>
+     <td>Delete feedback modal</td>
+     <td>Feedback image modal</td>
+  </tr>
+  <tr>
+    <td><img src="readme_images/delete_feedback_modal.png" alt="delete feedback moda" height="300" width="450"/></td>
+   <td><img src="readme_images/feedback_image_modal.png" alt="feedback image modal" height="300" width="450"/></td>
+  </tr>
+ </table>
