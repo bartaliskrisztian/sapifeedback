@@ -16,6 +16,14 @@
     border: 2px solid var(--font-color);
   }
 
+  .word-cloud__image.error {
+    content: var(--error-icon-source);
+    border: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 0px;
+  }
+
   .word-cloud__no-feedbacks {
     font-size: 32px;
     font-weight: bold;
@@ -49,6 +57,14 @@
     margin-top: 40px;
     border-radius: 20px;
     border: 2px solid var(--font-color);
+  }
+
+  .word-cloud__image.error {
+    content: var(--error-icon-source);
+    border: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 0px;
   }
 
   .word-cloud__no-feedbacks {

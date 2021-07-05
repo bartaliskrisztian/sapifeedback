@@ -127,24 +127,23 @@
   }
 
   .side-menu__elements {
-    height: 0px;
-    width: 90%;
+    max-height: 0;
+    width: 100%;
     overflow: hidden;
     position: absolute;
     margin-top: 50px;
-    left: 5px;
+    left: 0px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     background: var(--app_color_light);
     z-index: 1;
-    box-shadow: 2px 2px 7px #000;
-    border-radius: 8px;
+    transition: all 0.5s;
   }
 
   .side-menu__elements.open {
-    height: fit-content;
+    max-height: 300px;
     cursor: auto;
   }
 

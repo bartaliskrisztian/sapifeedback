@@ -21,6 +21,7 @@
   --menu-icon-source: url("../assets/images/dark/menu_icon.svg");
   --back-icon-source: url("../assets/images/dark/back_icon.svg");
   --copy-icon-source: url("../assets/images/dark/copy.svg");
+  --error-icon-source: url("../assets/images/dark/error.svg");
 }
 
 .light {
@@ -46,4 +47,5 @@
   --menu-icon-source: url("../assets/images/light/menu_icon.svg");
   --back-icon-source: url("../assets/images/light/back_icon.svg");
   --copy-icon-source: url("../assets/images/light/copy.svg");
+  --error-icon-source: url("../assets/images/light/error.svg");
 }

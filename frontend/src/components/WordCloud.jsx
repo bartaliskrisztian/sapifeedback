@@ -13,6 +13,7 @@ function WordCloud({ t, props }) {
   const [wordCloudLoaded, setWordCloudLoaded] = useState(false);
   const [noWordCloudText, setNoWordCloudText] = useState("");
   const [wordCloudSource, setWordCloudSource] = useState("");
+  const [imageError, setImageError] = useState(false);
 
   // fetching the details of a topic before rendering
   useEffect(() => {
@@ -53,11 +54,17 @@ function WordCloud({ t, props }) {
   };
 
   const notifyError = (message) => toast.error(message);
+
+  const onImageError = () => {
+    setImageError(true);
+  };
+
   const WordCloud = () => (
     <img
       alt="wordcloud"
       src={wordCloudSource}
-      className="word-cloud__image"
+      className={`word-cloud__image ${imageError ? "error" : ""}`}
+      onError={onImageError}
     ></img>
   );
 
