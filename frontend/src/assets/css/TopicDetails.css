@@ -14,7 +14,6 @@
     font-size: 22px;
     font-weight: normal;
     margin-left: 10px;
-    width: -webkit-fill-available;
   }
 
   .topic-link__holder {
@@ -141,6 +140,7 @@
     color: var(--link-color);
     padding-left: 10px;
     word-wrap: break-word;
+    width: -webkit-fill-available;
   }
 
   .topic-link__holder {
@@ -199,7 +199,7 @@
   }
 
   .delete-topic__button.main {
-    margin: 80% auto 0 auto;
+    margin: 20px auto 0 auto;
   }
 
   .delete-topic__button:focus {
