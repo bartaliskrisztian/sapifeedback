@@ -42,6 +42,7 @@ function TopicDetails({ t, props, dispatch }) {
   }, []);
 
   const notifyError = (message) => toast.error(message);
+  const notifyInfo = (message) => toast.info(message);
 
   const getTopic = (topicid) => {
     apiGetRequest("topicDetails", { topicId: topicid }).then(
@@ -132,7 +133,7 @@ function TopicDetails({ t, props, dispatch }) {
 
   const TopicLink = () => {
     return (
-      <div>
+      <div className="topic-link__holder">
         {t("Link for giving feedback")}:
         <a
           href={`${window.location.origin}/#/${props.topic.feedbackUrl}`}
@@ -141,6 +142,10 @@ function TopicDetails({ t, props, dispatch }) {
         >
           {`${window.location.origin}/#/${props.topic.feedbackUrl}`}
         </a>
+        <div
+          className="topic-detail__copy-icon"
+          onClick={copyUrlToClipboard}
+        ></div>
       </div>
     );
   };
@@ -214,6 +219,42 @@ function TopicDetails({ t, props, dispatch }) {
     );
   };
 
+  const copyToClipboard = (text) => {
+    // navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+      // navigator clipboard api method'
+      return navigator.clipboard.writeText(text);
+    } else {
+      // text area method
+      let textArea = document.createElement("textarea");
+      textArea.value = text;
+      // make the textarea out of viewport
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      return new Promise((res, rej) => {
+        // here the magic happens
+        document.execCommand("copy") ? res() : rej();
+        textArea.remove();
+      });
+    }
+  };
+
+  // copy topic's url to clipboard
+  const copyUrlToClipboard = () => {
+    const url = `${window.location.origin}/#/${props.topic.feedbackUrl}`;
+    copyToClipboard(url);
+    notifyInfo(t("Link copied to clipboard."));
+  };
+
+  const copyTopicIdToClipboard = () => {
+    copyToClipboard(topicId);
+    notifyInfo(t("Topic ID copied to clipboard."));
+  };
+
   return (
     <div className="topic-details__holder">
       <DeleteTopicModal />
@@ -221,8 +262,10 @@ function TopicDetails({ t, props, dispatch }) {
       {!isLoading && props.topic && (
         <div className="topic-details">
           <div>
-            {`${t("Created at")} `}
-            <label className="topic-details__label">{topicDate}</label>
+            {`${t("Topic name")}: `}
+            <label className="topic-details__label">
+              {props.topic.topicName}
+            </label>
           </div>
           <div>
             {`${t("Number of feedbacks")} `}
@@ -233,6 +276,20 @@ function TopicDetails({ t, props, dispatch }) {
             </label>
           </div>
           {props.topic && !props.topic.isArchived && <TopicLink />}
+          {props.topic && !props.topic.isArchived && (
+            <div className="topic-details__name-holder">
+              {`${t("Topic ID")}: `}
+              <label className="topic-details__label">{topicId}</label>
+              <div
+                className="topic-detail__copy-icon"
+                onClick={copyTopicIdToClipboard}
+              ></div>
+            </div>
+          )}
+          <div>
+            {`${t("Created at")} `}
+            <label className="topic-details__label">{topicDate}</label>
+          </div>
           <DeleteTopicButton />
         </div>
       )}

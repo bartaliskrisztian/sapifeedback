@@ -37,7 +37,11 @@ function FeedbackTable({ t, props }) {
 
   useEffect(() => {
     setTopicId(params.topicId);
-    let feedbacksCopy = [...props.feedbacks.reverse()];
+    let feedbacksCopy = [
+      ...props.feedbacks.sort((a, b) => {
+        return a.date > b.date ? -1 : b.date > a.date ? 1 : 0;
+      }),
+    ];
     setAllFeedbackCount(feedbacksCopy.length);
 
     // creating smaller arrays from the array of feedbacks,
