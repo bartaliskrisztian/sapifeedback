@@ -229,6 +229,7 @@
   .topic-list {
     width: 90%;
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin: 0 auto;
   }
