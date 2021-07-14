@@ -19,7 +19,7 @@ const createWordCloud = (req, res) => {
     const options = { 
       mode: 'text', 
       pythonOptions: ['-u'], // get print results in real-time 
-      scriptPath: './python_scripts', //If you are having python_test.py script in same folder, then it's optional. 
+      scriptPath: '../', //If you are having python_test.py script in same folder, then it's optional. 
       args: [language, feedbackText] //An argument which can be accessed in the script using sys.argv[1] 
     }
 
@@ -30,7 +30,7 @@ const createWordCloud = (req, res) => {
     });
   
     pyshell.end((err) => {
-      res.send({result: "Error"});
+      res.send({result: err});
     })
 }
 

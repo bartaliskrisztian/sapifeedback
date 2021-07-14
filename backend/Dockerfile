@@ -1,18 +1,27 @@
-FROM centos:7
-RUN curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-RUN yum -y install nodejs
-RUN yum install -y python3 python3-devel python-setuptools python-virtualenv
+FROM python:3.8
 
+# installing nodeJS
+RUN apt-get update
+RUN apt-get -y install nodejs npm
+RUN npm i npm@latest -g
+
+# application directory
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+# installing python modules
+COPY ./requirements.txt ./
+ENV VIRTUAL_ENV=/app/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH "$VIRTUAL_ENV/bin:$PATH"
+ENV PYTHONPATH "$VIRTUAL_ENV/bin:$PYTHONPATH"
+RUN $VIRTUAL_ENV/bin/python -m pip install -r requirements.txt 
 
-COPY package.json ./
-COPY package-lock.json ./
-
+# installing node modules
+COPY ./package.json ./
+COPY ./package-lock.json ./
 RUN npm install
 
-COPY . ./
+COPY ./ ./
 
 EXPOSE 5000
 
