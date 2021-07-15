@@ -3,10 +3,12 @@ import os
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 import sys
 import nltk
+
+nltk.download("punkt")
+nltk.download("stopwords")
 
 
 def main():
