@@ -30,7 +30,7 @@ const createWordCloud = (req, res) => {
     });
   
     pyshell.end((err) => {
-      res.send({result: "Error"});
+      res.send({result: err});
     })
 }
 
