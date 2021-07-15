@@ -9,7 +9,7 @@ const createFeedbackFrequencyFigure = (req, res) => {
     const options = { 
       mode: 'text', 
       pythonOptions: ['-u'], // get print results in real-time 
-      scriptPath: './python_scripts', //If you are having python_test.py script in same folder, then it's optional. 
+      scriptPath: './', //If you are having python_test.py script in same folder, then it's optional. 
       args: [dates_timestamp] //An argument which can be accessed in the script using sys.argv[1] 
     }
 
@@ -20,7 +20,7 @@ const createFeedbackFrequencyFigure = (req, res) => {
     });
   
     pyshell.end((err) => {
-      if(err) throw err
+      res.send({result: err});
     })
 }
 

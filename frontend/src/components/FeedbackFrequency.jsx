@@ -34,7 +34,9 @@ function FeedbackFrequency({ t, props }) {
 
     Object.keys(frequency).forEach((key1) => {
       const d = new Date(key1);
-      const datestring = `${d.getMonth()}/${d.getDate()}/${d.getFullYear()}`;
+      const datestring = `${
+        d.getMonth() + 1
+      }/${d.getDate()}/${d.getFullYear()}`;
       const newElement = {
         key: new Date(datestring),
         data: frequency[key1],

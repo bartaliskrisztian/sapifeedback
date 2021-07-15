@@ -37,21 +37,16 @@ function WordCloud({ t, props }) {
       })
     ).then(
       (response) => {
-        console.log(response.result);
-        // if (response === "Error") {
-        //   notifyError(t("A problem has occured"));
-        // } else {
-        //   let data = response.result.slice(2);
-        //   data = data.slice(0, -1);
-        //   const wordCloudBase64 = `data:image/jpg;base64,${data}`;
-        //   setWordCloudSource(wordCloudBase64);
-        //   setWordCloudLoaded(true);
-        // }
-        let data = response.result.slice(2);
-        data = data.slice(0, -1);
-        const wordCloudBase64 = `data:image/jpg;base64,${data}`;
-        setWordCloudSource(wordCloudBase64);
-        setWordCloudLoaded(true);
+        if (response.result === "Error") {
+          notifyError(t("A problem has occured"));
+          setWordCloudLoaded(true);
+        } else {
+          let data = response.result.slice(2);
+          data = data.slice(0, -1);
+          const wordCloudBase64 = `data:image/jpg;base64,${data}`;
+          setWordCloudSource(wordCloudBase64);
+          setWordCloudLoaded(true);
+        }
       },
       (reject) => {
         notifyError(reject);

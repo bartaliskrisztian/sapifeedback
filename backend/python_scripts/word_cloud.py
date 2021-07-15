@@ -1,14 +1,14 @@
-import sys
-
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
-from nltk.corpus import stopwords
-
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
-import os
 import base64
+import os
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+import sys
+import nltk
+
+nltk.download("punkt")
+nltk.download("stopwords")
 
 
 def main():
@@ -39,6 +39,7 @@ def main():
     os.remove(file_name)
 
     print(data)
+
 
     # Start process
 if __name__ == '__main__':
